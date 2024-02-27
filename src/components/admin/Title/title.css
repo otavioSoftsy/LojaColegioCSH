@@ -1,0 +1,9 @@
+.title {
+  display: flex;
+  align-items: center;
+}  
+
+.title span {
+  margin-left: 0.8em;
+  font-size: 1.5em;
+}

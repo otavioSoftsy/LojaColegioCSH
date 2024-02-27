@@ -1,0 +1,9 @@
+#btns-termos button {
+  width: 40%;
+}
+
+@media (max-width: 767px) {
+  #btns-termos button {
+    width: 100%;
+  }
+}

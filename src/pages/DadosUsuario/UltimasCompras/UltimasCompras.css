@@ -1,0 +1,85 @@
+.container-historico {
+  display: flex;
+  flex-direction: column;
+  background-color: #ededed;
+  min-height: 100vh;
+}
+.content-historico {
+  margin-top: 6.5em;
+  padding-bottom: 1em;
+}
+.badge {
+  width: 95px;
+}
+.cards-pedidos .placeholder-wave {
+  width: 100%;
+  height: 100%;
+  max-width: 800px;
+  min-height: 280px;
+}
+.head-historico {
+  border-bottom: 1px solid #3d3d3d6c;
+  width: 100%;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.head-historico h2 {
+  color: #3d3d3d;
+  margin-bottom: 10px;
+}
+
+.escondido {
+  display: none;
+}
+
+.container-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.cards-pedidos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+}
+/* 
+table, thead tr td, tbody tr td{
+    border: 1px solid #3d3d3d;
+}
+
+table{
+    text-align: center;
+} */
+@media screen and (max-width: 1439px) {
+  .cards-pedidos {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 30px;
+  }
+  .head-historico {
+    margin-bottom: 15px;
+  }
+  .head-historico h2 {
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .content-historico {
+    margin-top: 4.5em;
+  }
+  .cards-pedidos {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    gap: 30px;
+  }
+  .head-historico {
+    margin-bottom: 15px;
+  }
+  .head-historico h2 {
+    margin-bottom: 10px;
+  }
+}

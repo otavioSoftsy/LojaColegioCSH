@@ -1,0 +1,268 @@
+.area-descricao .card-curso {
+  position: relative;
+  height: fit-content;
+  border: none !important;
+  min-height: 400px;
+}
+.area-descricao2 {
+  padding-top: 8em;
+}
+.text-end2 {
+  text-align: right !important;
+}
+.gap50 {
+  padding-top: 110px;
+}
+.gap50b {
+  gap: 50px;
+}
+.gap50b .area-tabela table td {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+.container-cli .area-descricao .card-curso .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.area-descricao .card-curso .area-detalhes {
+  position: absolute;
+  top: -28px;
+  left: -30px;
+}
+
+.area-icon {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 2.5em;
+}
+.card-curso .nome-curso {
+  font-size: 23px;
+}
+
+.mini-card {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  border: none !important;
+  padding: 2em 1.5em;
+}
+
+.card-pre-requisito {
+  border: none !important;
+  padding: 2.3em 1.5rem;
+}
+
+.btns .btn-outline-secondary {
+  border-width: 0.125rem !important;
+  transition: color 0.4s ease-in-out, background-color 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
+}
+
+.footer-detalhes {
+  background-color: #4a4a4a;
+  color: #f8f8f8;
+  margin-top: 8em;
+  bottom: 0;
+  width: 100%;
+}
+.area-descricao2 .text-end2 .p1 {
+  font-size: 40px;
+}
+.area-descricao2 .text-end2 .p2 {
+  font-size: 40px;
+}
+.area-descricao2 .text-end2 .p3 {
+  font-size: 80px;
+}
+/* .area-descricao2 .text-end2 .p4 {
+  font-size: 43px;
+} */
+.area-descricao2 .btns a {
+  padding: 0.6em;
+  width: 270px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.p-gratis {
+  font-size: 3.5em;
+}
+
+.custom-border2 {
+  width: 120px;
+  height: 3px;
+}
+.cursos-recomendados .swiper-wrapper {
+  margin-bottom: 0em !important;
+}
+
+@media screen and (max-width: 1439px) {
+  .gap50 {
+    gap: 50px;
+  }
+  .area-descricao2 .btns a {
+    padding: 0.6em!important;
+    max-width: auto;
+    font-size: 14px;
+  }
+  .area-descricao2 {
+    padding-top: 6em;
+    margin-top: 0vh
+  }
+  .area-descricao2 .text-end2 .p1 {
+    font-size: 35px;
+  }
+  .area-descricao2 .text-end2 .p2 {
+    font-size: 35px;
+  }
+  .area-descricao2 .text-end2 .p3 {
+    font-size: 70px;
+  }
+  .footer-detalhes {
+    margin-top: 2em;
+  }
+  .mini-card {
+    max-height: 116px;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+  }
+  .mini-card h5 {
+    font-size: 1.1em !important;
+  }
+  .mini-card p {
+    font-size: 1.2em !important;
+  }
+  .footer-detalhes h1 {
+    font-size: 2em;
+  }
+  .p-gratis {
+    font-size: 2.5em;
+  }
+}
+@media (max-width: 1300px) {
+  .area-descricao2 .btns a {
+    padding: 0.6em!important;
+    max-width: auto;
+    font-size: 13px;
+  }
+  .area-descricao2 .btns .icon-add-cart{
+    width: 18px;
+  }
+}
+/*-------------------------------- xs -----------------------------------------------------*/
+/*-------------------------------- xs -----------------------------------------------------*/
+/*-------------------------------- xs -----------------------------------------------------*/
+/*-------------------------------- xs -----------------------------------------------------*/
+/*-------------------------------- xs -----------------------------------------------------*/
+/*-------------------------------- xs -----------------------------------------------------*/
+@media (max-width: 500px) {
+  .icon-add-cart {
+    font-size: 12px !important;
+  }
+  .custom-border2 {
+    width: 90px;
+    height: 3px;
+  }
+  .area-descricao2 .text-end2 .p1 {
+    font-size: 35px;
+  }
+  .p-gratis {
+    font-size: 2em;
+  }
+  .gap50 {
+    padding-top: 10px;
+  }
+  .gap50b {
+    flex-direction: column;
+  }
+  .container-detalhes {
+    padding-top: 23.5em;
+  }
+  .footer-detalhes h1 {
+    font-size: 1.3em;
+  }
+
+  .area-descricao2 .text-end2 .p4 {
+    font-size: 33px;
+  }
+  .area-descricao{
+    margin-top: 45vh;
+    width: 100%;
+  }
+
+  .padding0xs {
+    padding: 0;
+  }
+  .padding0xs h4 {
+    font-size: 1.2em;
+    margin-bottom: 0.5em !important;
+  }
+  .area-descricao2 {
+    position: absolute;
+    text-align: center;
+    width: 90% !important;
+    top: 80px;
+    background: #fff;
+    margin: 0 2.5%;
+    padding: 14px;
+    border-radius: 40px;
+    z-index: 9;
+    box-shadow: var(--bs-box-shadow) !important;
+    color: #fff;
+  }
+
+  .area-descricao2 .text-end2 .p3 {
+    font-size: 49px;
+  }
+
+  .area-descricao2 .btns {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em !important;
+  }
+
+  .area-descricao2 .btns a {
+    padding: 6px !important;
+    width: auto;
+    font-size: 16px;
+  }
+  .text-end2 {
+    text-align: center !important;
+  }
+
+  .area-descricao .card-curso .area-detalhes {
+    left: 40%;
+  }
+  .area-descricao .card-curso {
+    padding: 3em 0.6em !important;
+    padding-bottom: 1em !important;
+  }
+
+
+  .area-mini-cards div {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+  .mini-card {
+    min-height: 135px;
+    max-height: 136px;
+    padding: 2.3em 1.5em !important;
+    padding-bottom: 2.3em !important;
+    width: 100%;
+  }
+  .mini-card h5 {
+    font-size: 1.1em !important;
+  }
+  .container-custom2 {
+    padding-top: 0;
+  }
+}

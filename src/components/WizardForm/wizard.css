@@ -1,0 +1,30 @@
+.etapa3 div .cep input {
+  width: 95%;
+}
+.etapa3 div .num input {
+  width: 95%;
+}
+.etapa3 div .municipio input {
+  width: 95%;
+}
+
+.etapa3 button {
+  width: 48%;
+}
+.etapa2 button {
+  width: 49%;
+}
+
+@media (max-width: 767px) {
+  .etapa3 button {
+    width: 100%;
+  }
+  .etapa2 button {
+    width: 100%;
+  }
+  .btns-wizard {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+}

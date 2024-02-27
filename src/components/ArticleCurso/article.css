@@ -1,0 +1,150 @@
+.article-curso {
+  min-height: 160px;
+  height: auto;
+  border: none !important;
+  display: flex;
+  flex-direction: row !important;
+  width: 95%;
+}
+.article-spans span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #EEEEEE;
+  border-radius: 5px;
+  padding: 0.1em 0.4em;
+}
+.article-curso .area-article div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.article-curso .card-carrinho {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.area-article svg {
+  color: #fff;
+  font-size: 3.5em;
+}
+.article-curso .card-carrinho a {
+  text-decoration: none;
+}
+.article-curso .card-carrinho a p {
+  font-size: 1.3em !important;
+}
+.card-carrinho .text-areas {
+  font-size: 18px !important;
+}
+.article-curso .valor-curso {
+  font-size: 28px;
+  margin: -0.8em 0;
+}
+
+#area-valor .btns-quantidade {
+  display: flex;
+  flex-direction: column;
+}
+
+#area-valor {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.btns-quantidade .text-end {
+  padding-top: 3rem;
+  padding-bottom: 0.5rem;
+}
+.article-curso .valor-curso1 {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 1439px) {
+  .card-carrinho p {
+    font-size: 19px !important;
+  }
+  .article-curso .card-carrinho a p {
+    font-size: 1.1em !important;
+  }
+  .article-curso .valor-curso {
+    font-size: 24px;
+    margin: -0.8em 0;
+  }
+  .article-curso .valor-curso1 {
+    font-size: 14px;
+  }
+  #area-valor {
+    padding: 0 1em !important;
+    gap: 0;
+  }
+  .area-article svg {
+    font-size: 2.8em;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .btns-quantidade .text-end {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .article-curso .area-article div {
+    padding: 0.6em;
+    border-radius: 50rem !important;
+  }
+  .article-curso .area-article {
+    position: absolute;
+    top: -13px;
+    left: -4px;
+    width: fit-content;
+  }
+  .article-curso .card-carrinho {
+    padding-left: 3em;
+    width: 100%;
+  }
+  .article-curso .card-carrinho .text-areas {
+    margin-bottom: 0.3em;
+  }
+  .article-curso .card-carrinho div {
+    font-size: 16px !important;
+  }
+  .article-curso .card-carrinho a p {
+    font-size: 16px !important;
+  }
+  .article-curso .card-carrinho p {
+    font-size: 17px !important;
+  }
+  .article-curso .area-article div svg {
+    font-size: 1.7em;
+  }
+  .article-curso .valor-curso {
+    font-size: 18px;
+    margin: 0;
+    background-color: #0088d1;
+    border-radius: 10px;
+    padding: 3px 10px;
+    color: #fcfcfd !important;
+  }
+  .article-curso .valor-curso1 {
+    display: none;
+  }
+
+  #area-valor {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: transparent !important;
+    padding-bottom: 1rem !important;
+  }
+  .article-curso {
+    width: 100%;
+    display: flex;
+    flex-direction: column !important;
+  }
+  #area-valor .btns-quantidade {
+    flex-direction: row;
+    gap: 40%;
+  }
+}

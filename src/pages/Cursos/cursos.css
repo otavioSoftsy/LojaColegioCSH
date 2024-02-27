@@ -1,0 +1,111 @@
+.area-cursos .cursos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+  gap: 4em 5.8em;
+}
+.infinite-scroll-component.cursos.py-3 {
+  overflow: visible !important;
+}
+.container-cursos {
+  margin-top: 6em;
+
+}
+.select-cursos {
+  width: 200px;
+  font-size: 18px;
+}
+.row-selects {
+  align-items: flex-end;
+}
+.area-cursos .placeholder-wave {
+  width: 22em;
+  height: 235px;
+}
+
+@media screen and (max-width: 1439px) {
+  .area-cursos .placeholder-wave {
+    width: 330px;
+  }
+  .area-cursos .cursos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(304px, 1fr));
+    gap: 4.5em 4em;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .area-cursos .placeholder-wave {
+    height: 187px;
+  }
+  .area-cursos .cardCurso {
+    width: 95%;
+    height: 180px !important;
+  }
+  .area-cursos .cardCurso .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .area-cursos .cardCurso .descricao {
+    max-height: 55px;
+  }
+  .row-selects {
+    align-items: center;
+  }
+  .title-cursos {
+    padding: 0 1em;
+
+  }
+  .container-cursos {
+    margin-top: 3.5em;
+  }
+  .area-cursos .cursos {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center !important;
+    gap: 2em !important;
+  }
+  
+  .css-art2ul-ValueContainer2 { 
+    padding: 0 6px !important;
+  }
+  .select__indicators.css-4xgw5l-IndicatorsContainer2 {
+    height: 22px;
+  }
+  .select__indicator.select__dropdown-indicator.css-1xc3v61-indicatorContainer {
+    padding: 0 6px;
+}
+  .icon-select {
+    width: 14px;
+  }
+  .row-selects h2 {
+    font-size: 14px !important;
+  }
+  .row-selects .selects-cursos{
+    gap: 0.5em !important;
+  }
+  #hr-cursos {
+    margin-top: 0.2em !important;
+  }
+  .row-selects .select-cursos {
+    width: 90px;
+    height: 30px !important;
+    font-size: 10px !important;
+    padding: 0 !important;
+  }
+  .react-select-container {
+    height: 30px !important;
+  }
+  .css-1memfyi-control { 
+    min-height: 22px !important;
+    max-height: 22px !important;
+  }
+  .css-1jbgy13-control {
+    min-height: 22px !important;
+    max-height: 22px !important;
+  }
+  .css-1wjsols-control { 
+    min-height: 22px !important;
+    max-height: 22px !important;
+  }
+}

@@ -1,0 +1,60 @@
+.card-pedido {
+  background-color: #fff;
+  width: 100%;
+  max-width: 800px;
+  min-height: 280px;
+}
+.card-pedido .title-card-pedido {
+  text-align: center;
+  padding: 0.3em 0;
+}
+
+.title-card-pedido h5 {
+  margin: 0;
+}
+
+.card-pedido .body-card-pedido {
+  padding: 1.5em 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 250px;
+}
+
+.body-card-pedido #number-pedido {
+  margin-bottom: 1em;
+  color: #3b3b3b;
+}
+.body-card-pedido #total-card-pedido {
+  color: #393939 !important;
+  margin-bottom: 0;
+}
+
+.body-card-pedido p {
+  font-weight: 500;
+  color: #3b3b3b;
+}
+.body-card-pedido #head-list-body-pedido {
+  font-size: 20px;
+}
+
+@media screen and (max-width: 767px) {
+  .title-card-pedido h5 {
+    font-size: 16px;
+  }
+  .card-pedido .body-card-pedido {
+    padding: 1em 1em;
+  }
+  .body-card-pedido #number-pedido {
+    font-size: 16px;
+  }
+  .body-card-pedido #total-card-pedido {
+    font-size: 16px;
+  }
+  .body-card-pedido p {
+    font-size: 12px;
+  }
+  .body-card-pedido #head-list-body-pedido p {
+    font-size: 16px;
+  }
+}

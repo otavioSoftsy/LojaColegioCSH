@@ -1,0 +1,19 @@
+#form-instituicao div input {
+  margin-top: 0.2em;
+  margin-bottom: 1.5em;
+}
+
+.habilitar-pagamento div .form-switch {
+  margin-top: 0.2em;
+  margin-bottom: 1.5em;
+  padding-right: 3em;
+  padding-left: 1em;
+  height: 40px;
+  background-color: #e7e7e7;
+  text-align: left;
+}
+
+.habilitar-pagamento div .form-switch .form-check-input {
+  height: 20px;
+  width: 35px;
+}

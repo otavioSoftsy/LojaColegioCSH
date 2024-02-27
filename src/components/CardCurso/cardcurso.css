@@ -1,0 +1,94 @@
+.cardCurso {
+  position: relative;
+  width: 22em;
+  min-height: 235px;
+  max-height: 235px;
+  border: none !important;
+  text-decoration: none;
+}
+.nomeCurso {
+  width: 266px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+.descricao {
+  height: 75px;
+  max-height: 75px;
+  overflow: hidden;
+}
+.swiper {
+  padding: 1em !important;
+}
+.swiper-slide {
+  width: 22em !important;
+}
+.cardCurso .card-body p {
+  font-size: 1rem;
+}
+.cardCurso .card-body a {
+  text-decoration: none;
+}
+
+.card .area {
+  position: absolute;
+  top: -13px;
+  right: -13px;
+}
+
+.area .area-icon-card {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 2em;
+}
+@media screen and (max-width: 1439px) {
+  .cardCurso {
+    width: 330px;
+  }
+  .swiper-slide {
+    width: 330px !important;
+  }
+  .cardCurso .card-body p {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .cardCurso {
+    min-height: 187px;
+    max-height: 187px;
+  }
+  .swiper {
+    padding-left: 0.5em !important;
+  }
+  .cardCurso .nomeCurso {
+    font-size: 14px !important;
+  }
+  .descricao {
+    height: 50px;
+    max-height: 50px;
+    overflow: hidden;
+  }
+  .info-card {
+    font-size: 12px;
+    margin-top: 1em;
+  }
+  .cardCurso .card-body p {
+    font-size: 12px;
+  }
+  .card .area {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+  }
+  .area .area-icon-card {
+    width: 50px;
+    height: 50px;
+    font-size: 1.8em;
+  }
+}

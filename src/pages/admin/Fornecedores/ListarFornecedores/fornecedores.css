@@ -1,0 +1,43 @@
+#area-table .btn-status {
+  width: 88.05px
+}
+
+#area-table {
+  padding: 16px 48px;
+}
+
+.sem-fornecedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.sem-fornecedor a {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
+#btn-novo-fornecedor {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
+.sem-fornecedor span {
+  font-size: 1.2em;
+}
+
+@media screen and (max-width: 1245px) {
+  #area-table {
+    font-size: 15px;
+    padding: 8px 24px;
+  }
+  #area-table .btn-status{
+    width: 60px;
+  }
+  #btn-novo-fornecedor {
+    font-size: 16px;
+  }
+}

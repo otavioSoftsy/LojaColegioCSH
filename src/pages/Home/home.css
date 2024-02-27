@@ -1,0 +1,280 @@
+.cursos-destaque .btn {
+  width: 18em;
+  border-color: #023e8a !important;
+  color: #023e8a !important;
+  font-weight: 700;
+  transition: color 0.4s ease-in-out, background-color 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
+}
+.cursos-destaque .btn:hover {
+  border-color: #023e8a !important;
+  background-color: #023e8a !important;
+  color: #f8f8f8 !important;
+}
+.areas-destaque .show {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.cardCurso {
+  padding: 0.5em;
+}
+
+.h2 {
+  font-size: 1.4rem !important;
+}
+
+.areas-destaque section .moca-img {
+  margin-left: auto;
+}
+
+.areas-destaque section .moca-img img {
+  width: 32em;
+}
+
+.info-curso {
+  font-size: 1.05em;
+}
+
+.card-areas .rounded-pill svg {
+  font-size: 60px;
+  color: #fff;
+}
+
+.custom-border::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 120px;
+  height: 4px;
+  background-color: #00A2A8;
+}
+
+.area-interesse h3 {
+  color: #3b3b3b;
+}
+
+.swiper-wrapper { 
+  margin-bottom: 2em;
+  gap: 30px;
+}
+.area-interesse .row {
+  display: flex;
+  grid-template-columns: repeat(auto-fill, minmax(14em, 14em));
+  gap: 3em 5em;
+  justify-content: center;
+}
+.area-interesse .card {
+  width: 14em;
+  height: 14em;
+  border: none;
+  transition: color 0s ease-in-out, background-color 0.4s ease-in-out;
+}
+
+.area-interesse .card:hover {
+  background-color: #f0f0f0 !important;
+}
+
+.banner {
+  width: 100%;
+}
+.banner-mobile {
+  width: 100%;
+}
+
+.areas-destaque .show .btn {
+  width: 18em;
+  transition: color 0.4s ease-in-out, background-color 0.3s ease-in-out,
+    border-color 0.3s ease-in-out !important;
+  color: #f8f8f8 !important;
+}
+.card-areas i {
+  font-size: 60px;
+  color: #fff;
+}
+
+.card-areas .rounded-pill {
+  height: 100px;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.banners {
+  margin-top: 3.5rem;
+}
+
+#area-img {
+  background-color: #ededed;
+  height: 85vh;
+  margin-bottom: 15em;
+}
+.area-destaque {
+  padding-top: 1.5rem !important;
+}
+
+.swiper-pagination-bullet {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 12px;
+  color: #000;
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.swiper-pagination-bullet-active {
+  color: #fff;
+  background: #19198b;
+}
+.marginTopCards{
+  margin-top: 0
+}
+.card-areas .title-card-areas {
+  font-size: 22px;
+}
+
+@media screen and (max-width: 1439px) {
+  .marginTopCards{
+    margin-top: 5em
+  }
+  .card-areas .rounded-pill svg {
+    font-size: 40px;
+  }
+
+  .card-areas .rounded-pill {
+    height: 70px;
+    width: 70px;
+  }
+
+  #area-img {
+    height: 115vh;
+    margin-bottom: 15em;
+  }
+  .area-interesse .card {
+    width: 12em;
+    height: 12em;
+  }
+  .area-interesse .row {
+    grid-template-columns: repeat(auto-fill, minmax(12em, 14em));
+    gap: 2em;
+  }
+  .card-areas i {
+    font-size: 45px;
+    color: #fff;
+  }
+  .card-areas .title-card-areas {
+    font-size: 18px;
+  }
+  .areas-destaque section .moca-img {
+    align-self: flex-end;
+  }
+  .areas-destaque section .moca-img img {
+    width: 24em;
+  }
+}
+@media screen and (max-width: 1339px) {
+  #area-img {
+    height: 130vh;
+    margin-bottom: 18em;
+  }
+}
+@media screen and (max-width: 1023px) {
+}
+
+@media screen and (max-width: 767px) {
+  
+  #area-img {
+    height: 40vh;
+    margin-bottom: 200%;
+  }
+  .swiper-wrapper { 
+    margin-bottom: 1em;
+  }
+  .area-interesse {
+    margin-top: auto;
+  }
+  .area-destaque {
+    padding-top: 0 !important;
+  }
+
+  .info-destaque {
+    margin-top: 2em !important;
+  }
+  .info-destaque div .text-body-secondary {
+    font-size: 14px !important;
+  }
+  .cursos-disponiveis, .moca-img {
+    display: none !important;
+  }
+  .info-destaque h2 {
+    margin-top: 4px;
+    font-size: 18px;
+  }
+  .custom-border::after {
+    width: 90px;
+    height: 3px;
+  }
+  .cursos-destaque .carrossel {
+    padding-top: 0.5em !important;
+    padding-left: 1.5em;
+  }
+  .area-interesse .text-body-secondary {
+    font-size: 14px !important;
+  }
+  .area-interesse h2 {
+    margin-top: 4px;
+    font-size: 18px;
+  }
+  .area-interesse .card {
+    width: 7em;
+    height: 7em;
+  }
+  .area-interesse .row {
+    padding: 0 !important;
+    grid-template-columns: repeat(auto-fill, minmax(8em, 8em));
+    gap: 0.8em;
+    margin-bottom: 3em !important;
+  }
+  .card-areas .rounded-pill svg {
+    font-size: 30px;
+  }
+  .card-areas .rounded-pill {
+    height: 50px;
+    width: 50px;
+  }
+  .card-areas .card-body {
+    padding: 0em !important;
+  }
+
+  .card-areas .title-card-areas {
+    margin: 0.5em 0em !important;
+    font-size: 12px;
+  }
+  .areas-destaque .show {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .areas-destaque .show a {
+   width: 14em;
+   font-size: 14px;
+   padding: 6px;
+  }
+  .banners {
+    margin-top: 0 !important;
+}
+  .swiper-wrapper {
+    gap: 20px;
+  }
+
+} 
+@media screen and (max-width: 380px) {
+  #area-img {
+    height: 40vh;
+    margin-bottom: 215%;
+  }
+}

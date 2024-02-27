@@ -1,0 +1,37 @@
+.content-user {
+  padding: 7em 0;
+  display: flex;
+  justify-content: center;
+}
+
+.uf-minha-conta {
+  padding-left: 1em;
+}
+
+.content-user form {
+  width: 100%;
+  max-width: 600px;
+  color: #3f3f3f;
+}
+
+.content-user form input {
+  font-size: 1.1rem;
+  background-color: transparent;
+  border-color: #2d2f31;
+  padding-left: 16px;
+}
+.content-user form input:focus {
+  background-color: transparent;
+}
+
+@media screen and (max-width: 767px) {
+  .content-user {
+    padding: 4em 0;
+  }
+  .content-user form p {
+    display: none;
+  }
+  .content-user form .btn {
+    width: 100%;
+  }
+}

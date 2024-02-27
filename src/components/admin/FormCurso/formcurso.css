@@ -1,0 +1,21 @@
+#formAtv div input {
+  margin-top: 0.2em;
+  margin-bottom: 1.5em;
+}
+
+.area-radio {
+  margin-top: 0.2em;
+  width: 100%;
+}
+
+#formAtv {
+  min-width: 796px;
+}
+
+
+
+@media screen and (max-width: 1439px) {
+  input#termosOferta {
+    font-size:  13px !important;
+  }
+}

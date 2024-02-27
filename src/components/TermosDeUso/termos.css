@@ -1,0 +1,8 @@
+.area-termos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.termos-texto {
+  text-align: justify !important;
+}

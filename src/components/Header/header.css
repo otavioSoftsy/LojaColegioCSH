@@ -1,0 +1,212 @@
+.header-sumare #nav-header {
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 12px 0px #636363;
+  justify-content: space-around;
+  background-color: #F5B45D;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  padding: 0 4%;
+  width: 100%;
+  height: 80px;
+}
+
+#fechar {
+  display: none;
+}
+
+.header-sumare #nav-header img {
+  height: 55px;
+}
+
+.header-sumare #nav-header nav {
+  display: flex;
+}
+
+.search-form {
+  position: relative;
+}
+.search-form input[type="text"] {
+  background: transparent;
+  margin: 0;
+  width: 600px;
+  height: 2.6em;
+  padding: 10px;
+  font-size: 13px;
+  color: #f8f8f8;
+  border: 1px solid #f8f8f8;
+  border-radius: 4px;
+  outline: none;
+}
+.search-form input[type="text"]::placeholder {
+  color: #f8f8f8;
+}
+.search-form button[type="submit"] {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+#nav-header nav .active {
+  border-bottom: 2px solid #f8f8f8 !important;
+}
+#nav-header .area-login {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+.area-login a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 0.5em;
+  text-decoration: none;
+  color: #f8f8f8;
+}
+.area-login a span {
+  margin-top: 0.1em;
+  font-size: 13px;
+  color: #f8f8f8;
+}
+.header-mobile {
+  display: none;
+}
+
+.visivel {
+  display: none;
+}
+.hiden {
+  display: none;
+}
+@media screen and (max-width: 1489px) {
+  .header-sumare #nav-header {
+    padding: 0 5%;
+  }
+  .header-sumare #nav-header img {
+    height: 45px;
+  }
+  .search-form input[type="text"] {
+    width: 400px;
+    height: 2.6em;
+    font-size: 14px;
+  }
+  #nav-header .area-login {
+    gap: 0.5em;
+  }
+  #nav-header .area-login a svg {
+    width: 30px;
+  }
+  .area-login a span {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+}
+
+/*-------------------------------- xs -----------------------------------------------------*/
+/*-------------------------------- xs -----------------------------------------------------*/
+/*-------------------------------- xs -----------------------------------------------------*/
+/*-------------------------------- xs -----------------------------------------------------*/
+/*-------------------------------- xs -----------------------------------------------------*/
+/*-------------------------------- xs -----------------------------------------------------*/
+@media (max-width: 767px) {
+  .header-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 0px 12px 0px #040404;
+    background-color: #1B1CA1;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    padding: 10px 0;
+    width: 100%;
+    min-height: 60px;
+  }
+  .header-mobile #d-none {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .header-mobile img {
+    height: 35px;
+    width: auto;
+  }
+  .hiden {
+    display: none;
+  }
+  .visivel {
+    display: block;
+  }
+  #fechar {
+    display: block;
+    margin-bottom: 20px;
+  }
+  .header-sumare #nav-header img {
+    display: none;
+  }
+
+  .search-form button[type="submit"] {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  .search-form input[type="text"] {
+    width: 97%;
+    margin: 10px 0;
+  }
+
+  .header-sumare #nav-header nav {
+    display: grid;
+    gap: 30px;
+    margin-top: 20px;
+  }
+
+  .area-login a span {
+    font-size: 15px;
+    margin-left: 10px;
+  }
+
+  .area-login a {
+    display: inline;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 14px;
+  }
+
+  .header-sumare #nav-header {
+    padding: 44px 5%;
+  }
+
+  .header-sumare #nav-header {
+    display: block;
+    align-items: center;
+    box-shadow: 0px 0px 10px 6px #ccc;
+    justify-content: space-around;
+    background-color: #1B1CA1;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    padding: 0 4%;
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    transition: 0.4s;
+  }
+  .none-sidebar {
+    margin-left: -800px;
+  }
+  .sidebar-open {
+    margin-left: 0;
+  }
+}
