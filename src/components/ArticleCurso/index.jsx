@@ -158,7 +158,7 @@ export default function ArticleCurso({
       </div> */}
       <div className="card-body card-carrinho px-4 gap-2">
         <Link to={`/atividades/${curso}`} onClick={() => handleClick(idCurso)}>
-          <p className="fw-semibold mb-0 fs-6" style={{ color: "#1B1CA1" }}>
+          <p className="fw-semibold mb-0 fs-6" style={{ color: "#F5B45D" }}>
             {nomeCurso}
           </p>
         </Link>
@@ -195,7 +195,7 @@ export default function ArticleCurso({
             <p className="valor-curso1">Mensalidades</p>
             <p
               className="valor-curso fw-semibold mb-0"
-              style={{ color: "#023e8a", whiteSpace: "nowrap" }}
+              style={{ color: "#00A2A8", whiteSpace: "nowrap" }}
             >
               {valor !== null
                 ? `R$ ${valor.toFixed(2).replace(".", ",")}`
@@ -204,7 +204,7 @@ export default function ArticleCurso({
           </div>
           <div
             className="d-flex align-items-center fs-4 gap-2"
-            style={{ color: "#023E8A" }}
+            style={{ color: "#00A2A8" }}
           >
             <FiMinusCircle
               size={24}

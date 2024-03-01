@@ -98,14 +98,14 @@ input[type="file"]::file-selector-button {
   border: none;
   height: 100%;
   width: 35%;
-  background: #1b1ca1;
+  background: #00A2A8;
   color: #fff;
   cursor: pointer;
   transition: background 0.4s ease-in-out;
 }
 
 input[type="file"]::file-selector-button:hover {
-  background: #191992;
+  background: #009297;
 }
 
 .card-table {
@@ -116,14 +116,14 @@ input[type="file"]::file-selector-button:hover {
   margin-right: 10%;
 }
 .btn-primary {
-  background-color: #1e1eb1 !important;
-  border-color: #1b1ca1 !important;
+  background-color: #00A2A8 !important;
+  border-color: #00A2A8 !important;
   transition: background 0.3s ease-in-out !important;
 }
 
 .btn-primary:hover {
-  background: #191992 !important;
-  border-color: #191992 !important;
+  background: #009297 !important;
+  border-color: #009297 !important;
 }
 span.switch-handle.btn.btn-lightbtn-sm {
   background-color: #fff;

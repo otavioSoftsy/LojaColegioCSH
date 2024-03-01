@@ -28,13 +28,13 @@ export default function NovoFornecedor() {
   const [tipoPessoa, setTipoPessoa] = useState("");
   const [loading, setLoading] = useState(false);
   const [usuarioCadastro, setUsuarioCadastro] = useState(null);
-  const [gatewayPagamento, setGatewayPagamento] = useState("");
+  const [gatewayPagamento, setGatewayPagamento] = useState([]);
 
   const navigate = useNavigate();
 
   const animatedComponents = makeAnimated();
 
-  const gateways = [{ idGateway: 1, label: "PagBank" }];
+  const gateways = [{ value: 1, label: "PagBank" }];
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("@gdv-login-admin"));
@@ -48,8 +48,9 @@ export default function NovoFornecedor() {
     cnpj: limparMascara(cnpj),
     razaoSocial: razaoSocial,
     nomeFantasia: nomeFantasia,
-    gatewayPagamento: gatewayPagamento.label,
-    idGateway: gatewayPagamento.idGateway,
+    gatewayPagamento:
+      gatewayPagamento.length > 0 ? gatewayPagamento[0].label : null,
+    idGateway: gatewayPagamento.length > 0 ? gatewayPagamento[0].value : null,
     telefone: limparMascara(telefone),
     celular: limparMascara(celular),
     email: email,
@@ -326,7 +327,8 @@ export default function NovoFornecedor() {
           </div>
           <div className="col-md-6">
             <label htmlFor="gateway" className="form-label">
-              Gateway de pagamento - <span className="form-text"> (opcional)</span>
+              Gateway de pagamento -{" "}
+              <span className="form-text"> (opcional)</span>
             </label>
             <Select
               isClearable={true}
@@ -341,9 +343,10 @@ export default function NovoFornecedor() {
                 }),
               }}
               name="gateway"
+              value={gatewayPagamento.length > 0 && gatewayPagamento[0]}
               options={gateways}
               className="basic-singl mt-1 mb-4"
-              onChange={(valor) => setGatewayPagamento(valor)}
+              onChange={(valor) => valor ? setGatewayPagamento([valor]) : setGatewayPagamento([])}
               classNamePrefix="select"
               placeholder="Selecione..."
             />

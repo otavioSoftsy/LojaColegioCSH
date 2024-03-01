@@ -372,7 +372,7 @@ export default function Pagamento() {
               />
               <button
                 type="button"
-                className="btn btn-success btn-aplicar fw-bolder"
+                className="btn btn-primary btn-aplicar fw-bolder"
                 onClick={() => aplicarCupom(cupom)}
               >
                 Aplicar
@@ -380,7 +380,7 @@ export default function Pagamento() {
             </div>
           </div>
           <div className="col-11 rounded-5 d-flex flex-column resumo-pagamento mx-auto">
-            <h4 className="fw-semibold mb-0 text-center">Resumo do pedido</h4>
+            <h4 className="fw-semibold mb-0 text-center" style={{color: ''}}>Resumo do pedido</h4>
             <hr />
             <span className="d-flex flex-column">
               <div className="d-flex justify-content-between mb-3">

@@ -389,7 +389,7 @@ export default function Areas() {
                         <FontAwesomeIcon icon={selectedIcon} className="icon" />
                       </div>
                     )}
-                    <button className="btn btn-success" onClick={openModal}>
+                    <button className="btn btn-primary" onClick={openModal}>
                       {selectedIcon ? "Mudar ícone " : "Exibir ícones"}
                     </button>
                   </label>
@@ -505,7 +505,7 @@ export default function Areas() {
                         <FontAwesomeIcon icon={selectedIcon} className="icon" />
                       </div>
                     )}
-                    <button className="btn btn-success" onClick={openModal}>
+                    <button className="btn btn-primary" onClick={openModal}>
                       {selectedIcon ? "Mudar ícone " : "Exibir ícones"}
                     </button>
                   </label>

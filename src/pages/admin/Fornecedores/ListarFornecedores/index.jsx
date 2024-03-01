@@ -1,5 +1,10 @@
 import { Link } from "react-router-dom";
-import { MdDoDisturbAlt, MdOutlineCheck, MdOutlineEdit, MdOutlineHandshake } from "react-icons/md";
+import {
+  MdDoDisturbAlt,
+  MdOutlineCheck,
+  MdOutlineEdit,
+  MdOutlineHandshake,
+} from "react-icons/md";
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import Title from "../../../../components/admin/Title";
 import { useEffect, useState } from "react";
@@ -8,7 +13,6 @@ import { toast } from "react-toastify";
 import ReactPaginate from "react-paginate";
 import "./fornecedores.css";
 import { url_base } from "../../../../services/apis";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
 
 export default function Fornecedores() {
@@ -22,7 +26,7 @@ export default function Fornecedores() {
         .get(url_base + "fornecedor/listar")
         .then((data) => {
           setFornecedores(data.data);
-          console.log(data.data)
+          console.log(data.data);
         })
         .catch(() => {
           toast.error("Erro ao listar fornecedores.");
@@ -77,11 +81,17 @@ export default function Fornecedores() {
   }
 
   const formatarCPF = (cpf) => {
-    return `${cpf.substring(0, 3)}.${cpf.substring(3, 6)}.${cpf.substring(6, 9)}-${cpf.substring(9, 11)}`;
+    return `${cpf.substring(0, 3)}.${cpf.substring(3, 6)}.${cpf.substring(
+      6,
+      9
+    )}-${cpf.substring(9, 11)}`;
   };
-  
+
   const formatarCNPJ = (cnpj) => {
-    return `${cnpj.substring(0, 2)}.${cnpj.substring(2, 5)}.${cnpj.substring(5, 8)}/${cnpj.substring(8, 12)}-${cnpj.substring(12, 14)}`;
+    return `${cnpj.substring(0, 2)}.${cnpj.substring(2, 5)}.${cnpj.substring(
+      5,
+      8
+    )}/${cnpj.substring(8, 12)}-${cnpj.substring(12, 14)}`;
   };
 
   return (
@@ -95,13 +105,13 @@ export default function Fornecedores() {
             <div className="sem-fornecedor">
               <span>Nenhum parceiro encontrado...</span>
               <Link
-                  to="cadastro"
-                  id="btn-novo-fornecedor"
-                  className="btn btn-primary btn-lg px-3 py-1 mt-4"
-                >
-                  <FiPlus size={24}/>
-                  Novo parceiro
-                </Link>
+                to="cadastro"
+                id="btn-novo-fornecedor"
+                className="btn btn-primary btn-lg px-3 py-1 mt-4"
+              >
+                <FiPlus size={24} />
+                Novo parceiro
+              </Link>
             </div>
           ) : (
             <>
@@ -111,7 +121,7 @@ export default function Fornecedores() {
                   id="btn-novo-fornecedor"
                   className="btn btn-primary btn-lg px-3 py-1 mt-4"
                 >
-                  <FiPlus size={24}/>
+                  <FiPlus size={24} />
                   Novo parceiro
                 </Link>
               </div>
@@ -124,7 +134,7 @@ export default function Fornecedores() {
                     </th>
                     <th scope="col">Nome</th>
                     <th scope="col" width="20%">
-                    CNPJ / CPF
+                      CNPJ / CPF
                     </th>
                     <th scope="col" width="20%">
                       Ações
@@ -134,7 +144,9 @@ export default function Fornecedores() {
                 <tbody className="table-group-divider">
                   {currentItems.map((item) => {
                     const status = item.ativo;
-                    const cnpjCpf = item.cnpj ? formatarCNPJ(item.cnpj) : formatarCPF(item.cpfResponsavel);
+                    const cnpjCpf = item.cnpj
+                      ? formatarCNPJ(item.cnpj)
+                      : formatarCPF(item.cpfResponsavel);
 
                     return (
                       <tr key={item.idFornecedor}>
@@ -188,16 +200,17 @@ export default function Fornecedores() {
             </>
           )}
 
-          <div className="d-flex justify-content-center">
             {fornecedores.length > itemsPerPage && (
               <ReactPaginate
-                previousLabel={<FaChevronLeft />}
-                nextLabel={<FaChevronRight />}
+                previousLabel={<span aria-hidden="true">&laquo;</span>}
+                nextLabel={<span aria-hidden="true">&raquo;</span>}
                 pageCount={Math.ceil(fornecedores.length / itemsPerPage)}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={0}
                 onPageChange={handlePageClick}
-                containerClassName={"pagination"}
+                containerClassName={
+                  "pagination pagination-sm justify-content-end"
+                }
                 subContainerClassName={"pages pagination"}
                 activeClassName={"active"}
                 pageClassName={"page-item"}
@@ -211,7 +224,6 @@ export default function Fornecedores() {
                 renderOnZeroPageCount={null}
               />
             )}
-          </div>
         </div>
       </div>
     </>

@@ -155,7 +155,7 @@ export default function Cursos() {
     DropdownIndicator: (props) => {
       return (
         <components.DropdownIndicator {...props}>
-          <FiFilter className="icon-select" size={22} color="#0077B6" />
+          <FiFilter className="icon-select" size={22} color="#F5B45D" />
         </components.DropdownIndicator>
       );
     },
@@ -164,7 +164,7 @@ export default function Cursos() {
     DropdownIndicator: (props) => {
       return (
         <components.DropdownIndicator {...props}>
-          <LuArrowDownUp className="icon-select" size={22} color="#0077B6" />
+          <LuArrowDownUp className="icon-select" size={22} color="#F5B45D" />
         </components.DropdownIndicator>
       );
     },
@@ -195,7 +195,7 @@ export default function Cursos() {
     <section className="container-cli container-cursos">
       <div className="title-cursos">
         <div className="d-flex row-selects justify-content-between">
-          <h2 className="mb-0 text-secondary">
+          <h2 className="mb-0" style={{color: '#F5B45D'}}>
             {totalCursos} Atividades disponíveis
           </h2>
           <div className="selects-cursos d-flex gap-3">
@@ -207,9 +207,9 @@ export default function Cursos() {
                 control: (baseStyles, state) => ({
                   ...baseStyles,
                   borderWidth: "1px",
-                  borderColor: state.isFocused ? "#0077B6" : "#0077B6",
+                  borderColor: state.isFocused ? "#F5B45D" : "#F5B45D",
                   "&:hover": {
-                    borderColor: "#0077B6",
+                    borderColor: "#F5B45D",
                   },
                 }),
               }}
@@ -217,7 +217,7 @@ export default function Cursos() {
                 ...theme,
                 colors: {
                   ...theme.colors,
-                  primary: "#0077B6",
+                  primary: "#F5B45D",
                 },
               })}
               options={optionsWithSorting}
@@ -242,9 +242,9 @@ export default function Cursos() {
                 control: (baseStyles, state) => ({
                   ...baseStyles,
                   borderWidth: "1px",
-                  borderColor: state.isFocused ? "#0077B6" : "#0077B6",
+                  borderColor: state.isFocused ? "#F5B45D" : "#F5B45D",
                   "&:hover": {
-                    borderColor: "#0077B6",
+                    borderColor: "#F5B45D",
                   },
                 }),
               }}
@@ -252,7 +252,7 @@ export default function Cursos() {
                 ...theme,
                 colors: {
                   ...theme.colors,
-                  primary: "#0077B6",
+                  primary: "#F5B45D",
                 },
               })}
               name="selectAreas"

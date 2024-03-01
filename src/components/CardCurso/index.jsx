@@ -83,7 +83,7 @@ export default function CardCurso({
         <Link to={`/atividades/${nomeFormatado}`} onClick={() => handleClick(idCurso)}>
           <p
             className="fw-semibold mb-1 fs-5 nomeCurso"
-            style={{ color: "#023e8a" }}
+            style={{ color: "#00A2A8" }}
           >
             {nomeCurso}
           </p>

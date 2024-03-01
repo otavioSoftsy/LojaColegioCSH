@@ -1,7 +1,7 @@
 .header-sumare #nav-header {
   display: flex;
   align-items: center;
-  box-shadow: 0px 0px 12px 0px #636363;
+  box-shadow: 0px 0px 8px 0px #636363;
   justify-content: space-around;
   background-color: #F5B45D;
   position: fixed;

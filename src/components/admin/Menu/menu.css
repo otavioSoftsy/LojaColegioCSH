@@ -6,7 +6,7 @@
 
 .ulMenu .active {
   background-color: #e4e4e4;
-  color: #1b1ca1;
+  color: #6C757D;
 }
 
 .ulMenu a {
@@ -23,7 +23,7 @@
 }
 .ulMenu a:hover {
   background-color: #e4e4e4;
-  color: #1b1ca1;
+  color: #6C757D;
 }
 
 .ulMenu svg {
@@ -39,7 +39,7 @@
   left: 0;
   height: 100%;
   width: 280px;
-  background: #1b1ca1;
+  background: #6C757D;
   min-height: 100vh;
   top: 0;
   color: #fff;

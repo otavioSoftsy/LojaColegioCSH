@@ -86,7 +86,7 @@ export default function Home() {
                   </p>
                   <h2
                     className=" pb-3"
-                    style={{ color: "#00A2A8", position: "relative" }}
+                    style={{ color: "#F5B45D", position: "relative" }}
                   >
                     Descubra o poder da aprendizagem <br />
                     personalizada com a nossa <br />
@@ -105,7 +105,7 @@ export default function Home() {
                   <div className="d-flex">
                     <span
                       className="fw-light fs-4"
-                      style={{ color: "#00A2A8", height: "85px" }}
+                      style={{ color: "#F5B45D", height: "85px" }}
                     >
                       MAIS DE{" "}
                       <span className="fw-bold" style={{ fontSize: "3em" }}>
@@ -185,7 +185,7 @@ export default function Home() {
                   </p>
                   <h2
                     className=" pb-3"
-                    style={{ color: "#00A2A8", position: "relative" }}
+                    style={{ color: "#F5B45D", position: "relative" }}
                   >
                     Descubra o poder da aprendizagem <br />
                     personalizada com a nossa <br />
@@ -204,7 +204,7 @@ export default function Home() {
                   <div className="d-flex">
                     <span
                       className="fw-light fs-4"
-                      style={{ color: "#00A2A8", height: "85px" }}
+                      style={{ color: "#F5B45D", height: "85px" }}
                     >
                       MAIS DE{" "}
                       <span className="fw-bold" style={{ fontSize: "3em" }}>
@@ -264,7 +264,7 @@ export default function Home() {
         <p className="text-body-secondary mb-0 fs-5">Categorias de interesse</p>
         <h2
           className=" pb-3"
-          style={{ color: "#00A2A8", position: "relative" }}
+          style={{ color: "#F5B45D", position: "relative" }}
         >
           Aproveite para aprender mais
           <span className="custom-border"></span>

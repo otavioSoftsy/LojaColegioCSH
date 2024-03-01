@@ -210,7 +210,7 @@ const TableCreatedParceiros = ({
       <button
         type="button"
         onClick={handleAddRow}
-        className="btn btn-sm btn-success"
+        className="btn btn-sm btn-primary"
       >
         Adicionar Linha
       </button>
