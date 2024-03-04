@@ -308,7 +308,7 @@ export default function Cartao() {
           </span>
           <hr />
           <span className="d-flex justify-content-between">
-            <h4 className="mb-0 fw-normal">Valor das mensalidades:</h4>
+            <h4 className="mb-0 fw-normal">Valor total:</h4>
             <h4 className="mb-0">
               R${" "}
               {dadosPg !== null

@@ -18,7 +18,6 @@ export default function EditarCurso() {
   const [isSincrona, setIsSincrona] = useState("");
   const [dataUnica, setDataUnica] = useState("");
   const [cargaHorariaCurso, setCargaHorariaCurso] = useState("");
-  const [cargaHorariaHomologada, setCargaHorariaHomologada] = useState("");
   const [periodicidade, setPeriodicidade] = useState("");
   const [diaSemana, setDiaSemana] = useState("");
   const [dataInicio, setDataInicio] = useState("");
@@ -119,7 +118,6 @@ export default function EditarCurso() {
           const dadosCurso = data.data;
           setCursoAberto(dadosCurso.abertoPublico);
           setCargaHorariaCurso(dadosCurso.cargaHoraria);
-          setCargaHorariaHomologada(dadosCurso.horasAtc);
           setDataInicio(dadosCurso.dataInicioVenda);
           setDataFim(dadosCurso.dataFimVenda);
           setDescricaoCurso(dadosCurso.descricao);
@@ -174,7 +172,6 @@ export default function EditarCurso() {
     tipoOferta: "EmAndamento",
     codCursoAva: null,
     cargaHoraria: cargaHorariaCurso,
-    horasAtc: cargaHorariaHomologada,
     dataInicioVenda: dataFim ? dataInicio : dataUnica,
     dataFimVenda: dataFim,
     modalidade: modalidade,
@@ -197,6 +194,10 @@ export default function EditarCurso() {
     minIdade: Number(limparMascara(minIdade)),
     maxIdade: Number(limparMascara(maxIdade)),
   };
+
+  areasSelecionadas.map(() => {
+    
+  })
 
   const handleSelectChange = (selectedOptions) => {
     const areasSelecionadasAtualizadas = selectedOptions.map((option) => ({
@@ -759,7 +760,7 @@ export default function EditarCurso() {
               onChange={(e) => setCargaHorariaCurso(e.target.value)}
             />
           </div>
-          <div className="col-md-6">
+          {/* <div className="col-md-6">
             <label htmlFor="cargaHorariaHomologada" className="form-label">
               Carga horária homologada
             </label>
@@ -773,7 +774,8 @@ export default function EditarCurso() {
               value={cargaHorariaHomologada}
               onChange={(e) => setCargaHorariaHomologada(e.target.value)}
             />
-          </div>
+          </div> */}
+          
           <div className="col-md-6">
             <label htmlFor="minVagas" className="form-label">
               Mínimo de Vagas
@@ -803,6 +805,56 @@ export default function EditarCurso() {
               value={maxVagas}
               onChange={(e) => setMaxVagas(e.target.value)}
             />
+          </div>
+          <div className="col-md-6">
+            <label htmlFor="sexo" className="form-label">
+              Gênero
+            </label>
+            <div
+              className="btn-group area-radio mb-4"
+              role="group"
+              aria-label="Basic radio toggle button group"
+            >
+              <input
+                type="radio"
+                className="btn-check"
+                name="radioSexo"
+                id="sexoF"
+                autoComplete="off"
+                value="F"
+                checked={sexo === "F"}
+                onChange={(e) => setSexo(e.target.value)}
+              />
+              <label className="btn btn-outline-primary" htmlFor="sexoF">
+                Feminino
+              </label>
+              <input
+                type="radio"
+                className="btn-check"
+                name="radioSexo"
+                id="sexoM"
+                autoComplete="off"
+                value="M"
+                checked={sexo === "M"}
+                onChange={(e) => setSexo(e.target.value)}
+              />
+              <label className="btn btn-outline-primary" htmlFor="sexoM">
+                Masculino
+              </label>
+              <input
+                type="radio"
+                className="btn-check"
+                name="radioSexo"
+                id="sexoA"
+                autoComplete="off"
+                value="A"
+                checked={sexo === "A"}
+                onChange={(e) => setSexo(e.target.value)}
+              />
+              <label className="btn btn-outline-primary" htmlFor="sexoA">
+                Ambos
+              </label>
+            </div>
           </div>
           <div className="col-md-6">
             <label htmlFor="minIdade" className="form-label">
@@ -856,56 +908,7 @@ export default function EditarCurso() {
               }}
             />
           </div>
-          <div className="col-md-6">
-            <label htmlFor="sexo" className="form-label">
-              Sexo
-            </label>
-            <div
-              className="btn-group area-radio mb-4"
-              role="group"
-              aria-label="Basic radio toggle button group"
-            >
-              <input
-                type="radio"
-                className="btn-check"
-                name="radioSexo"
-                id="sexoF"
-                autoComplete="off"
-                value="F"
-                checked={sexo === "F"}
-                onChange={(e) => setSexo(e.target.value)}
-              />
-              <label className="btn btn-outline-primary" htmlFor="sexoF">
-                Feminino
-              </label>
-              <input
-                type="radio"
-                className="btn-check"
-                name="radioSexo"
-                id="sexoM"
-                autoComplete="off"
-                value="M"
-                checked={sexo === "M"}
-                onChange={(e) => setSexo(e.target.value)}
-              />
-              <label className="btn btn-outline-primary" htmlFor="sexoM">
-                Masculino
-              </label>
-              <input
-                type="radio"
-                className="btn-check"
-                name="radioSexo"
-                id="sexoA"
-                autoComplete="off"
-                value="A"
-                checked={sexo === "A"}
-                onChange={(e) => setSexo(e.target.value)}
-              />
-              <label className="btn btn-outline-primary" htmlFor="sexoA">
-                Ambos
-              </label>
-            </div>
-          </div>
+          
 
           <div className="col-md-6">
             <label htmlFor="destaque" className="form-label">
@@ -1045,7 +1048,7 @@ export default function EditarCurso() {
           {gratis === "N" && (
             <div className="col-md-6">
               <label htmlFor="valorCurso" className="form-label">
-                Valor das mensalidades
+                Valor da atividade
               </label>
               <NumericFormat
                 required
@@ -1056,7 +1059,7 @@ export default function EditarCurso() {
                 fixedDecimalScale
                 autoComplete="off"
                 decimalScale={2}
-                placeholder="Insira o valor mensal"
+                placeholder="Insira o valor total"
                 id="valorCurso"
                 name="valorCurso"
                 className="form-control inputForm"

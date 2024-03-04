@@ -291,7 +291,7 @@ export default function Carrinho() {
               <hr />
             </span>
             <span className="d-flex justify-content-between px-3">
-              <h5 className="mb-0 fw-normal">Valor das mensalidades</h5>
+              <h5 className="mb-0 fw-normal">Valor total</h5>
               <h5 className="mb-0">R$ {total.toFixed(2).replace(".", ",")}</h5>
             </span>
             <p className="text-center text-danger info-mudanca mt-2 mb-0">

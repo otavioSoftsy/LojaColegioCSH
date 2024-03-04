@@ -15,7 +15,6 @@ export default function FormCurso() {
   const [modalidade, setModalidade] = useState("");
   const [isSincrona, setIsSincrona] = useState("");
   const [cargaHorariaCurso, setCargaHorariaCurso] = useState("");
-  const [cargaHorariaHomologada, setCargaHorariaHomologada] = useState("");
   const [periodicidade, setPeriodicidade] = useState("");
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
@@ -107,7 +106,7 @@ export default function FormCurso() {
     tipoOferta: "NovaOferta",
     codCursoAva: null,
     cargaHoraria: Number(cargaHorariaCurso),
-    horasAtc: Number(cargaHorariaHomologada),
+    horasAtc: null,
     dataInicioVenda: periodicidade !== "U" ? dataInicio : dataUnica,
     dataFimVenda: dataFim,
     modalidade: modalidade,
@@ -614,7 +613,7 @@ export default function FormCurso() {
             onChange={(e) => setCargaHorariaCurso(e.target.value)}
           />
         </div>
-        <div className="col-md-6">
+        {/* <div className="col-md-6">
           <label htmlFor="cargaHorariaHomologada" className="form-label">
             Carga horária homologada
           </label>
@@ -628,6 +627,22 @@ export default function FormCurso() {
             className="form-control inputForm"
             value={cargaHorariaHomologada}
             onChange={(e) => setCargaHorariaHomologada(e.target.value)}
+          />
+        </div> */}
+         <div className="col-md-6">
+          <label htmlFor="nVagas" className="form-label">
+            N° de vagas
+          </label>
+          <NumericFormat
+            allowNegative={false}
+            decimalScale={0}
+            id="nVagas"
+            required
+            name="nVagas"
+            autoComplete="off"
+            className="form-control inputForm"
+            value={nVagas}
+            onChange={(e) => setNVagas(e.target.value)}
           />
         </div>
         <div className="col-md-6">
@@ -657,6 +672,7 @@ export default function FormCurso() {
             }}
           />
         </div>
+        
         <div className="col-md-6">
           <label htmlFor="maxIdade" className="form-label">
             Até:
@@ -734,22 +750,7 @@ export default function FormCurso() {
             </label>
           </div>
         </div>
-        <div className="col-md-6">
-          <label htmlFor="nVagas" className="form-label">
-            N° de vagas
-          </label>
-          <NumericFormat
-            allowNegative={false}
-            decimalScale={0}
-            id="nVagas"
-            required
-            name="nVagas"
-            autoComplete="off"
-            className="form-control inputForm"
-            value={nVagas}
-            onChange={(e) => setNVagas(e.target.value)}
-          />
-        </div>
+       
 
         <div className="col-md-6">
           <label htmlFor="destaque" className="form-label">
@@ -878,7 +879,7 @@ export default function FormCurso() {
         {isGratis === "N" && (
           <div className="col-md-6">
             <label htmlFor="valorCurso" className="form-label">
-              Valor das mensalidades
+              Valor total
             </label>
             <NumericFormat
               required
@@ -889,7 +890,7 @@ export default function FormCurso() {
               fixedDecimalScale
               decimalScale={2}
               autoComplete="off"
-              placeholder="Insira o valor mensal"
+              placeholder="Insira o valor total"
               id="valorCurso"
               name="valorCurso"
               className="form-control inputForm"
