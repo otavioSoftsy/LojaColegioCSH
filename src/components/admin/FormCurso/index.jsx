@@ -106,7 +106,7 @@ export default function FormCurso() {
     tipoOferta: "NovaOferta",
     codCursoAva: null,
     cargaHoraria: Number(cargaHorariaCurso),
-    horasAtc: null,
+    horasAtc: 0,
     dataInicioVenda: periodicidade !== "U" ? dataInicio : dataUnica,
     dataFimVenda: dataFim,
     modalidade: modalidade,

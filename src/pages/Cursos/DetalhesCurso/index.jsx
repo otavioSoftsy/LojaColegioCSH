@@ -18,6 +18,7 @@ import {
   MdOutlinePersonPin,
 } from "react-icons/md";
 import "./detalhes.css";
+import useContexts from "../../../hooks/useContexts";
 
 export default function DetalhesCurso() {
   const [dataCurso, setDataCurso] = useState({});
@@ -32,10 +33,12 @@ export default function DetalhesCurso() {
 
   const [expandido, setExpandido] = useState(false);
   const [altura, setAltura] = useState("280px");
-
   const navigate = useNavigate();
 
   const idCurso = localStorage.getItem("@gdv-idAtividade");
+
+  const cursoPermitido = idCurso === 220;
+
   useEffect(() => {
     async function getCurso() {
       await axios
@@ -261,40 +264,47 @@ export default function DetalhesCurso() {
             </section>
             <section className="area-descricao2 col-md-5">
               <div className="text-end2">
-                {cursoObj.valor !== null ? (
+                {dataCurso.esgotado ? (
                   <div>
-                    <p
-                      className="text-secondary p1 fw-semibold"
-                      style={{
-                        margin: "0 0 -0.5em 0",
-                      }}
-                    >
-                      MENSALIDADES
+                    <p className="text-danger p-esgotado fw-semibold my-0">
+                      ATIVIDADE ESGOTADA!
                     </p>
-                    <p className="p2 mb-0 fw-light" style={{ color: `${cor}` }}>
-                      DE{" "}
-                      <span className="p3 fw-semibold">
-                        R$ {cursoObj.valor?.toFixed(2).replace(".", ",")}
-                      </span>
+                    <p className="my-0 p-info-esgotado text-secondary fw-light">
+                      (Número de vagas atingido.)
                     </p>
-                    {/* <p
-                    className="p4 fw-light"
-                    style={{
-                      margin: "-0.6em 0 0",
-                      color: `${cor}`,
-                    }}
-                  >
-                   
-                  </p> */}
                   </div>
                 ) : (
-                  <span
-                    className="p-gratis fw-bold"
-                    style={{ color: `${cor}` }}
-                  >
-                    {" "}
-                    Curso Gratuito! Garanta já o seu!
-                  </span>
+                  <>
+                    {cursoObj.valor !== null ? (
+                      <div>
+                        <p
+                          className="text-secondary p1 fw-semibold"
+                          style={{
+                            margin: "0 0 -0.5em 0",
+                          }}
+                        >
+                          MENSALIDADES
+                        </p>
+                        <p
+                          className="p2 mb-0 fw-light"
+                          style={{ color: `${cor}` }}
+                        >
+                          DE{" "}
+                          <span className="p3 fw-semibold">
+                            R$ {cursoObj.valor?.toFixed(2).replace(".", ",")}
+                          </span>
+                        </p>
+                      </div>
+                    ) : (
+                      <span
+                        className="p-gratis fw-bold"
+                        style={{ color: `${cor}` }}
+                      >
+                        {" "}
+                        Curso Gratuito! Garanta já o seu!
+                      </span>
+                    )}
+                  </>
                 )}
               </div>
               <div className="d-flex btns justify-content-end gap-4 mt-4">
@@ -405,10 +415,12 @@ export default function DetalhesCurso() {
                             <td>Às {item.horaIni}</td>
                             <td>Às {item.horaFim}</td>
                           </>
-                        ) : <>
-                        <td>Agendar com o professor</td>
-                        <td>Agendar com o professor</td>
-                      </>}
+                        ) : (
+                          <>
+                            <td>Agendar com o professor</td>
+                            <td>Agendar com o professor</td>
+                          </>
+                        )}
                       </tr>
                     );
                   })}

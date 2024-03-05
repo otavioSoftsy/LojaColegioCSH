@@ -85,6 +85,41 @@ export default function ListarCursos() {
     setCursos(cursoAtualizado);
   }
 
+  function handleToggleEsgotado(idCurso) {
+    const cursoAtualizado = cursos.map((curso) => {
+      if (curso.idCurso === idCurso) {
+        if (curso.esgotado) {
+          axios
+            .post(url_base + `curso/${idCurso}/ofertar`)
+            .then(() => {
+              toast.success("Ofertado com sucesso!");
+            })
+            .catch((error) => {
+              console.error("Erro ao ofertar atividade:", error);
+              toast.error("Erro ao ofertar atividade.");
+            });
+          const novoStatus = false;
+          return { ...curso, esgotado: novoStatus };
+        } else {
+          axios
+            .post(url_base + `curso/${idCurso}/esgotar`)
+            .then(() => {
+              toast.success("Esgotado com sucesso!");
+            })
+            .catch((error) => {
+              console.error("Erro ao esgotar atividade:", error);
+              toast.error("Erro ao esgotar atividade.");
+            });
+          const novoStatus = true;
+          return { ...curso, esgotado: novoStatus };
+        }
+      }
+      return curso;
+    });
+
+    setCursos(cursoAtualizado);
+  }
+
   return (
     <>
       <Title name="Atividades">
@@ -179,13 +214,20 @@ export default function ListarCursos() {
                           width={63}
                           onChange={() => handleDeletar(item.idCurso)}
                         />{" "}
-                        <button
-                          className="btn btn-danger btn-sm px-2"
+                         <button
+                          type="button"
+                          className={`btn ${
+                            item.esgotado ? "btn-success" : "btn-danger"
+                          } btn-sm px-2`}
                           style={{
                             height: "31px",
+                            width: '84px'
                           }}
+                          onClick={() =>
+                            handleToggleEsgotado(item.idCurso)
+                          }
                         >
-                          Esgotado
+                          {item.esgotado ? "Ofertar" : "Esgotado"}
                         </button>
                       </td>
                     </tr>

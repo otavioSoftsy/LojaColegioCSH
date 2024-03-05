@@ -63,29 +63,9 @@ function WizardForm() {
       const user = response.data;
       storageClient(user);
       setClient(user);
-
-      let mensagemTimeout = true;
-
-      while (mensagemTimeout) {
-        const responsavelUpdate = await axios.get(
-          "https://api-academico.sumare.edu.br/api-gdv-emweb/responsavel/cache/atualizar",
-          {
-            timeout: 8000,
-          }
-        );
-
-        if (responsavelUpdate.data.sucesso) {
-          await axios.get(
-            "https://api-academico.sumare.edu.br/api-gdv-emweb/aluno/cache/atualizar"
-          );
-          setLoading(false);
-          toast.success(`Cadastro realizado com sucesso!`);
-          navigate("/");
-          mensagemTimeout = false;
-        } else {
-          console.log(responsavelUpdate.data);
-        }
-      }
+      setLoading(false);
+      toast.success(`Cadastro realizado com sucesso!`);
+      navigate("/");
     } catch (error) {
       setLoading(false);
       toast.error(error.response.data.message);

@@ -5,10 +5,10 @@ import ModalTermos from "../../components/ModalTermos";
 import ArticleCurso from "../../components/ArticleCurso";
 import { toast } from "react-toastify";
 import { FiShoppingCart } from "react-icons/fi";
-import "./carrinho.css";
 import { MdOutlineAccessTime } from "react-icons/md";
 import ModalCadastraAluno from "../../components/ModalCadastraAluno";
 import axios from "axios";
+import "./carrinho.css";
 
 export default function Carrinho() {
   const [cursos, setCursos] = useState([]);
@@ -21,6 +21,9 @@ export default function Carrinho() {
   const [accepted3, setAccepted3] = useState(false);
   const btnModal = useRef(null);
   const btnForm = useRef(null);
+  const btnAlert = useRef(null);
+  const btnCloseAlert = useRef(null);
+
   const { clientLogado, client } = useContexts();
   const navigate = useNavigate();
   const articleCursoRef = useRef();
@@ -39,18 +42,22 @@ export default function Carrinho() {
     const desconto = 0;
     const totalCalculado = subtotalCalculado - desconto;
     setTotal(totalCalculado);
+    if (!clientLogado && btnAlert.current) {
+      btnAlert.current.click();
+    }
   }, []);
 
   async function getAlunos() {
-    
     await axios
       .get(
-        `https://api-academico.sumare.edu.br/api-gdv-emweb/responsavel/cache/obter/alunos?idCliente=${client.idCliente}`
+        `https://colegiosuperhumanos.com.br/api-csh-alunos/listaAlunosCsh?cpf=${
+          client ? client.cpf : null
+        }`
       )
       .then((response) => {
         if (response.data.sucesso) {
           setAlunos(response.data.retorno);
-          console.log(response.data.retorno)
+          console.log(response.data.retorno);
         } else {
           setAlunos("Erro ao buscar alunos.");
         }
@@ -78,6 +85,11 @@ export default function Carrinho() {
     });
   }
 
+  function fechaModal() {
+    if (btnCloseAlert.current) {
+      btnCloseAlert.current.click();
+    }
+  }
   function deletarCurso(id) {
     setCursos((cursosAntigos) => {
       const filtroCursos = cursosAntigos.filter((item) => item.id !== id);
@@ -324,13 +336,72 @@ export default function Carrinho() {
         hidden={true}
       ></button>
       <button
-            type="button"
-            className="btn btn-primary"
-            ref={btnModalCadastro}
-            data-bs-toggle="modal"
-            data-bs-target="#modalCadastro"
-            hidden={true}
-          ></button>
+        type="button"
+        className="btn btn-primary"
+        ref={btnModalCadastro}
+        data-bs-toggle="modal"
+        data-bs-target="#modalCadastro"
+        hidden={true}
+      ></button>
+      <button
+        type="button"
+        className="btn btn-primary"
+        ref={btnAlert}
+        data-bs-toggle="modal"
+        data-bs-target="#modalAlert"
+        hidden={true}
+      ></button>
+
+      <div
+        className="modal fade"
+        id="modalAlert"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">
+                Faça o login!
+              </h1>
+
+              <button
+                type="button"
+                className="btn-close"
+                ref={btnCloseAlert}
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div className="modal-body">
+              Para realizar a compra das atividades eletivas, por favor, realize
+              o login em sua conta.
+            </div>
+
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Fechar
+              </button>
+
+              <Link
+                className="btn btn-primary"
+                to="/minha-conta/entrar"
+                onClick={fechaModal}
+              >
+                Fazer login
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
       <ModalTermos
         enviaTermos={() => enviaTermos()}
         handleCheckbox={handleCheckbox}

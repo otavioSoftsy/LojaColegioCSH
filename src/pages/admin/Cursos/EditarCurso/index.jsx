@@ -190,6 +190,7 @@ export default function EditarCurso() {
     categorias: areasSelecionadas,
     termosOferta: termosOferta,
     imagem: null,
+    horasAtc: 0,
     cronogramas: tabelaData,
     minIdade: Number(limparMascara(minIdade)),
     maxIdade: Number(limparMascara(maxIdade)),
