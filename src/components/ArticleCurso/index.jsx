@@ -138,8 +138,9 @@ export default function ArticleCurso({
               Selecione um aluno
             </option>
             {alunos.map((item) => (
-              <option key={item.idAluno} value={item.idAluno}>
-                {item.nome} - {item.matricula !== 0 ? item.matricula : item.rg}
+              <option key={item.aluno} value={item.
+              aluno}>
+                {item.aluno} - {item.nomeCompl}
               </option>
             ))}
             <option value="outro">Outro</option>

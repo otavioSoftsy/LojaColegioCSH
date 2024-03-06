@@ -35,9 +35,7 @@ export default function DetalhesCurso() {
   const [altura, setAltura] = useState("280px");
   const navigate = useNavigate();
 
-  const idCurso = localStorage.getItem("@gdv-idAtividade");
-
-  const cursoPermitido = idCurso === 220;
+  const idCurso = localStorage.getItem("@csh-idAtividade");
 
   useEffect(() => {
     async function getCurso() {
@@ -172,7 +170,7 @@ export default function DetalhesCurso() {
   const slidesPerView = getSlidesPerView(windowWidth);
 
   function salvarCursoCarrinho() {
-    const meuCarrinho = localStorage.getItem("@gdv-itens-carrinho");
+    const meuCarrinho = localStorage.getItem("@csh-itens-carrinho");
 
     let cursosCarrinho = JSON.parse(meuCarrinho) || [];
 
@@ -185,7 +183,7 @@ export default function DetalhesCurso() {
       return;
     }
     cursosCarrinho.push(cursoObj);
-    localStorage.setItem("@gdv-itens-carrinho", JSON.stringify(cursosCarrinho));
+    localStorage.setItem("@csh-itens-carrinho", JSON.stringify(cursosCarrinho));
     toast.success("Adicionado com sucesso!");
     navigate("/carrinho");
   }

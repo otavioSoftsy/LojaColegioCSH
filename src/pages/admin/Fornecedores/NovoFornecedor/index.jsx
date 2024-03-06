@@ -37,7 +37,7 @@ export default function NovoFornecedor() {
   const gateways = [{ value: 1, label: "PagBank" }];
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("@gdv-login-admin"));
+    const user = JSON.parse(localStorage.getItem("@csh-login-admin"));
     setUsuarioCadastro(user.usuario);
   }, []);
 
@@ -346,7 +346,9 @@ export default function NovoFornecedor() {
               value={gatewayPagamento.length > 0 && gatewayPagamento[0]}
               options={gateways}
               className="basic-singl mt-1 mb-4"
-              onChange={(valor) => valor ? setGatewayPagamento([valor]) : setGatewayPagamento([])}
+              onChange={(valor) =>
+                valor ? setGatewayPagamento([valor]) : setGatewayPagamento([])
+              }
               classNamePrefix="select"
               placeholder="Selecione..."
             />

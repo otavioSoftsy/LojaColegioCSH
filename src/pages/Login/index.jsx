@@ -34,7 +34,7 @@ export default function Login() {
             .get(url_base + `clientes/${user.id}`)
             .then((response) => {
               const dados = response.data;
-              localStorage.setItem("@gdv-login-user", JSON.stringify(dados));
+              localStorage.setItem("@csh-login-user", JSON.stringify(dados));
               storageClient(dados);
               setClient(dados);
             })

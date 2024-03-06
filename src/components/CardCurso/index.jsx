@@ -32,13 +32,13 @@ export default function CardCurso({
   
   useEffect(() => {
     if (periodicidade === 'S') {
-      setPerio('Semanal')
+      setPerio('SEMANAL')
     } else if (periodicidade === 'U') {
-      setPerio('Única')
+      setPerio('ÚNICA')
     } else if (periodicidade === 'D') {
-      setPerio('Diária')
+      setPerio('DIÁRIA')
     } else if (periodicidade === 'M') {
-      setPerio('Mensal')
+      setPerio('MENSAL')
     }
     const removerAcentos = (str) => {
       return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -76,7 +76,7 @@ export default function CardCurso({
           <FontAwesomeIcon icon={categorias[0].icone} />
         </div>
       </div>
-      <div className="card-body">
+      <div className="card-body pb-1">
         <p className="card-subtitle text-dark-emphasis">
           {nomesSeparadosPorVirgula}
         </p>
@@ -88,25 +88,19 @@ export default function CardCurso({
             {nomeCurso}
           </p>
         </Link>
-        <p className="card-text fw-light descricao text-secondary text mb-1">
+        <p className="card-text fw-light descricao text-secondary text mb-3">
           {descricao}
         </p>
-        <div className="d-flex flex-column info-card text-dark fw-light">
-          {/* <div className="d-flex mb-1">
-            <span>Horário:</span>
-            <span style={{ fontWeight: "bold", color: "#023e8a" }}>
-              12 ás 14h
-            </span>
-          </div> */}
-          <div className="d-flex col-12 justify-content-between">
-            <span>Duração:</span>
-            <span className="fw-semibold" style={{ color: "#023e8a" }}>
-              {duracao} horas
+        <div className="d-flex info-card text-secondary justify-content-between fw-light">
+          <div className="d-flex flex-column text-center">
+            <span className="span-n-one">DURAÇÃO</span>
+            <span className="fw-semibold badge text-bg-secondary">
+              {duracao} Horas
             </span>
           </div>
-          <div className="d-flex col-12 justify-content-between">
-            <span>{perio}:</span>
-            <span className="fw-semibold" style={{ color: "#023e8a" }}>
+          <div className="d-flex flex-column text-center">
+            <span className="span-n-one">{perio}</span>
+            <span className="fw-semibold badge text-bg-secondary">
             {cronogramas[0].diaSemana || cronogramas[0].diaMes
                 ? cronogramas[0].diaSemana ||
                   cronogramas[0].diaMes.split("-").reverse().join("/")
@@ -115,14 +109,14 @@ export default function CardCurso({
                 " e " + (cronogramas[1].diaSemana || cronogramas[1].diaMes)}
             </span>
           </div>
-          <div className="d-flex col-12 justify-content-between">
-            <span>Mensalidades:</span>
+          <div className="d-flex flex-column text-center">
+            <span className="span-n-one">VALOR</span>
             {valor ? (
-              <span className="fw-semibold" style={{color: "#023e8a" }}>
+              <span className="fw-semibold badge text-bg-secondary">
                 R$ {valor.toFixed(2).replace(".", ",")}
               </span>
             ) : (
-              <span className="fw-semibold" style={{ fontWeight: "bolder", color: "#023e8a" }}>
+              <span className="fw-semibold badge text-bg-secondary" style={{ fontWeight: "bolder"}}>
                 Grátis
               </span>
             )}

@@ -1,8 +1,8 @@
 .cardCurso {
   position: relative;
   width: 22em;
-  min-height: 235px;
-  max-height: 235px;
+  min-height: 245px;
+  max-height: 245px;
   border: none !important;
   text-decoration: none;
 }
@@ -13,8 +13,8 @@
   text-overflow: ellipsis !important;
 }
 .descricao {
-  height: 75px;
-  max-height: 75px;
+  height: 90px;
+  max-height: 90px;
   overflow: hidden;
 }
 .swiper {
@@ -60,8 +60,8 @@
 
 @media screen and (max-width: 767px) {
   .cardCurso {
-    min-height: 187px;
-    max-height: 187px;
+    min-height: 197px;
+    max-height: 197px;
   }
   .swiper {
     padding-left: 0.5em !important;

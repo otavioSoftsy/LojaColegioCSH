@@ -12,13 +12,13 @@ export default function LojaProvider({ children }) {
   const [fornecedor, setFornecedor] = useState(null);
   const [instituicao, setInstituicao] = useState(null);
   const [client, setClient] = useState(
-    JSON.parse(localStorage.getItem("@gdv-login-user"))
+    JSON.parse(localStorage.getItem("@csh-login-user"))
   );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadingAdmin() {
-      const storageUser = localStorage.getItem("@gdv-login-admin");
+      const storageUser = localStorage.getItem("@csh-login-admin");
       if (storageUser && JSON.parse(storageUser).perfil === "COLABORADOR") {
         setColaborador(JSON.parse(storageUser));
         setLoading(false);
@@ -43,27 +43,27 @@ export default function LojaProvider({ children }) {
   }, []);
 
   const setCurso = (id) => {
-    localStorage.setItem("@gdv-idAtividade", id);
+    localStorage.setItem("@csh-idAtividade", id);
   };
 
   function storageUser(data) {
-    localStorage.setItem("@gdv-login-admin", JSON.stringify(data));
+    localStorage.setItem("@csh-login-admin", JSON.stringify(data));
   }
   function dadosPagamentoCartao(data) {
-    localStorage.setItem("@gdv-dados-pagamento", JSON.stringify(data));
+    localStorage.setItem("@csh-dados-pagamento", JSON.stringify(data));
   }
   function storageClient(data) {
-    localStorage.setItem("@gdv-login-user", JSON.stringify(data));
+    localStorage.setItem("@csh-login-user", JSON.stringify(data));
   }
 
   function logoutAdmin() {
-    localStorage.removeItem("@gdv-login-admin");
+    localStorage.removeItem("@csh-login-admin");
     setColaborador(null);
     setFornecedor(null);
     setInstituicao(null);
   }
   function logoutAccount() {
-    localStorage.removeItem("@gdv-login-user");
+    localStorage.removeItem("@csh-login-user");
     setClient(null);
   }
 

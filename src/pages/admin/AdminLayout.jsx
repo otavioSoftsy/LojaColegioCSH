@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import Menu from "../../components/admin/Menu";
+import SidebarMenu from "../../components/admin/Sidebar";
 
 
 export default function AdminLayout() {
   return (
     <>
-      <Menu />
+      <SidebarMenu />
       <div className="container-admin py-4">
         <Outlet />
       </div>

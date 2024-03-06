@@ -33,7 +33,7 @@ export default function Areas() {
   const [selectedIcon, setSelectedIcon] = useState("");
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("@gdv-login-admin"));
+    const user = JSON.parse(localStorage.getItem("@csh-login-admin"));
     setUsuarioCadastro(user.usuario);
     getAreas();
   }, []);
@@ -121,15 +121,15 @@ export default function Areas() {
         setLoading(false);
         toast.success("Cadastrado com sucesso!");
         document.querySelector(".btn-close").click();
-        limpaInputs()
+        limpaInputs();
       })
       .catch((e) => {
-        const erro = e.response.data.error
+        const erro = e.response.data.error;
         console.log(erro);
         setLoading(false);
         toast.error(erro);
         document.querySelector(".btn-close").click();
-        limpaInputs()
+        limpaInputs();
       });
   }
 
@@ -153,7 +153,7 @@ export default function Areas() {
         setCor(cor);
       })
       .catch((e) => {
-        const erro = e.response.data.error
+        const erro = e.response.data.error;
         console.log(erro);
         toast.error("Erro ao buscar categoria.");
       });
@@ -182,15 +182,15 @@ export default function Areas() {
 
         toast.success("Editado com sucesso!");
         document.querySelector(".close2").click();
-        limpaInputs()
+        limpaInputs();
       })
       .catch((e) => {
-        const erro = e.response.data.error
+        const erro = e.response.data.error;
         console.log(erro);
         setLoading(false);
         toast.error(erro);
         document.querySelector(".close2").click();
-        limpaInputs()
+        limpaInputs();
       });
   }
 

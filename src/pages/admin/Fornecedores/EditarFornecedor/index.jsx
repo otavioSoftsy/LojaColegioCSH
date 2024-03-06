@@ -41,7 +41,7 @@ export default function EditarFornecedor() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("@gdv-login-admin"));
+    const user = JSON.parse(localStorage.getItem("@csh-login-admin"));
     setUsuarioCadastro(user.usuario);
     async function getFornecedor() {
       await axios
@@ -53,10 +53,12 @@ export default function EditarFornecedor() {
           setCnpj(dadosFornecedor.cnpj);
           setRazaoSocial(dadosFornecedor.razaoSocial);
           setNomeFantasia(dadosFornecedor.nomeFantasia);
-          setGatewayPagamento([{
-            value: dadosFornecedor.idGateway,
-            label: dadosFornecedor.gatewayPagamento,
-          }]);
+          setGatewayPagamento([
+            {
+              value: dadosFornecedor.idGateway,
+              label: dadosFornecedor.gatewayPagamento,
+            },
+          ]);
           setTelefone(dadosFornecedor.telefone);
           setCelular(dadosFornecedor.celular);
           setEmail(dadosFornecedor.email);
@@ -109,7 +111,8 @@ export default function EditarFornecedor() {
       cnpj: typeof cnpj === "string" ? limparMascara(cnpj) : cnpj,
       razaoSocial: razaoSocial,
       nomeFantasia: nomeFantasia,
-      gatewayPagamento: gatewayPagamento.length > 0 ? gatewayPagamento[0].label : null,
+      gatewayPagamento:
+        gatewayPagamento.length > 0 ? gatewayPagamento[0].label : null,
       idGateway: gatewayPagamento.length > 0 ? gatewayPagamento[0].value : null,
       telefone:
         typeof telefone === "string" ? limparMascara(telefone) : telefone,
@@ -472,7 +475,9 @@ export default function EditarFornecedor() {
                 options={gateways}
                 className="basic-singl mt-1 mb-4"
                 classNamePrefix="select"
-                onChange={(valor) => valor ? setGatewayPagamento([valor]) : setGatewayPagamento([])}
+                onChange={(valor) =>
+                  valor ? setGatewayPagamento([valor]) : setGatewayPagamento([])
+                }
                 placeholder="Selecione..."
               />
             </div>
@@ -531,7 +536,7 @@ export default function EditarFornecedor() {
               />
             </div>
             <div className="col-md-6">
-            <label htmlFor="complemento" className="form-label">
+              <label htmlFor="complemento" className="form-label">
                 Complemento
               </label>
               <input

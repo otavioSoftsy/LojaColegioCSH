@@ -38,8 +38,8 @@ export default function Pagamento() {
   const { client, dadosPagamentoCartao } = useContexts();
 
   async function getResumo(resumo) {
-    const pedido = await localStorage.getItem("@gdv-resumo-compra");
-    const itens = await localStorage.getItem("@gdv-itens-carrinho");
+    const pedido = await localStorage.getItem("@csh-resumo-compra");
+    const itens = await localStorage.getItem("@csh-itens-carrinho");
     const objetoPedido = JSON.parse(pedido);
     const objItens = JSON.parse(itens);
     console.log(objetoPedido);
@@ -51,6 +51,7 @@ export default function Pagamento() {
         resumo ? resumo : objetoPedido
       )
       .then((response) => {
+        console.log(response.data)
         const data = response.data.retorno.pagamentos;
         if (resumo && response.data.retorno.voucherValido) {
           toast.success("Aplicado com sucesso!");
@@ -119,7 +120,7 @@ export default function Pagamento() {
         idCliente: client.idCliente,
         formaPagamento: pagamento,
       };
-      console.log(objeto)
+      console.log(objeto);
       await axios
         .post(
           `https://api-financeiro.sumare.edu.br/api-gdv-pagbank/pagamento/pagbank/pedido`,
@@ -127,7 +128,7 @@ export default function Pagamento() {
         )
         .then(async (response) => {
           const data = response.data.retorno;
-          console.log(response.data)
+          console.log(response.data);
           setLoading(false);
           if (data.urlBoleto) {
             setNumeroBoleto(data.barCode);
@@ -157,15 +158,15 @@ export default function Pagamento() {
                     closeModalPix.current.click();
                   }
                   localStorage.setItem(
-                    "@gdv-resumo-compra",
+                    "@csh-resumo-compra",
                     JSON.stringify(null)
                   );
                   localStorage.setItem(
-                    "@gdv-dados-pagamento",
+                    "@csh-dados-pagamento",
                     JSON.stringify(null)
                   );
                   localStorage.setItem(
-                    "@gdv-itens-carrinho",
+                    "@csh-itens-carrinho",
                     JSON.stringify(null)
                   );
                   setResumo(null);
@@ -199,7 +200,7 @@ export default function Pagamento() {
       voucher: cupom,
     };
     setResumo(novoResumo);
-    localStorage.setItem("@gdv-resumo-compra", JSON.stringify(novoResumo));
+    localStorage.setItem("@csh-resumo-compra", JSON.stringify(novoResumo));
     await getResumo(novoResumo).then(() => {
       setCupom("");
     });
@@ -380,7 +381,9 @@ export default function Pagamento() {
             </div>
           </div>
           <div className="col-11 rounded-5 d-flex flex-column resumo-pagamento mx-auto">
-            <h4 className="fw-semibold mb-0 text-center" style={{color: ''}}>Resumo do pedido</h4>
+            <h4 className="fw-semibold mb-0 text-center" style={{ color: "" }}>
+              Resumo do pedido
+            </h4>
             <hr />
             <span className="d-flex flex-column">
               <div className="d-flex justify-content-between mb-3">

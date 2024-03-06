@@ -1,4 +1,24 @@
-.ulMenu {
+.abracaMenu {
+  position: fixed !important;
+  left: 0;
+  height: 100%;
+  min-height: 100vh;
+  top: 0;
+  color: #f5f5f5;
+  box-shadow: 1px 0px 11px -8px #000;
+  width: 280px !important;
+}
+.abracaMenu ul li a {
+  transition: ease-in-out 0.3s;
+}
+.abracaMenu ul li a:hover {
+  color: #1b1ca1;
+}
+.logoGdv {
+  width: 75%;
+  margin-top: 30px;
+}
+/* .ulMenu {
   text-decoration: none;
   padding: 0%;
   font-size: 18px;
@@ -6,7 +26,7 @@
 
 .ulMenu .active {
   background-color: #e4e4e4;
-  color: #6C757D;
+  color: #1b1ca1;
 }
 
 .ulMenu a {
@@ -19,52 +39,26 @@
   font-size: 1.1em;
   color: #fff;
   flex-direction: row;
-  transition: ease-in-out 0.3s;
+
 }
 .ulMenu a:hover {
   background-color: #e4e4e4;
-  color: #6C757D;
+  color: #1b1ca1;
 }
 
 .ulMenu svg {
   margin-right: 0.5em;
 }
-.logoSumare {
-  width: 70%;
-  margin-top: 30px;
-}
 
-.abracaMenu {
-  position: fixed;
-  left: 0;
-  height: 100%;
-  width: 280px;
-  background: #6C757D;
-  min-height: 100vh;
-  top: 0;
-  color: #fff;
-  text-align: left;
-  padding-left: 15px;
-  box-shadow: 1px 0px 11px -8px #000;
-}
 
 #sair {
   position: absolute;
   width: 251.75px;
   bottom: 15px;
-}
+} */
 
 @media screen and (max-width: 1439px) {
   .abracaMenu {
-    width: 250px;
-  }
-
-  .ulMenu {
-    font-size: 16px;
-  }
-  #sair {
-    position: absolute;
-    width: 223.25px;
-    bottom: 15px;
+    width: 250px !important;
   }
 }

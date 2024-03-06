@@ -27,22 +27,22 @@ export default function Cartao() {
   const [isValidDate, setIsValidDate] = useState(true);
 
   useEffect(() => {
-    const pedido = JSON.parse(localStorage.getItem("@gdv-resumo-compra"));
+    const pedido = JSON.parse(localStorage.getItem("@csh-resumo-compra"));
     const dadosPagamento = JSON.parse(
-      localStorage.getItem("@gdv-dados-pagamento")
+      localStorage.getItem("@csh-dados-pagamento")
     );
     if (dadosPagamento) {
       setDadosPg(dadosPagamento);
     } else {
       return navigate("/");
     }
-    const itens = JSON.parse(localStorage.getItem("@gdv-itens-carrinho"));
+    const itens = JSON.parse(localStorage.getItem("@csh-itens-carrinho"));
     setResumo(pedido);
     setItensCar(itens);
   }, []);
 
   async function handleEncryptCard() {
-    setLoading(true)
+    setLoading(true);
     const cardNumberWithoutSpaces = cardData.cardNumber.replace(/\s/g, "");
 
     const card = await PagSeguro.encryptCard({
@@ -58,21 +58,22 @@ export default function Cartao() {
 
     if (hasErrors) {
       toast.error("Revise os dados do cartão.");
-      setLoading(false)
+      setLoading(false);
       const dados = {
         idCliente: client.idCliente,
-        json: JSON.stringify(card)
-      }
+        json: JSON.stringify(card),
+      };
       await axios
-      .post(
-        `https://api-financeiro.sumare.edu.br/api-gdv-pagbank/pagamento/pagbank/log/criptografia`,
-        dados,
-      {
-        timeout: 5000,
-      }
-      ).then((response) => {
-        console.log(response)
-      })
+        .post(
+          `https://api-financeiro.sumare.edu.br/api-gdv-pagbank/pagamento/pagbank/log/criptografia`,
+          dados,
+          {
+            timeout: 5000,
+          }
+        )
+        .then((response) => {
+          console.log(response);
+        });
     } else {
       const cartao = {
         cartaoCript: encrypted,
@@ -85,7 +86,6 @@ export default function Cartao() {
   }
 
   async function fazerPagamento(cartao) {
-
     const objeto = {
       itens: resumo.itens,
       voucher: resumo.voucher,
@@ -101,17 +101,17 @@ export default function Cartao() {
       )
       .then((response) => {
         if (response.data.sucesso) {
-          setLoading(false)
+          setLoading(false);
           navigate("/pg-sucesso");
-          localStorage.setItem("@gdv-resumo-compra", JSON.stringify(null));
-          localStorage.setItem("@gdv-dados-pagamento", JSON.stringify(null));
-          localStorage.setItem("@gdv-itens-carrinho", JSON.stringify(null));
+          localStorage.setItem("@csh-resumo-compra", JSON.stringify(null));
+          localStorage.setItem("@csh-dados-pagamento", JSON.stringify(null));
+          localStorage.setItem("@csh-itens-carrinho", JSON.stringify(null));
           setDadosPg(null);
           setResumo(null);
           setItensCar(null);
         } else {
-          setLoading(false)
-          console.log(response)
+          setLoading(false);
+          console.log(response);
           toast.error("Erro ao efetuar pagamento.");
         }
       });
@@ -153,11 +153,11 @@ export default function Cartao() {
   };
   const handleBlur = () => {
     const isValid = /^[0-9]{4}$/.test(cardData.expYear);
-    if(!isValid) {
-      setIsValidDate(false)
-      toast.error('Data inválida!')
+    if (!isValid) {
+      setIsValidDate(false);
+      toast.error("Data inválida!");
     } else {
-      setIsValidDate(true)
+      setIsValidDate(true);
     }
   };
 
@@ -205,12 +205,16 @@ export default function Cartao() {
                       autoComplete="off"
                       name="expirationDate"
                       placeholder="00/0000"
-                      className={!isValidDate && 'border-danger'}
+                      className={!isValidDate && "border-danger"}
                       value={cardData.expirationDate}
                       onChange={handleInputChange}
                       onBlur={handleBlur}
                     />
-                    {!isValidDate && <span className="text-danger mt-1 fs-6">Formato inválido.</span>}
+                    {!isValidDate && (
+                      <span className="text-danger mt-1 fs-6">
+                        Formato inválido.
+                      </span>
+                    )}
                   </label>
                   <label>
                     CVV

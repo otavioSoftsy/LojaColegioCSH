@@ -39,7 +39,7 @@ export default function Desconto() {
   }
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("@gdv-login-admin"));
+    const user = JSON.parse(localStorage.getItem("@csh-login-admin"));
     setUsuarioCadastro(user.usuario);
     getDescontos();
   }, []);
@@ -204,7 +204,7 @@ export default function Desconto() {
       ? new Date(dataInicio)
       : new Date();
 
-      dataInicioSelecionada.setHours(0, 0, 0, 0);
+    dataInicioSelecionada.setHours(0, 0, 0, 0);
     if (dataInicioSelecionada < dataAtual) {
       toast.error("A data de ativação não pode ser menor que a data atual.");
       setLoading(false);

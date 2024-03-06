@@ -29,7 +29,7 @@ export default function DadosUsuario() {
   const [isFormDirty, setIsFormDirty] = useState(false);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("@gdv-login-user"));
+    const user = JSON.parse(localStorage.getItem("@csh-login-user"));
 
     async function getDados() {
       await axios
@@ -115,7 +115,9 @@ export default function DadosUsuario() {
     <div className="container">
       <div className="content-user">
         <form onSubmit={handleSubmit}>
-          <h2 className="text-center">Minha conta</h2>
+          <h2 className="text-center" style={{ color: "#F5B45D" }}>
+            Minha conta
+          </h2>
           <p className="text-center">
             Edite as configurações da sua conta e altere sua senha aqui.
           </p>

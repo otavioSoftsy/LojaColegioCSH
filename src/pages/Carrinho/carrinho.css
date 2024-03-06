@@ -1,7 +1,9 @@
-#carrinho h2,
-#carrinho h4,
-#carrinho h5 {
-  color: #3b3b3b !important;
+.title-carrinho h2 {
+  color: #F5B45D !important;
+}
+
+.itens-resumo h5, p {
+  color: #5C636A;
 }
 .carrinho .title-resumo {
   color: #F5B45D !important;

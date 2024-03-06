@@ -53,7 +53,7 @@ export default function FormCurso() {
   const animatedComponents = makeAnimated();
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("@gdv-login-admin"));
+    const user = JSON.parse(localStorage.getItem("@csh-login-admin"));
     setUsuarioCadastro(user.usuario);
 
     async function getAreas() {
@@ -129,7 +129,7 @@ export default function FormCurso() {
     if (periodicidade === "U") {
       const novaTabelaDataAtualizada = novaTabelaData.map((item) => ({
         ...item,
-        diaMes: dataUnica
+        diaMes: dataUnica,
       }));
       setTabelaData(novaTabelaDataAtualizada);
     } else {
@@ -272,50 +272,54 @@ export default function FormCurso() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    
+
     if (dataUnica === null) {
       validaDataIni();
       validaDataFim();
     }
-  
+
     if (!condicaoAtendida) {
       setLoading(true);
-  
+
       try {
-        const responseCurso = await axios.post(url_base + "curso/incluir", objeto);
+        const responseCurso = await axios.post(
+          url_base + "curso/incluir",
+          objeto
+        );
         const idCurso = responseCurso.data.idCurso;
-  
+
         const promises = tabelaParceiros.map(async (item) => {
-          console.log(item)
+          console.log(item);
           try {
             const dataFornecedor = {
               fornecedorId: Number(item.parceiro),
               cursoId: idCurso,
               percentualSplit: parseFloat(item.split),
             };
-  
+
             await axios.post(url_base + "fornecedoresCurso", dataFornecedor);
           } catch (error) {
-            console.error(`Erro ao cadastrar fornecedor para ${item.parceiro}: ${error.message}`);
+            console.error(
+              `Erro ao cadastrar fornecedor para ${item.parceiro}: ${error.message}`
+            );
             throw error;
           }
         });
-  
+
         await Promise.all(promises);
-  
+
         toast.success("Cadastrado com sucesso!");
         navigate("/admin/atividades");
       } catch (error) {
         setLoading(false);
         toast.error("Erro ao cadastrar curso.");
         console.log(error);
-        console.log(objeto)
+        console.log(objeto);
       } finally {
         setLoading(false);
       }
     }
   }
-  
 
   function handleModalidade(valor) {
     setModalidade(valor);
@@ -325,19 +329,21 @@ export default function FormCurso() {
   }
 
   function handlePeriodicidade(valor) {
-    setTabelaData([{ diaSemana: null, horaInicio: "", horaFim: "", diaMes: null }])
+    setTabelaData([
+      { diaSemana: null, horaInicio: "", horaFim: "", diaMes: null },
+    ]);
     if (valor.value === "U") {
-      setDataInicio('');
-      setDataFim('');
+      setDataInicio("");
+      setDataFim("");
     } else {
-      setDataUnica('');
-      setDataInicio('');
-      setDataFim('');
+      setDataUnica("");
+      setDataInicio("");
+      setDataFim("");
     }
   }
   function handleCheckedGratis(valor) {
     setGratis(valor);
-      setValorCurso(null);
+    setValorCurso(null);
   }
   function handleEmParceria(valor) {
     setEmParceria(valor);
@@ -629,7 +635,7 @@ export default function FormCurso() {
             onChange={(e) => setCargaHorariaHomologada(e.target.value)}
           />
         </div> */}
-         <div className="col-md-6">
+        <div className="col-md-6">
           <label htmlFor="nVagas" className="form-label">
             N° de vagas
           </label>
@@ -672,7 +678,7 @@ export default function FormCurso() {
             }}
           />
         </div>
-        
+
         <div className="col-md-6">
           <label htmlFor="maxIdade" className="form-label">
             Até:
@@ -750,7 +756,6 @@ export default function FormCurso() {
             </label>
           </div>
         </div>
-       
 
         <div className="col-md-6">
           <label htmlFor="destaque" className="form-label">

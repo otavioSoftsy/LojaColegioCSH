@@ -12,7 +12,6 @@ import "./carrinho.css";
 
 export default function Carrinho() {
   const [cursos, setCursos] = useState([]);
-  const [subtotal, setSubtotal] = useState(0);
   const btnModalCadastro = useRef(null);
   const [alunos, setAlunos] = useState([]);
   const [total, setTotal] = useState(0);
@@ -29,7 +28,7 @@ export default function Carrinho() {
   const articleCursoRef = useRef();
 
   useEffect(() => {
-    const meuCarrinho = localStorage.getItem("@gdv-itens-carrinho");
+    const meuCarrinho = localStorage.getItem("@csh-itens-carrinho");
     const carrinhoItens = JSON.parse(meuCarrinho) || [];
     setCursos(carrinhoItens);
 
@@ -37,7 +36,6 @@ export default function Carrinho() {
       (acc, curso) => acc + curso.valor * curso.quantidade,
       0
     );
-    setSubtotal(subtotalCalculado);
 
     const desconto = 0;
     const totalCalculado = subtotalCalculado - desconto;
@@ -50,16 +48,17 @@ export default function Carrinho() {
   async function getAlunos() {
     await axios
       .get(
-        `https://colegiosuperhumanos.com.br/api-csh-alunos/listaAlunosCsh?cpf=${
+        `https://api-captacao.sumare.edu.br/api-csh-alunos/listaAlunosCsh?cpf=${
           client ? client.cpf : null
         }`
       )
       .then((response) => {
-        if (response.data.sucesso) {
-          setAlunos(response.data.retorno);
-          console.log(response.data.retorno);
+        if (response.status === 200) {
+          setAlunos(response.data);
+          console.log(response);
         } else {
-          setAlunos("Erro ao buscar alunos.");
+          console.log(response);
+          toast.error("Erro ao buscar alunos.");
         }
       });
   }
@@ -74,8 +73,6 @@ export default function Carrinho() {
         (acc, curso) => acc + curso.valor * curso.quantidade,
         0
       );
-
-      setSubtotal(subtotalCalculado);
 
       const desconto = subtotalCalculado * 0;
       const totalCalculado = subtotalCalculado - desconto;
@@ -94,14 +91,12 @@ export default function Carrinho() {
     setCursos((cursosAntigos) => {
       const filtroCursos = cursosAntigos.filter((item) => item.id !== id);
 
-      localStorage.setItem("@gdv-itens-carrinho", JSON.stringify(filtroCursos));
+      localStorage.setItem("@csh-itens-carrinho", JSON.stringify(filtroCursos));
 
       const subtotalCalculado = filtroCursos.reduce(
         (acc, curso) => acc + curso.valor * curso.quantidade,
         0
       );
-
-      setSubtotal(subtotalCalculado);
 
       const desconto = subtotalCalculado * 0;
       const totalCalculado = subtotalCalculado - desconto;
@@ -113,9 +108,8 @@ export default function Carrinho() {
 
   function limparCarrinho() {
     setCursos([]);
-    localStorage.removeItem("@gdv-itens-carrinho");
+    localStorage.removeItem("@csh-itens-carrinho");
 
-    setSubtotal(0);
     setTotal(0);
   }
 
@@ -192,8 +186,8 @@ export default function Carrinho() {
         voucher: null,
         dtAceiteTermos: new Date(),
       };
-      localStorage.setItem("@gdv-itens-carrinho", JSON.stringify(cursos));
-      localStorage.setItem("@gdv-resumo-compra", JSON.stringify(resumo));
+      localStorage.setItem("@csh-itens-carrinho", JSON.stringify(cursos));
+      localStorage.setItem("@csh-resumo-compra", JSON.stringify(resumo));
 
       navigate("/carrinho/pagamento");
     } else {

@@ -57,7 +57,7 @@ export default function EditarCurso() {
   const { id } = useParams();
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("@gdv-login-admin"));
+    const user = JSON.parse(localStorage.getItem("@csh-login-admin"));
     setUsuarioCadastro(user.usuario);
 
     async function getAreas() {
@@ -196,9 +196,7 @@ export default function EditarCurso() {
     maxIdade: Number(limparMascara(maxIdade)),
   };
 
-  areasSelecionadas.map(() => {
-    
-  })
+  areasSelecionadas.map(() => {});
 
   const handleSelectChange = (selectedOptions) => {
     const areasSelecionadasAtualizadas = selectedOptions.map((option) => ({
@@ -229,7 +227,9 @@ export default function EditarCurso() {
   }
 
   function handlePeriodicidade(valor) {
-    setTabelaData([{ diaSemana: null, horaInicio: "", horaFim: "", diaMes: null }])
+    setTabelaData([
+      { diaSemana: null, horaInicio: "", horaFim: "", diaMes: null },
+    ]);
     if (valor.value === "U") {
       setDataInicio(null);
       setDataFim(null);
@@ -241,31 +241,38 @@ export default function EditarCurso() {
   }
   async function handleEmParceria(valor) {
     setEmParceria(valor);
-  
-    if (valor === 'N') {
+
+    if (valor === "N") {
       const tabelaAtualizada = [];
 
       for (const item of dadosApiParceiros) {
         if (item.idFornecedorCurso) {
           try {
-            await axios.delete(url_base + "fornecedoresCurso/" + item.idFornecedorCurso);
-  
+            await axios.delete(
+              url_base + "fornecedoresCurso/" + item.idFornecedorCurso
+            );
+
             tabelaAtualizada.push({
               split: "",
               parceiro: null,
             });
           } catch (error) {
-            console.error(`Erro ao fazer a requisição DELETE para ${item.idFornecedorCurso}:`, error);
+            console.error(
+              `Erro ao fazer a requisição DELETE para ${item.idFornecedorCurso}:`,
+              error
+            );
           }
         }
       }
-  
+
       setTabelaParceiros(tabelaAtualizada);
     } else {
-      setTabelaParceiros([{
-        split: "",
-        parceiro: null,
-      }]);
+      setTabelaParceiros([
+        {
+          split: "",
+          parceiro: null,
+        },
+      ]);
     }
   }
 
@@ -273,7 +280,7 @@ export default function EditarCurso() {
     if (periodicidade === "U") {
       const novaTabelaDataAtualizada = novaTabelaData.map((item) => ({
         ...item,
-        diaMes: dataUnica
+        diaMes: dataUnica,
       }));
       setTabelaData(novaTabelaDataAtualizada);
     } else {
@@ -776,7 +783,7 @@ export default function EditarCurso() {
               onChange={(e) => setCargaHorariaHomologada(e.target.value)}
             />
           </div> */}
-          
+
           <div className="col-md-6">
             <label htmlFor="minVagas" className="form-label">
               Mínimo de Vagas
@@ -909,7 +916,6 @@ export default function EditarCurso() {
               }}
             />
           </div>
-          
 
           <div className="col-md-6">
             <label htmlFor="destaque" className="form-label">
