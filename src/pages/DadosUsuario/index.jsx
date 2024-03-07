@@ -3,8 +3,10 @@ import axios from "axios";
 import ReactInputMask from "react-input-mask";
 import { toast } from "react-toastify";
 import { url_base } from "../../services/apis";
-import "./dados.css";
 import useContexts from "../../hooks/useContexts";
+import { NavLink } from "react-router-dom";
+import InputPasswordToggle from "../../components/InputPasswordToggle";
+import "./dados.css";
 
 export default function DadosUsuario() {
   const { client } = useContexts();
@@ -24,9 +26,13 @@ export default function DadosUsuario() {
     municipio: null,
     endereco: null,
     numero: null,
+    senha: null,
     complemento: null,
   });
   const [isFormDirty, setIsFormDirty] = useState(false);
+  const [alteraSenha, setAlteraSenha] = useState("N");
+  const [senhaConfirm, setSenhaConfirm] = useState("");
+  const { clientLogado, logoutAccount } = useContexts();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("@csh-login-user"));
@@ -88,6 +94,36 @@ export default function DadosUsuario() {
     }
     return valor;
   }
+  const handleAlteraSenha = (event) => {
+    const isChecked = event.target.checked;
+
+    const novoEstado = isChecked ? "S" : "N";
+
+    setAlteraSenha(novoEstado);
+  };
+
+  async function alteraSenhaUsuario() {
+    const formDataLimpo = {};
+
+    for (const key in formData) {
+      if (Object.hasOwnProperty.call(formData, key)) {
+        formDataLimpo[key] = limparMascara(formData[key], key);
+      }
+    }
+
+    if (senhaConfirm !== formData.senha) {
+      return toast.error("Senhas não conferem!");
+    }
+
+    await axios
+      .put(url_base + `clientes/${client.idCliente}`, formDataLimpo)
+      .then(() => {
+        toast.success("Alterado com sucesso.");
+      })
+      .catch(() => {
+        toast.error("Erro ao alterar senha.");
+      });
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -115,9 +151,7 @@ export default function DadosUsuario() {
     <div className="container">
       <div className="content-user">
         <form onSubmit={handleSubmit}>
-          <h2 className="text-center" style={{ color: "#F5B45D" }}>
-            Minha conta
-          </h2>
+          <h2 className="text-center">Minha conta</h2>
           <p className="text-center">
             Edite as configurações da sua conta e altere sua senha aqui.
           </p>
@@ -137,36 +171,53 @@ export default function DadosUsuario() {
               readOnly
             />
           </div>
-          {/* <div className="mb-3">
+
+          <div className="mb-3 d-flex gap-3">
             <label htmlFor="senha" className="form-label">
-              Senha
+              Alterar senha atual?
             </label>
-            <input
-              type="password"
-              className="form-control form-control-lg"
+            <div className="form-check form-switch">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="alteraSenha"
+                onChange={(e) => handleAlteraSenha(e)}
+              />
+            </div>
+          </div>
+          <div className="mb-3">
+            <InputPasswordToggle
               id="senha"
-              placeholder="Digite a senha atual"
+              value={formData.senha}
+              disabled={alteraSenha}
+              placeholder='Digite a senha'
+              onChange={(e) =>
+                setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  senha: e.target.value,
+                }))
+              }
             />
           </div>
           <div className="mb-3">
-            <input
-              type="password"
-              className="form-control form-control-lg"
+            <InputPasswordToggle
+              disabled={alteraSenha}
               id="confirmSenha"
-              placeholder="Digite a nova senha"
+              value={senhaConfirm}
+              placeholder='Confirme a senha'
+              onChange={(e) => setSenhaConfirm(e.target.value)}
             />
           </div>
-          <div className="mb-3">
-            <input
-              type="password"
-              className="form-control form-control-lg"
-              id="confirmSenha"
-              placeholder="Confirme a nova senha"
-            />
-          </div>
-          <button type="button" className="btn btn-secondary mb-3">
+          <button
+            type="button"
+            id="btn-altera-senha"
+            disabled={alteraSenha === "N"}
+            className="btn btn-secondary mb-3"
+            onClick={alteraSenhaUsuario}
+          >
             Alterar senha
-          </button> */}
+          </button>
+
           <div className="mt-2">
             <span className="form-text fs-5 text">Dados pessoais</span>
             <hr className="mt-2" />
@@ -382,13 +433,22 @@ export default function DadosUsuario() {
               onChange={handleInputChange}
             />
           </div>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={!isFormDirty}
-          >
-            Salvar alterações
-          </button>
+          <div className="col-12 btns-minha-conta">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={!isFormDirty}
+            >
+              Salvar alterações
+            </button>
+            {clientLogado && (
+              <NavLink to="/minha-conta/entrar" onClick={logoutAccount}>
+                <button type="submit" className="btn btn-danger">
+                  Sair da conta
+                </button>
+              </NavLink>
+            )}
+          </div>
         </form>
       </div>
     </div>

@@ -3,12 +3,11 @@ import ReactInputMask from "react-input-mask";
 import { FcSimCardChip } from "react-icons/fc";
 import { PagSeguro } from "../../hooks/pagSeguro";
 import { toast } from "react-toastify";
-import { public_key } from "../../services/pagBank";
+import { api_financeiro, public_key } from "../../services/pagBank";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useContexts from "../../hooks/useContexts";
 import "./cartao.css";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 
 export default function Cartao() {
   const [cardData, setCardData] = useState({
@@ -65,7 +64,7 @@ export default function Cartao() {
       };
       await axios
         .post(
-          `https://api-financeiro.sumare.edu.br/api-gdv-pagbank/pagamento/pagbank/log/criptografia`,
+          api_financeiro + `/pagamento/pagbank/log/criptografia`,
           dados,
           {
             timeout: 5000,
@@ -96,7 +95,7 @@ export default function Cartao() {
     };
     await axios
       .post(
-        `https://api-financeiro.sumare.edu.br/api-gdv-pagbank/pagamento/pagbank/pedido`,
+        api_financeiro + `/pagamento/pagbank/pedido`,
         objeto
       )
       .then((response) => {

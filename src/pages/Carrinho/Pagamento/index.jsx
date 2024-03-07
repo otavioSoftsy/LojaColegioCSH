@@ -1,15 +1,16 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-// import { saveAs } from "file-saver";
 import { FaQrcode, FaRegCreditCard } from "react-icons/fa";
 import { FaArrowLeftLong, FaBarcode } from "react-icons/fa6";
-// import QRCode from "qrcode.react";
 import Barcode from "react-barcode";
 import { MdContentCopy, MdDownload } from "react-icons/md";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import useContexts from "../../../hooks/useContexts";
+import {api_financeiro} from '../../../services/pagBank';
+
 import "./pagamento.css";
+
 export default function Pagamento() {
   const [pagamento, setPagamento] = useState("RECORRENCIA");
   const [resumo, setResumo] = useState(null);
@@ -47,7 +48,7 @@ export default function Pagamento() {
     setItens(objItens);
     await axios
       .post(
-        `https://api-financeiro.sumare.edu.br/api-gdv-pagbank/forma/pagamento/valores`,
+        api_financeiro + `/forma/pagamento/valores`,
         resumo ? resumo : objetoPedido
       )
       .then((response) => {
@@ -123,7 +124,7 @@ export default function Pagamento() {
       console.log(objeto);
       await axios
         .post(
-          `https://api-financeiro.sumare.edu.br/api-gdv-pagbank/pagamento/pagbank/pedido`,
+          api_financeiro + `/pagamento/pagbank/pedido`,
           objeto
         )
         .then(async (response) => {
@@ -146,7 +147,7 @@ export default function Pagamento() {
             const checkPaymentStatus = async () => {
               try {
                 const response = await axios.get(
-                  `https://api-financeiro.sumare.edu.br/api-gdv-pagbank/pedido/status?idPedido=${data.idPedidoLoja}`,
+                  api_financeiro + `/pedido/status?idPedido=${data.idPedidoLoja}`,
                   objeto
                 );
 

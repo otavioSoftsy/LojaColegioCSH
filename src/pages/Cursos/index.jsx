@@ -196,7 +196,7 @@ export default function Cursos() {
       <div className="title-cursos">
         <div className="d-flex row-selects justify-content-between">
           <h2 className="mb-0" style={{color: '#F5B45D'}}>
-            {totalCursos} Atividades disponíveis
+            Atividades disponíveis
           </h2>
           <div className="selects-cursos d-flex gap-3">
             <Select

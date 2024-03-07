@@ -32,8 +32,8 @@
 
 .card .area {
   position: absolute;
-  top: -13px;
-  right: -13px;
+  top: -16px;
+  right: -16px;
 }
 
 .area .area-icon-card {
@@ -60,19 +60,16 @@
 
 @media screen and (max-width: 767px) {
   .cardCurso {
-    min-height: 197px;
-    max-height: 197px;
+    width: 95%;
+    min-height: 217px;
+    max-height: 217px;
+    min-width: 355px;
   }
   .swiper {
     padding-left: 0.5em !important;
   }
   .cardCurso .nomeCurso {
     font-size: 14px !important;
-  }
-  .descricao {
-    height: 50px;
-    max-height: 50px;
-    overflow: hidden;
   }
   .info-card {
     font-size: 12px;
@@ -81,9 +78,13 @@
   .cardCurso .card-body p {
     font-size: 12px;
   }
+  .cardCurso .card-body {
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+  }
   .card .area {
     position: absolute;
-    top: -6px;
+    top: -9px;
     right: -10px;
   }
   .area .area-icon-card {

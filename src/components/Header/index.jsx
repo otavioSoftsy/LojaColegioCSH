@@ -1,6 +1,6 @@
 import Logo from "../../assets/logo-sumare.png";
-import "./header.css";
-import { MdLogout, MdSearch } from "react-icons/md";
+
+import { MdSearch } from "react-icons/md";
 import {
   FiUser,
   FiShoppingCart,
@@ -12,13 +12,14 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { RiGraduationCapLine } from "react-icons/ri";
 import { useState } from "react";
 import useContexts from "../../hooks/useContexts";
+import "./header.css";
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState("");
   const [openSidebar, setOpenSidebar] = useState(false);
   const navigate = useNavigate();
 
-  const { clientLogado, logoutAccount } = useContexts();
+  const { clientLogado } = useContexts();
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -122,12 +123,6 @@ export default function Header() {
               <span>Login</span>
             )}
           </NavLink>
-          {clientLogado && (
-            <NavLink to="/minha-conta/entrar" onClick={logoutAccount}>
-              <MdLogout size={35} />
-              <span>Sair da conta</span>
-            </NavLink>
-          )}
         </nav>
       </div>
     </header>

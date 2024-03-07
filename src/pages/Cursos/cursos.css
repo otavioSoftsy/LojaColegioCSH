@@ -35,19 +35,7 @@
 
 @media screen and (max-width: 767px) {
   .area-cursos .placeholder-wave {
-    height: 187px;
-  }
-  .area-cursos .cardCurso {
-    width: 95%;
-    height: 180px !important;
-  }
-  .area-cursos .cardCurso .card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .area-cursos .cardCurso .descricao {
-    max-height: 55px;
+    height: 217px;
   }
   .row-selects {
     align-items: center;
@@ -89,22 +77,17 @@
   }
   .row-selects .select-cursos {
     width: 90px;
-    height: 30px !important;
     font-size: 10px !important;
     padding: 0 !important;
   }
   .react-select-container {
     height: 30px !important;
   }
-  .css-1memfyi-control { 
+  .css-1d8pfek-control { 
     min-height: 22px !important;
     max-height: 22px !important;
   }
-  .css-1jbgy13-control {
-    min-height: 22px !important;
-    max-height: 22px !important;
-  }
-  .css-1wjsols-control { 
+  .css-l5693l-control {
     min-height: 22px !important;
     max-height: 22px !important;
   }

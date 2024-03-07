@@ -3,7 +3,10 @@
   display: flex;
   justify-content: center;
 }
-
+.btns-minha-conta {
+  display: flex;
+  justify-content: space-between;
+}
 .uf-minha-conta {
   padding-left: 1em;
 }
@@ -28,10 +31,18 @@
   .content-user {
     padding: 4em 0;
   }
+  .content-user #btn-altera-senha {
+    width: 100%;
+  }
   .content-user form p {
     display: none;
   }
-  .content-user form .btn {
+  .btns-minha-conta {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5em;
+  }
+  .btns-minha-conta button {
     width: 100%;
   }
 }

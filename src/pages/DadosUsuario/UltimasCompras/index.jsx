@@ -3,6 +3,7 @@ import CardPedido from "../../../components/CardPedido";
 import "./UltimasCompras.css";
 import axios from "axios";
 import useContexts from "../../../hooks/useContexts";
+import { api_financeiro } from "../../../services/pagBank";
 
 export default function UltimasCompras() {
   const { client } = useContexts();
@@ -14,7 +15,7 @@ export default function UltimasCompras() {
       setLoading(true)
       await axios
         .get(
-          `https://api-financeiro.sumare.edu.br/api-gdv-pagbank/pedido/cliente/listar?idCliente=${client.idCliente}`
+          api_financeiro + `/pedido/cliente/listar?idCliente=${client.idCliente}`
         )
         .then((response) => {
           const dados = response.data;

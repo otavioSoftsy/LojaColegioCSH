@@ -120,8 +120,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0px 0px 12px 0px #040404;
-    background-color: #1B1CA1;
+    box-shadow: 0px 0px 8px 0px #636363;
+    background-color: #F5B45D;
     position: fixed;
     top: 0;
     z-index: 999;
