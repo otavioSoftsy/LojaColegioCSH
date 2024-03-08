@@ -274,17 +274,17 @@ export default function DetalhesCurso() {
                 ) : (
                   <>
                     {cursoObj.valor !== null ? (
-                      <div>
+                      <div className="d-flex flex-column">
                         <p
                           className="text-secondary p1 fw-semibold"
                           style={{
                             margin: "0 0 -0.5em 0",
                           }}
                         >
-                          MENSALIDADES
+                          VALOR ANUAL
                         </p>
                         <p
-                          className="p2 mb-0 fw-light"
+                          className="p2 fw-light"
                           style={{ color: `${cor}` }}
                         >
                           DE{" "}
@@ -292,6 +292,9 @@ export default function DetalhesCurso() {
                             R$ {cursoObj.valor?.toFixed(2).replace(".", ",")}
                           </span>
                         </p>
+                        <span className="p4 fw-semibold text-secondary">
+                            EM ATÉ 10X.
+                          </span>
                       </div>
                     ) : (
                       <span
@@ -299,7 +302,7 @@ export default function DetalhesCurso() {
                         style={{ color: `${cor}` }}
                       >
                         {" "}
-                        Curso Gratuito! Garanta já o seu!
+                        Atividade Gratuita! Garanta já a sua!
                       </span>
                     )}
                   </>

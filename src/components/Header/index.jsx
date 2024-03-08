@@ -1,13 +1,7 @@
-import Logo from "../../assets/logo-sumare.png";
+import Logo from "../../assets/logo-csh.png";
 
 import { MdSearch } from "react-icons/md";
-import {
-  FiUser,
-  FiShoppingCart,
-  FiHome,
-  FiMenu,
-  FiX,
-} from "react-icons/fi";
+import { FiUser, FiShoppingCart, FiHome, FiMenu, FiX } from "react-icons/fi";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { RiGraduationCapLine } from "react-icons/ri";
 import { useState } from "react";
@@ -48,7 +42,7 @@ export default function Header() {
       >
         <FiMenu onClick={toggleSidebar} size={28} color="#f8f8f8" />
         <Link to="/">
-          <img className="logo-sumare" src={Logo}></img>
+          <img className="logo-csh" src={Logo}></img>
         </Link>
         <div id="d-none">
           <FiMenu size={26} color="#f8f8f8" />
@@ -66,7 +60,7 @@ export default function Header() {
           className={`${openSidebar ? "visivel" : "hiden"} ms-auto`}
         />
         <Link to="/">
-          <img className="logo-sumare" src={Logo}></img>
+          <img className="logo-csh" src={Logo}></img>
         </Link>
         <nav>
           <form className="search-form" onSubmit={handleSearch}>
@@ -117,11 +111,7 @@ export default function Header() {
             activeClassName="active"
           >
             <FiUser size={35} />
-            {clientLogado ? (
-              <span>Minha conta</span>
-            ) : (
-              <span>Login</span>
-            )}
+            {clientLogado ? <span>Minha conta</span> : <span>Login</span>}
           </NavLink>
         </nav>
       </div>

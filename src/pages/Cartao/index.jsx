@@ -18,6 +18,7 @@ export default function Cartao() {
     cvv: "",
   });
   const [dadosPg, setDadosPg] = useState(null);
+  const [parcela, setParcela] = useState("");
   const [resumo, setResumo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [itensCar, setItensCar] = useState([]);
@@ -63,13 +64,9 @@ export default function Cartao() {
         json: JSON.stringify(card),
       };
       await axios
-        .post(
-          api_financeiro + `/pagamento/pagbank/log/criptografia`,
-          dados,
-          {
-            timeout: 5000,
-          }
-        )
+        .post(api_financeiro + `/pagamento/pagbank/log/criptografia`, dados, {
+          timeout: 5000,
+        })
         .then((response) => {
           console.log(response);
         });
@@ -94,10 +91,7 @@ export default function Cartao() {
       cartaoCredito: cartao,
     };
     await axios
-      .post(
-        api_financeiro + `/pagamento/pagbank/pedido`,
-        objeto
-      )
+      .post(api_financeiro + `/pagamento/pagbank/pedido`, objeto)
       .then((response) => {
         if (response.data.sucesso) {
           setLoading(false);
@@ -203,7 +197,6 @@ export default function Cartao() {
                       type="text"
                       autoComplete="off"
                       name="expirationDate"
-                      placeholder="00/0000"
                       className={!isValidDate && "border-danger"}
                       value={cardData.expirationDate}
                       onChange={handleInputChange}
@@ -259,6 +252,66 @@ export default function Cartao() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <h2>Dados de Pagamento</h2>
+          <div className="custom-form2">
+            <div className="col-12 d-flex justify-content-between">
+              <label className="col-6">
+                Parcela
+                <select
+                  name="parcela"
+                  value={parcela}
+                  style={{ outline: "none" }}
+                  onChange={(e) => setParcela(e.target.value)}
+                  required
+                >
+                  <option selected value="" disabled>
+                    Selecione a Parcela
+                  </option>
+                  <option value="1">
+                    Em até 1x de R${dadosPg.valorComDesconto.toFixed(2).replace(".", ",")}
+                  </option>
+                  <option value="2">
+                    Em até 2x de R${(dadosPg.valorComDesconto / 2).toFixed(2).replace(".", ",")}
+                  </option>
+                  <option value="3">
+                    Em até 3x de R${(dadosPg.valorComDesconto / 3).toFixed(2).replace(".", ",")}
+                  </option>
+                  <option value="4">
+                    Em até 4x de R${(dadosPg.valorComDesconto / 4).toFixed(2).replace(".", ",")}
+                  </option>
+                  <option value="5">
+                    Em até 5x de R${(dadosPg.valorComDesconto / 5).toFixed(2).replace(".", ",")}
+                  </option>
+                  <option value="6">
+                    Em até 6x de R${(dadosPg.valorComDesconto / 6).toFixed(2).replace(".", ",")}
+                  </option>
+                  <option value="7">
+                    Em até 7x de R${(dadosPg.valorComDesconto / 7).toFixed(2).replace(".", ",")}
+                  </option>
+                  <option value="8">
+                    Em até 8x de R${(dadosPg.valorComDesconto / 8).toFixed(2).replace(".", ",")}
+                  </option>
+                  <option value="9">
+                    Em até 9x de R${(dadosPg.valorComDesconto / 9).toFixed(2).replace(".", ",")}
+                  </option>
+                  <option value="10">
+                    Em até 10x de R${(dadosPg.valorComDesconto / 10).toFixed(2).replace(".", ",")}
+                  </option>
+                </select>
+              </label>
+              <label className="col-5">
+                Total
+                <input
+                  type="text"
+                  autoComplete="off"
+                  readOnly
+                  value={dadosPg !== null && parcela
+                    ? 'R$' + dadosPg.valorComDesconto.toFixed(2).replace(".", ",")
+                    : ""}
+                />
+              </label>
             </div>
           </div>
         </div>

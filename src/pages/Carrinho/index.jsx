@@ -207,26 +207,30 @@ export default function Carrinho() {
         <h2 className="mb-0">Meu carrinho</h2>
 
         <div className="d-flex gap-3">
-          <Link
-            className="btn btn-sm rounded-pill btn-secondary text-white px-3 d-flex align-items-center justify-content-center"
-            to="/minha-conta/historico-de-compras"
-          >
-            <MdOutlineAccessTime className="me-2" size={22} />
-            Histórico de compras
-          </Link>
-          <Link
-            className="btn btn-sm rounded-pill btn-danger px-3 d-flex align-items-center justify-content-center"
-            onClick={limparCarrinho}
-          >
-            <FiShoppingCart size={20} className="me-2" />
-            Limpar carrinho
-          </Link>
+        {clientLogado && (
+            <Link
+              className="btn btn-sm rounded-pill btn-secondary text-white px-3 d-flex align-items-center justify-content-center"
+              to="/minha-conta/historico-de-compras"
+            >
+              <MdOutlineAccessTime className="me-2" size={22} />
+              Histórico de compras
+            </Link>
+          )}
+          {cursos.length !== 0 && (
+            <Link
+              className="btn btn-sm rounded-pill btn-danger px-3 d-flex align-items-center justify-content-center"
+              onClick={limparCarrinho}
+            >
+              <FiShoppingCart size={20} className="me-2" />
+              Limpar carrinho
+            </Link>
+          )}
         </div>
       </div>
       <hr />
 
       {cursos.length === 0 ? (
-        <h1 className="msg-carrinho text-center mt-5">
+        <h1 className="msg-carrinho text-danger text-center mt-5">
           Você não possui itens no carrinho :(
         </h1>
       ) : (

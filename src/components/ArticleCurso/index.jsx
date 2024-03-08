@@ -193,7 +193,7 @@ export default function ArticleCurso({
       >
         <div className="btns-quantidade align-items-center">
           <div className="text-end rounded-pill px-3">
-            <p className="valor-curso1">Mensalidades</p>
+            <p className="valor-curso1">Valor anual</p>
             <p
               className="valor-curso fw-semibold mb-0"
               style={{ color: "#00A2A8", whiteSpace: "nowrap" }}

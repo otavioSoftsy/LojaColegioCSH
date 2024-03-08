@@ -1,64 +1,28 @@
-.abracaMenu {
-  position: fixed !important;
-  left: 0;
+.abracaMenu #sidebar-itens {
+  display: flex; 
+  flex-direction: column;
   height: 100%;
-  min-height: 100vh;
-  top: 0;
-  color: #f5f5f5;
-  box-shadow: 1px 0px 11px -8px #000;
-  width: 280px !important;
+}
+.abracaMenu #sidebar-itens hr {
+  margin: 0.6em 0;
 }
 .abracaMenu ul li a {
-  transition: ease-in-out 0.3s;
+  transition: background 0.2s ease;
 }
 .abracaMenu ul li a:hover {
-  color: #1b1ca1;
+  background-color: #007d81 !important;
 }
-.logoGdv {
-  width: 75%;
-  margin-top: 30px;
+.logoCsh {
+  width: 65%;
 }
-/* .ulMenu {
-  text-decoration: none;
-  padding: 0%;
-  font-size: 18px;
-}
-
-.ulMenu .active {
-  background-color: #e4e4e4;
-  color: #1b1ca1;
-}
-
-.ulMenu a {
-  width: 95%;
-  text-decoration: none;
+.sb-button {
   cursor: pointer;
-  border-radius: 5px;
-  display: flex;
-  padding: 0.3em;
-  font-size: 1.1em;
   color: #fff;
-  flex-direction: row;
-
 }
-.ulMenu a:hover {
-  background-color: #e4e4e4;
-  color: #1b1ca1;
+.header-sidebar {
+  display: flex;
+  align-items: center;
+  padding-top: 1em;
 }
-
-.ulMenu svg {
-  margin-right: 0.5em;
-}
-
-
-#sair {
-  position: absolute;
-  width: 251.75px;
-  bottom: 15px;
-} */
-
 @media screen and (max-width: 1439px) {
-  .abracaMenu {
-    width: 250px !important;
-  }
 }

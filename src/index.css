@@ -7,12 +7,24 @@
 html,
 body,
 #root {
-  min-height: 100vh;
+  height: 100%;
   width: 100%;
   background-color: #f8f5fb;
   font-family: "Poppins", sans-serif;
   display: flex;
   flex-direction: column;
+}
+
+.main-admin {
+  display: flex;
+  height: 100vh;
+  height: 3000px;
+  width: 100%;
+}
+.container-admin {
+  width: 100%;
+  margin-left: 2em;
+  margin-right: 4em;
 }
 
 .container-cli {
@@ -111,10 +123,37 @@ input[type="file"]::file-selector-button:hover {
 .card-table {
   height: 640px !important;
 }
-.container-admin {
-  margin-left: 19em;
-  margin-right: 10%;
+
+.table-details-vertical thead {
+  border: none;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
+
+.table-details-vertical tr {
+  border-bottom: 3px solid #ddd;
+  display: block;
+  margin-bottom: 0.6em;
+}
+
+.table-details-vertical td {
+  border-bottom: 1px solid #ddd;
+  display: block;
+  font-size: 0.9em;
+  text-align: right;
+}
+
+.table-details-vertical td::before {
+  content: attr(data-label);
+  float: left;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 .btn-primary {
   background-color: #00A2A8 !important;
   border-color: #00A2A8 !important;
@@ -157,7 +196,6 @@ span.switch-handle.btn.btn-lightbtn-sm {
 
 @media screen and (max-width: 1439px) {
   .container-admin {
-    margin-left: 17em;
     margin-right: 3em;
   }
   .container-cli {

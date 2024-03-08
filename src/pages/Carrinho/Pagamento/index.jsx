@@ -276,8 +276,7 @@ export default function Pagamento() {
                         Cartão de Crédito
                       </label>
                       <p className="fs-5 mb-0">
-                        {dadosCartao.parcelas} mensalidades de R$
-                        {dadosCartao.valor.toFixed(2).replace(".", ",")}
+                      R${dadosCartao.valor.toFixed(2).replace(".", ",")} em até 10x 
                       </p>
                     </div>
                   </div>

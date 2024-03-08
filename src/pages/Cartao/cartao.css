@@ -47,13 +47,38 @@
   color: #333;
 }
 
-.custom-form input {
+.custom-form input, .custom-form select {
   padding: 6px;
   background-color: #ffffff;
   border-radius: 5px;
   border: 1px solid #ccc;
   font-size: 0.8em;
   transition: border-color 0.3s ease-in-out;
+}
+
+.custom-form2 input, .custom-form2 select {
+  padding: 6px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 0.8em;
+  transition: border-color 0.3s ease-in-out;
+  width: 100%;
+}
+.custom-form2 {
+  padding: 0 3.3em;
+}
+
+.custom-form2 label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: #333;
+}
+.custom-form2 input:focus {
+  outline: none;
+  border-color: #8a8a8a;
 }
 .custom-form .area-validade {
   justify-content: space-between;
