@@ -14,7 +14,7 @@ import { FiPlus } from "react-icons/fi";
 export default function ListarInstituicoes() {
   const [instituicoes, setInstituicoes] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 8;
+  const itemsPerPage = 7;
 
   useEffect(() => {
     async function getInstituicoes() {

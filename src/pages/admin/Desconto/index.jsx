@@ -25,7 +25,7 @@ export default function Desconto() {
   const [possuiValidade, setPossuiValidade] = useState(null);
 
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 8;
+  const itemsPerPage = 7;
 
   async function getDescontos() {
     await axios

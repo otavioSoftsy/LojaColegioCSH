@@ -1,6 +1,6 @@
 .cardCurso {
   position: relative;
-  width: 22em;
+  width: 23em;
   min-height: 245px;
   max-height: 245px;
   border: none !important;
@@ -48,10 +48,10 @@
 }
 @media screen and (max-width: 1439px) {
   .cardCurso {
-    width: 330px;
+    width: 22em;
   }
   .swiper-slide {
-    width: 330px !important;
+    width: 22em !important;
   }
   .cardCurso .card-body p {
     font-size: 1em;
@@ -79,8 +79,8 @@
     font-size: 12px;
   }
   .cardCurso .card-body {
-    padding-left: 0.3em;
-    padding-right: 0.3em;
+    padding-left: 0.7em;
+    padding-right: 0.7em;
   }
   .card .area {
     position: absolute;

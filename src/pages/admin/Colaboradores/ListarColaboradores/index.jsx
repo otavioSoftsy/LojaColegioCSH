@@ -13,7 +13,7 @@ import { FiPlus, FiUsers } from "react-icons/fi";
 export default function ListarColaboradores() {
   const [colaboradores, setColaboradores] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 8;
+  const itemsPerPage = 7;
 
   useEffect(() => {
     async function getColaboradores() {

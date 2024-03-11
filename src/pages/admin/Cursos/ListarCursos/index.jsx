@@ -15,7 +15,7 @@ import { FiPlus } from "react-icons/fi";
 export default function ListarCursos() {
   const [cursos, setCursos] = useState([]);
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 8;
+  const itemsPerPage = 7;
   const [pageCount, setPageCount] = useState(0);
 
   async function getCursos() {
@@ -157,7 +157,9 @@ export default function ListarCursos() {
                     Ativo
                   </th>
                   <th scope="col">Nome</th>
-                  <th scope="col" width="12%">Valor</th>
+                  <th scope="col" width="12%">
+                    Valor
+                  </th>
                   <th scope="col" id="col-acoes">
                     Ações
                   </th>
@@ -191,7 +193,9 @@ export default function ListarCursos() {
                       </td>
                       <td>{item.nomeCurso}</td>
                       {item.valorVenda ? (
-                        <td>R$ {item.valorVenda.toFixed(2).replace('.', ',')}</td>
+                        <td>
+                          R$ {item.valorVenda.toFixed(2).replace(".", ",")}
+                        </td>
                       ) : (
                         <td>Grátis</td>
                       )}
@@ -214,18 +218,16 @@ export default function ListarCursos() {
                           width={63}
                           onChange={() => handleDeletar(item.idCurso)}
                         />{" "}
-                         <button
+                        <button
                           type="button"
                           className={`btn ${
                             item.esgotado ? "btn-success" : "btn-danger"
                           } btn-sm px-2`}
                           style={{
                             height: "31px",
-                            width: '84px'
+                            width: "84px",
                           }}
-                          onClick={() =>
-                            handleToggleEsgotado(item.idCurso)
-                          }
+                          onClick={() => handleToggleEsgotado(item.idCurso)}
                         >
                           {item.esgotado ? "Ofertar" : "Esgotado"}
                         </button>
@@ -239,26 +241,26 @@ export default function ListarCursos() {
         )}
 
         <div className="d-flex justify-content-center">
-            <ReactPaginate
-              previousLabel={<FaChevronLeft />}
-              nextLabel={<FaChevronRight />}
-              pageCount={pageCount}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={0}
-              onPageChange={handlePageClick}
-              containerClassName={"pagination"}
-              subContainerClassName={"pages pagination"}
-              activeClassName={"active"}
-              pageClassName={"page-item"}
-              pageLinkClassName={"page-link"}
-              previousClassName={"page-item"}
-              previousLinkClassName={"page-link"}
-              nextClassName={"page-item"}
-              nextLinkClassName={"page-link"}
-              breakClassName={"page-item"}
-              breakLinkClassName={"page-link"}
-              renderOnZeroPageCount={null}
-            />
+          <ReactPaginate
+            previousLabel={<FaChevronLeft />}
+            nextLabel={<FaChevronRight />}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={0}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            previousClassName={"page-item"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            breakClassName={"page-item"}
+            breakLinkClassName={"page-link"}
+            renderOnZeroPageCount={null}
+          />
         </div>
       </div>
     </>

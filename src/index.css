@@ -17,8 +17,6 @@ body,
 
 .main-admin {
   display: flex;
-  height: 100vh;
-  height: 3000px;
   width: 100%;
 }
 .container-admin {
@@ -121,7 +119,7 @@ input[type="file"]::file-selector-button:hover {
 }
 
 .card-table {
-  height: 640px !important;
+  height: 620px !important;
 }
 
 .table-details-vertical thead {

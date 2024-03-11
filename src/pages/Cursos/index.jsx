@@ -32,10 +32,6 @@ export default function Cursos() {
   const loadMoreItems = () => {
     setPage((prevPage) => prevPage + 1);
   };
-
-  // const handleCategoriaChange = (selectedOption) => {
-  //   setCategoria(selectedOption ? selectedOption.value : null);
-  // };
   const handleAreaChange = (selectedOption) => {
     setSelectedArea(selectedOption);
     setIdCategoria(selectedOption.value)
@@ -64,7 +60,7 @@ export default function Cursos() {
     await axios
       .get(
         url_base +
-          `curso/listarAtivos?page=${page}&size=30&sort=nomeCurso&busca=${
+          `curso/listarAtivos?page=${page}&size=50&sort=nomeCurso&busca=${
             busca || ""
           }&periodicidade=${periodicidade || ""}&idCategoria=${categoria}`
       )
@@ -125,22 +121,7 @@ export default function Cursos() {
     }
     getAreas();
     
-  }, [page, periodicidade, location.search, idCategoria]);
-
-  // const cursosFiltradosMemo = useMemo(() => {
-  //   if (area) {
-  //     return cursosBuscados.filter((curso) =>
-  //       curso.categorias.some((categoria) => categoria.descricao === area)
-  //     );
-
-  //   } else {
-  //     return cursosBuscados;
-  //   }
-  // }, [area, cursosBuscados]);
-
-  // useEffect(() => {
-  //   setCursosBuscados(cursosFiltradosMemo);
-  // }, [cursosFiltradosMemo]);
+  }, [page, periodicidade, busca, idCategoria]);
 
   useEffect(() => {
     setSelectPerio(null);
@@ -160,6 +141,7 @@ export default function Cursos() {
       );
     },
   };
+
   const customComponents2 = {
     DropdownIndicator: (props) => {
       return (
@@ -171,7 +153,6 @@ export default function Cursos() {
   };
 
   const orderByLowestValue = () => {
-    console.log(cursosBuscados)
     const sortedCursos = [...cursosBuscados].sort((cursoA, cursoB) => {
       return cursoA.valorVenda - cursoB.valorVenda;
     });

@@ -18,7 +18,7 @@ import { FiPlus } from "react-icons/fi";
 export default function Fornecedores() {
   const [fornecedores, setFornecedores] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 8;
+  const itemsPerPage = 7;
 
   useEffect(() => {
     async function getFornecedores() {
@@ -200,30 +200,30 @@ export default function Fornecedores() {
             </>
           )}
 
-            {fornecedores.length > itemsPerPage && (
-              <ReactPaginate
-                previousLabel={<span aria-hidden="true">&laquo;</span>}
-                nextLabel={<span aria-hidden="true">&raquo;</span>}
-                pageCount={Math.ceil(fornecedores.length / itemsPerPage)}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={0}
-                onPageChange={handlePageClick}
-                containerClassName={
-                  "pagination pagination-sm justify-content-end"
-                }
-                subContainerClassName={"pages pagination"}
-                activeClassName={"active"}
-                pageClassName={"page-item"}
-                pageLinkClassName={"page-link"}
-                previousClassName={"page-item"}
-                previousLinkClassName={"page-link"}
-                nextClassName={"page-item"}
-                nextLinkClassName={"page-link"}
-                breakClassName={"page-item"}
-                breakLinkClassName={"page-link"}
-                renderOnZeroPageCount={null}
-              />
-            )}
+          {fornecedores.length > itemsPerPage && (
+            <ReactPaginate
+              previousLabel={<span aria-hidden="true">&laquo;</span>}
+              nextLabel={<span aria-hidden="true">&raquo;</span>}
+              pageCount={Math.ceil(fornecedores.length / itemsPerPage)}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={0}
+              onPageChange={handlePageClick}
+              containerClassName={
+                "pagination pagination-sm justify-content-end"
+              }
+              subContainerClassName={"pages pagination"}
+              activeClassName={"active"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+              previousClassName={"page-item"}
+              previousLinkClassName={"page-link"}
+              nextClassName={"page-item"}
+              nextLinkClassName={"page-link"}
+              breakClassName={"page-item"}
+              breakLinkClassName={"page-link"}
+              renderOnZeroPageCount={null}
+            />
+          )}
         </div>
       </div>
     </>

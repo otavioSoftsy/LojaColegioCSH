@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 100px;
+  min-height: 80px;
   background-color: #4A4A4A;
   margin-top: auto;
 }
@@ -16,8 +16,5 @@
 @media (max-width: 767px) {
   .footer p {
     font-size: 12px;
-  }
-  .footer {
-    min-height: 90px;
   }
 }

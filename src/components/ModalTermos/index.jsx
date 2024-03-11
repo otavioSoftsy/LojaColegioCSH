@@ -82,7 +82,7 @@ export default function ModalTermos({
                 </div>
               </div>
               <button
-                className="btn btn-primary my-5 fs-5 px-4"
+                className="btn btn-primary my-4 fs-5 px-4"
                 onClick={enviaTermos}
               >
                 Continuar

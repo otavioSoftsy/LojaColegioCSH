@@ -201,6 +201,10 @@ export default function Carrinho() {
     }
   }
 
+  function login() {
+    navigate("/minha-conta/entrar");
+  }
+
   return (
     <section id="#carrinho" className="container-cli carrinho">
       <div className="col-12 title-carrinho d-flex justify-content-between">
@@ -239,25 +243,26 @@ export default function Carrinho() {
             {cursos.map((curso) => {
               return (
                 <ArticleCurso
-                  atualizarAluno={adicionarNovoAluno}
-                  ref={articleCursoRef}
-                  key={curso.id}
-                  idCurso={curso.id}
-                  modalidade={curso.modalidade}
-                  nomeCurso={curso.nome}
-                  periodicidade={curso.periodicidade}
-                  categorias={curso.areas}
-                  valor={curso.valor}
-                  icone={curso.icone}
-                  cor={curso.cor}
-                  quantidade={curso.quantidade}
-                  onQuantidadeChange={(novaQuantidade) =>
-                    handleQuantidadeChange(curso.id, novaQuantidade)
-                  }
-                  onDelete={deletarCurso}
-                  exibeModalCadastro={showModalCadastro}
-                  getAlunos={getAlunos}
-                  alunos={alunos}
+                atualizarAluno={adicionarNovoAluno}
+                ref={articleCursoRef}
+                key={curso.id}
+                idCurso={curso.id}
+                modalidade={curso.modalidade}
+                nomeCurso={curso.nome}
+                periodicidade={curso.periodicidade}
+                categorias={curso.areas}
+                valor={curso.valor}
+                icone={curso.icone}
+                cor={curso.cor}
+                quantidade={curso.quantidade}
+                onQuantidadeChange={(novaQuantidade) =>
+                  handleQuantidadeChange(curso.id, novaQuantidade)
+                }
+                onDelete={deletarCurso}
+                exibeModalCadastro={showModalCadastro}
+                getAlunos={getAlunos}
+                alunos={alunos}
+                login={login}
                 />
               );
             })}
@@ -315,7 +320,7 @@ export default function Carrinho() {
                 Continuar comprando
               </Link>
               <Link
-                onClick={acionaForm}
+                onClick={clientLogado ? acionaForm : login}
                 className="btn btn-a rounded-pill btn-primary px-4"
               >
                 Prosseguir compra

@@ -47,11 +47,12 @@ export default function ArticleCurso({
   atualizarAluno,
   exibeModalCadastro,
   getAlunos,
-  alunos
+  alunos,
+  login
 }) {
   const [valorPeriodicidade, setValorPeriodicidade] = useState("");
   const [valoresSelecionados, setValoresSelecionados] = useState(['']);
-  const { setCurso } = useContexts();
+  const { setCurso, clientLogado } = useContexts();
   const categoriasArray = categorias || [];
   const descricoes = categoriasArray.map((categoria) => categoria.descricao);
   const nomesSeparadosPorVirgula = descricoes.join(", ");
@@ -82,9 +83,13 @@ export default function ArticleCurso({
 
   const handleOptionChange = (event, index) => {
     const selectedValue = event.target.value;
-  
+
     if (selectedValue === "outro") {
-      exibeModalCadastro()
+      if (clientLogado) {
+        exibeModalCadastro();
+      } else {
+        login()
+      }
     } else {
       atualizarAluno(idCurso, selectedValue);
       setValoresSelecionados((valoresAnteriores) => {
@@ -94,17 +99,6 @@ export default function ArticleCurso({
       });
     }
   };
-
-
-  // function valid() {
-  //   const teste = valoresSelecionados.some(
-  //     (valor) => valor === ""
-  //   )
-
-  //   if (teste) {
-  //     toast.error('Campos vazio')
-  //   }
-  // }
 
   const validSelect = (index) => {
     const possuiDuplicatas =

@@ -27,7 +27,7 @@ export default function Areas() {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
 
-  const itemsPerPage = 8;
+  const itemsPerPage = 7;
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState("");

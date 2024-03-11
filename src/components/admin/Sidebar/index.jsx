@@ -48,15 +48,15 @@ function SidebarMenu() {
         <hr className="text-white" />
         <Menu
           menuItemStyles={{
-            button: ({ level, active }) => {
+            button: ({ level, active, disabled }) => {
               if (level === 0)
                 return {
-                  color: active ? "#6C757D" : "#f8f8f8",
+                  color: disabled ? "#ddd" : "#f8f8f8",
                   backgroundColor: active ? "#6C757D" : "#009297",
                 };
               else
                 return {
-                  color: active ? "#009297" : "#f8f8f8",
+                  color: disabled ? "#ddd" : "#f8f8f8",
                   backgroundColor: active ? "#f8f8f8" : "#009297",
                 };
             },
