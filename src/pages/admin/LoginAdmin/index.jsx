@@ -53,7 +53,7 @@ export default function LoginAdmin() {
   }
 
   return (
-    <div style={{ backgroundColor: "#052C65" }}>
+    <div className="bg-dark">
       <div className="container">
         <div
           className="d-flex align-items-center"
@@ -63,7 +63,7 @@ export default function LoginAdmin() {
             className="card border-0 p-5 col-6 mx-auto shadow"
             onSubmit={logar}
           >
-            <h1 className="text-center mb-5">Faça o login</h1>
+            <h1 className="text-center mb-5" style={{color: '#212529'}}>Faça o login</h1>
             <div className="form-floating mb-3">
               <input
                 type="text"

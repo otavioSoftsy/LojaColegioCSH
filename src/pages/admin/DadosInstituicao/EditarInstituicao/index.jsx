@@ -6,7 +6,6 @@ import { url_base } from "../../../../services/apis";
 import ReactInputMask from "react-input-mask";
 import { RiSchoolLine } from "react-icons/ri";
 import "./editarInstituicao.css";
-import Select from "react-select";
 
 export default function EditarInstituicao() {
   const [cnpj, setCnpj] = useState(null);
@@ -26,7 +25,6 @@ export default function EditarInstituicao() {
   const [numero, setNumero] = useState("");
   const [complemento, setComplemento] = useState("");
   const [cep, setCep] = useState("");
-  const [parcela, setParcela] = useState(null);
 
 
   const objeto = {
@@ -45,23 +43,8 @@ export default function EditarInstituicao() {
     numero,
     complemento,
     cep,
-    numeroParcelas: parcela
+    numeroParcelas: 12
   };
-
-  const numeroParcelas = [
-    {value: 1, label: 'Em até 1x'},
-    {value: 2, label: 'Em até 2x'},
-    {value: 3, label: 'Em até 3x'},
-    {value: 4, label: 'Em até 4x'},
-    {value: 5, label: 'Em até 5x'},
-    {value: 6, label: 'Em até 6x'},
-    {value: 7, label: 'Em até 7x'},
-    {value: 8, label: 'Em até 8x'},
-    {value: 9, label: 'Em até 9x'},
-    {value: 10, label: 'Em até 10x'},
-    {value: 11, label: 'Em até 11x'},
-    {value: 12, label: 'Em até 12x'},
-  ]
 
   async function getInstituicao() {
     await axios
@@ -82,7 +65,6 @@ export default function EditarInstituicao() {
         setBoleto(data.aceitaBoleto);
         setCartao(data.aceitacartao);
         setUsuario(data.usuario);
-        setParcela(data.numeroParcelas)
       })
       .catch((error) => {
         console.log(error);
@@ -115,9 +97,6 @@ export default function EditarInstituicao() {
         });
     }
   }
-  const indexParcela = numeroParcelas.findIndex(
-    (opcao) => opcao.value === parcela
-  );
 
   function handleSenha(valor) {
     setAlteraSenha(valor);
@@ -445,34 +424,6 @@ export default function EditarInstituicao() {
                 </label>
               </div>
             </div>
-          </div>
-          <div className="col-md-5">
-            <label htmlFor="parcelas" className="form-label">
-              Número de parcelas no cartão:
-            </label>
-            <Select
-              required
-              isDisabled={cartao === false}
-              isClearable={true}
-              styles={{
-                control: (baseStyles) => ({
-                  ...baseStyles,
-                  borderColor: "#0086C4",
-                  "&:hover": {
-                    borderColor: "#0086C4",
-                  },
-                }),
-              }}
-              name="periodicidade"
-              value={numeroParcelas[indexParcela]}
-              options={numeroParcelas}
-              className="basic-singl mt-1 mb-4 col-10"
-              classNamePrefix="select"
-              onChange={(valor) => {
-                setParcela(valor ? valor.value : null);
-              }}
-              placeholder="Até quantas vezes?"
-            />
           </div>
         </div>
 

@@ -24,7 +24,6 @@ export default function Cartao() {
   const [itensCar, setItensCar] = useState([]);
   const navigate = useNavigate();
   const { client } = useContexts();
-  const [isValidDate, setIsValidDate] = useState(true);
 
   useEffect(() => {
     const pedido = JSON.parse(localStorage.getItem("@csh-resumo-compra"));
@@ -76,6 +75,7 @@ export default function Cartao() {
         ultDigit: cardNumberWithoutSpaces.slice(-4),
         nomeCartao: cardData.cardHolder,
         cvv: cardData.cvv,
+        numParcelas: Number(parcela),
       };
       fazerPagamento(cartao);
     }
@@ -86,7 +86,7 @@ export default function Cartao() {
       itens: resumo.itens,
       voucher: resumo.voucher,
       dtAceiteTermos: resumo.dtAceiteTermos,
-      formaPagamento: "RECORRENCIA",
+      formaPagamento: "CARTAO_CREDITO",
       idCliente: client.idCliente,
       cartaoCredito: cartao,
     };
@@ -137,6 +137,12 @@ export default function Cartao() {
         expYear: year,
         [name]: value,
       }));
+    } else if (name === 'cvv'){
+      let valorSemEspaco = value.trim();
+      setCardData((prevData) => ({
+        ...prevData,
+        [name]: valorSemEspaco,
+      }));
     } else {
       setCardData((prevData) => ({
         ...prevData,
@@ -145,12 +151,13 @@ export default function Cartao() {
     }
   };
   const handleBlur = () => {
-    const isValid = /^[0-9]{4}$/.test(cardData.expYear);
-    if (!isValid) {
-      setIsValidDate(false);
-      toast.error("Data inválida!");
-    } else {
-      setIsValidDate(true);
+    if (
+      !isNaN(cardData.expYear) &&
+      cardData.expYear >= 10 &&
+      cardData.expYear < 100
+    ) {
+      cardData.expYear = "20" + cardData.expYear;
+      cardData.expYear = cardData.expYear.trim();
     }
   };
 
@@ -197,16 +204,11 @@ export default function Cartao() {
                       type="text"
                       autoComplete="off"
                       name="expirationDate"
-                      className={!isValidDate && "border-danger"}
+                      placeholder="00/0000"
                       value={cardData.expirationDate}
                       onChange={handleInputChange}
                       onBlur={handleBlur}
                     />
-                    {!isValidDate && (
-                      <span className="text-danger mt-1 fs-6">
-                        Formato inválido.
-                      </span>
-                    )}
                   </label>
                   <label>
                     CVV
@@ -270,47 +272,77 @@ export default function Cartao() {
                     Selecione a Parcela
                   </option>
                   <option value="1">
-                    Em até 1x de R${dadosPg.valorComDesconto.toFixed(2).replace(".", ",")}
+                    Em até 1x de R$
+                    
+                    {dadosPg !== null ? dadosPg.valorComDesconto.toFixed(2).replace(".", ",") : 'Error'}
                   </option>
                   <option value="2">
-                    Em até 2x de R${(dadosPg.valorComDesconto / 2).toFixed(2).replace(".", ",")}
+                    Em até 2x de R$
+                    {dadosPg !== null ? (dadosPg.valorComDesconto / 2)
+                      .toFixed(2)
+                      .replace(".", ",") : 'Error'}
                   </option>
                   <option value="3">
-                    Em até 3x de R${(dadosPg.valorComDesconto / 3).toFixed(2).replace(".", ",")}
+                    Em até 3x de R$
+                    {dadosPg !== null ? (dadosPg.valorComDesconto / 3)
+                      .toFixed(2)
+                      .replace(".", ",") : 'Error'}
                   </option>
                   <option value="4">
-                    Em até 4x de R${(dadosPg.valorComDesconto / 4).toFixed(2).replace(".", ",")}
+                    Em até 4x de R$
+                    {dadosPg !== null ? (dadosPg.valorComDesconto / 4)
+                      .toFixed(2)
+                      .replace(".", ",") : 'Error'}
                   </option>
                   <option value="5">
-                    Em até 5x de R${(dadosPg.valorComDesconto / 5).toFixed(2).replace(".", ",")}
+                    Em até 5x de R$
+                    {dadosPg !== null ? (dadosPg.valorComDesconto / 5)
+                      .toFixed(2)
+                      .replace(".", ",") : 'Error'}
                   </option>
                   <option value="6">
-                    Em até 6x de R${(dadosPg.valorComDesconto / 6).toFixed(2).replace(".", ",")}
+                    Em até 6x de R$
+                    {dadosPg !== null ? (dadosPg.valorComDesconto / 6)
+                      .toFixed(2)
+                      .replace(".", ",") : 'Error'}
                   </option>
                   <option value="7">
-                    Em até 7x de R${(dadosPg.valorComDesconto / 7).toFixed(2).replace(".", ",")}
+                    Em até 7x de R$
+                    {dadosPg !== null ? (dadosPg.valorComDesconto / 7)
+                      .toFixed(2)
+                      .replace(".", ",") : 'Error'}
                   </option>
                   <option value="8">
-                    Em até 8x de R${(dadosPg.valorComDesconto / 8).toFixed(2).replace(".", ",")}
+                    Em até 8x de R$
+                    {dadosPg !== null ? (dadosPg.valorComDesconto / 8)
+                      .toFixed(2)
+                      .replace(".", ",") : 'Error'}
                   </option>
                   <option value="9">
-                    Em até 9x de R${(dadosPg.valorComDesconto / 9).toFixed(2).replace(".", ",")}
+                    Em até 9x de R$
+                    {dadosPg !== null ? (dadosPg.valorComDesconto / 9)
+                      .toFixed(2)
+                      .replace(".", ",") : 'Error'}
                   </option>
                   <option value="10">
-                    Em até 10x de R${(dadosPg.valorComDesconto / 10).toFixed(2).replace(".", ",")}
+                    Em até 10x de R$
+                    {dadosPg !== null ? (dadosPg.valorComDesconto / 10)
+                      .toFixed(2)
+                      .replace(".", ",") : 'Error'}
+                  </option>
+                  <option value="11">
+                    Em até 11x de R$
+                    {dadosPg !== null ? (dadosPg.valorComDesconto / 11)
+                      .toFixed(2)
+                      .replace(".", ",") : 'Error'}
+                  </option>
+                  <option value="12">
+                    Em até 12x de R$
+                    {dadosPg !== null ? (dadosPg.valorComDesconto / 12)
+                      .toFixed(2)
+                      .replace(".", ",") : 'Error'}
                   </option>
                 </select>
-              </label>
-              <label className="col-5">
-                Total
-                <input
-                  type="text"
-                  autoComplete="off"
-                  readOnly
-                  value={dadosPg !== null && parcela
-                    ? 'R$' + dadosPg.valorComDesconto.toFixed(2).replace(".", ",")
-                    : ""}
-                />
               </label>
             </div>
           </div>
@@ -349,7 +381,7 @@ export default function Cartao() {
               R${" "}
               {dadosPg !== null
                 ? dadosPg.valorComDesconto.toFixed(2).replace(".", ",")
-                : "Null"}
+                : "Error"}
             </h4>
           </span>
           <hr />
@@ -359,7 +391,7 @@ export default function Cartao() {
               R${" "}
               {dadosPg !== null
                 ? dadosPg.valorDesconto.toFixed(2).replace(".", ",")
-                : "Null"}
+                : "Error"}
             </h4>
           </span>
           <hr />
@@ -369,7 +401,7 @@ export default function Cartao() {
               R${" "}
               {dadosPg !== null
                 ? dadosPg.valorComDesconto.toFixed(2).replace(".", ",")
-                : "Null"}
+                : "Error"}
             </h4>
           </span>
           <div className="mt-4">

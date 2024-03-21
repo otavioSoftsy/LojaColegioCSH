@@ -67,7 +67,7 @@ export default function CardPedido({
         })}
         <h5 id="total-card-pedido">
           Total R$ {valorTotal.toFixed(2).replace(".", ",")} -{" "}
-          {formaPagamento === "RECORRENCIA"
+          {formaPagamento === "CARTAO_CREDITO"
             ? "CARTÃO DE CRÉDITO"
             : formaPagamento}
         </h5>

@@ -12,7 +12,7 @@ import {api_financeiro} from '../../../services/pagBank';
 import "./pagamento.css";
 
 export default function Pagamento() {
-  const [pagamento, setPagamento] = useState("RECORRENCIA");
+  const [pagamento, setPagamento] = useState("CARTAO_CREDITO");
   const [resumo, setResumo] = useState(null);
   const [itens, setItens] = useState([]);
   const [cartao, setCartao] = useState(false);
@@ -67,11 +67,11 @@ export default function Pagamento() {
           (pagamento) => pagamento.tipo === "BOLETO" && pagamento.ativo
         );
         const aceitaCartao = data.some(
-          (pagamento) => pagamento.tipo === "RECORRENCIA" && pagamento.ativo
+          (pagamento) => pagamento.tipo === "CARTAO_CREDITO" && pagamento.ativo
         );
 
         const dadosCart = data.find(
-          (pagamento) => pagamento.tipo === "RECORRENCIA"
+          (pagamento) => pagamento.tipo === "CARTAO_CREDITO"
         );
         const dadosBo = data.find((pagamento) => pagamento.tipo === "BOLETO");
         const dadosPi = data.find((pagamento) => pagamento.tipo === "PIX");
@@ -86,7 +86,7 @@ export default function Pagamento() {
         setBoleto(aceitaBoleto);
         setCartao(aceitaCartao);
 
-        if (pagamento === "RECORRENCIA") {
+        if (pagamento === "CARTAO_CREDITO") {
           setTotal(dadosCart.valor);
           setValorComDesconto(dadosCart.valorComDesconto);
           setDesconto(dadosCart.valorDesconto);
@@ -113,7 +113,7 @@ export default function Pagamento() {
   async function fazerPagamento(resumo) {
     setLoading(true);
 
-    if (pagamento === "RECORRENCIA") {
+    if (pagamento === "CARTAO_CREDITO") {
       navigate("cartao");
     } else {
       const objeto = {
@@ -257,8 +257,8 @@ export default function Pagamento() {
                     type="radio"
                     name="formaPg"
                     id="pgCartao"
-                    value="RECORRENCIA"
-                    checked={pagamento === "RECORRENCIA"}
+                    value="CARTAO_CREDITO"
+                    checked={pagamento === "CARTAO_CREDITO"}
                     onChange={(e) => {
                       setPagamento(e.target.value);
                       setTotal(dadosCartao.valor);

@@ -23,7 +23,7 @@ return(
                         <p>semanal:</p> <p>TER e QUI</p>
                     </div>
                     <div className="d-flex justify-content-between">
-                        <p>mensalidades:</p> <p>R$ 160,00</p>
+                        <p>valor:</p> <p>R$ 160,00</p>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@ return(
                         <p>semanal:</p> <p>TER e QUI</p>
                     </div>
                     <div className="d-flex justify-content-between">
-                        <p>mensalidades:</p> <p>R$ 160,00</p>
+                        <p>valor:</p> <p>R$ 160,00</p>
                     </div>
                 </div>
             </div>
