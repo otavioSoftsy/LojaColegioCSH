@@ -95,7 +95,6 @@ const TableCreatedParceiros = ({
         };
       });
       setTableData(updatedTableData);
-      console.log(updatedTableData)
     } else {
       setTableData([initialRow]);
     }
