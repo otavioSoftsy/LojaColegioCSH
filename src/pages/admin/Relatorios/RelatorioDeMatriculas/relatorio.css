@@ -1,0 +1,15 @@
+.drop-search .dropdown-menu {
+  width: 280px;
+}
+.table-matriculas {
+  min-height: 400px;
+}
+
+@media screen and (max-width: 1439px) {
+  .drop-search .dropdown-menu {
+    width: 240px;
+  }
+  .table-matriculas td, .table-matriculas th {
+    font-size: 14px;
+  }
+}

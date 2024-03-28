@@ -75,7 +75,6 @@ function SidebarMenu() {
           </SubMenu>
           <SubMenu
             label="Relatórios"
-            disabled
             icon={<FaRegChartBar size={24} />}
           >
             <MenuItem

@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import AdminLayout from "../pages/admin/AdminLayout";
 import LoginAdmin from "../pages/admin/LoginAdmin";
 import DashboardAdmin from "../pages/admin/DashboardAdmin";
-import RelatorioDeVendas from "../pages/admin/RelatorioDeVendas";
 import NovoFornecedor from "../pages/admin/Fornecedores/NovoFornecedor";
 import RootLayout from "../pages/RootLayout";
 import Fornecedores from "../pages/admin/Fornecedores/ListarFornecedores";
@@ -32,6 +31,8 @@ import Desconto from "../pages/admin/Desconto";
 import UltimasCompras from "../pages/DadosUsuario/UltimasCompras";
 import Favoritos from "../pages/Favoritos";
 import PgSucesso from "../components/PgSucesso";
+import RelatorioDeMatriculas from "../pages/admin/Relatorios/RelatorioDeMatriculas";
+import RelatorioDeVendas from "../pages/admin/Relatorios/RelatorioDeVendas";
 
 const router = createBrowserRouter([
   {
@@ -201,9 +202,16 @@ const router = createBrowserRouter([
           </Private>
         ),
       },
-
       {
-        path: "relatorio",
+        path: "relatorios/relatorio-matriculas",
+        element: (
+          <Private>
+            <RelatorioDeMatriculas />
+          </Private>
+        ),
+      },
+      {
+        path: "relatorios/relatorio-vendas",
         element: (
           <Private>
             <RelatorioDeVendas />
