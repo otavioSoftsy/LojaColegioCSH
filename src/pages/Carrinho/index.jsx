@@ -9,12 +9,16 @@ import { MdOutlineAccessTime } from "react-icons/md";
 import ModalCadastraAluno from "../../components/ModalCadastraAluno";
 import axios from "axios";
 import "./carrinho.css";
+import { api_financeiro } from "../../services/pagBank";
 
 export default function Carrinho() {
   const [cursos, setCursos] = useState([]);
   const btnModalCadastro = useRef(null);
   const [alunos, setAlunos] = useState([]);
   const [total, setTotal] = useState(0);
+  const [dadosCurso, setDadosCurso] = useState([]);
+  const [subtotal, setSubtotal] = useState(null);
+  const [desconto, setDesconto] = useState(0);
   const [accepted, setAccepted] = useState(false);
   const [accepted2, setAccepted2] = useState(false);
   const [accepted3, setAccepted3] = useState(false);
@@ -30,7 +34,13 @@ export default function Carrinho() {
   useEffect(() => {
     const meuCarrinho = localStorage.getItem("@csh-itens-carrinho");
     const carrinhoItens = JSON.parse(meuCarrinho) || [];
-    setCursos(carrinhoItens);
+    const cursosLimpos = carrinhoItens.map((curso) => {
+      return {
+        ...curso,
+        alunos: [],
+      };
+    });
+    setCursos(cursosLimpos);
 
     const subtotalCalculado = carrinhoItens.reduce(
       (acc, curso) => acc + curso.valor * curso.quantidade,
@@ -45,6 +55,31 @@ export default function Carrinho() {
     }
   }, []);
 
+  async function getValores(dadosAlunos) {
+    let objetoPedido = {
+      itens: dadosAlunos,
+      voucher: null,
+      dtAceiteTermos: new Date(),
+    };
+
+    await axios
+      .post(api_financeiro + `/forma/pagamento/valores`, objetoPedido)
+      .then((response) => {
+        const data = response.data.retorno.pagamentos;
+        console.log(data);
+        const dadosCart = data.find(
+          (pagamento) => pagamento.tipo === "CARTAO_CREDITO"
+        );
+        setTotal(dadosCart.valor);
+        setSubtotal(dadosCart.valor + dadosCart.valorDesconto);
+        setDesconto(dadosCart.valorDesconto);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Erro na requisição.");
+      });
+  }
+
   async function getAlunos() {
     await axios
       .get(
@@ -55,7 +90,6 @@ export default function Carrinho() {
       .then((response) => {
         if (response.status === 200) {
           setAlunos(response.data);
-          console.log(response);
         } else {
           console.log(response);
           toast.error("Erro ao buscar alunos.");
@@ -68,15 +102,6 @@ export default function Carrinho() {
       const novoCarrinho = cursosAntigos.map((curso) =>
         curso.id === idCurso ? { ...curso, quantidade: novaQuantidade } : curso
       );
-
-      const subtotalCalculado = novoCarrinho.reduce(
-        (acc, curso) => acc + curso.valor * curso.quantidade,
-        0
-      );
-
-      const desconto = subtotalCalculado * 0;
-      const totalCalculado = subtotalCalculado - desconto;
-      setTotal(totalCalculado);
 
       return novoCarrinho;
     });
@@ -141,6 +166,14 @@ export default function Carrinho() {
   function handleCheckbox3() {
     setAccepted3(!accepted3);
   }
+
+  const adicionarNovoObjeto = (novoObjeto) => {
+    const novaState = [...dadosCurso, novoObjeto];
+
+    setDadosCurso(novaState);
+
+    getValores(novaState);
+  };
   const adicionarNovoAluno = (cursoIndex, novoAluno) => {
     setCursos((cursosAnteriores) => {
       const indexCurso = cursosAnteriores.findIndex(
@@ -158,6 +191,14 @@ export default function Carrinho() {
         );
 
         if (!alunoExistente) {
+          let objeto = {
+            idCurso: cursoEncontrado.id,
+            qtd: 1,
+            idAluno: novoAluno,
+          };
+
+          adicionarNovoObjeto(objeto);
+
           cursoEncontrado.alunos = [
             ...cursoEncontrado.alunos,
             { idAluno: novoAluno },
@@ -172,17 +213,16 @@ export default function Carrinho() {
   };
 
   function enviaTermos() {
-    console.log(cursos);
     if (accepted && accepted2 && accepted3) {
       btnModal.current.click();
       let resumo = {
-        itens: cursos.map((item) => {
-          return {
-            idCurso: item.id,
-            qtd: item.quantidade,
-            alunos: item.alunos,
-          };
-        }),
+        itens: cursos.flatMap((curso) =>
+          curso.alunos.map((aluno) => ({
+            idCurso: curso.id,
+            qtd: 1,
+            idAluno: aluno.idAluno,
+          }))
+        ),
         voucher: null,
         dtAceiteTermos: new Date(),
       };
@@ -211,7 +251,7 @@ export default function Carrinho() {
         <h2 className="mb-0">Meu carrinho</h2>
 
         <div className="d-flex gap-3">
-        {clientLogado && (
+          {clientLogado && (
             <Link
               className="btn btn-sm rounded-pill btn-secondary text-white px-3 d-flex align-items-center justify-content-center"
               to="/minha-conta/historico-de-compras"
@@ -243,26 +283,26 @@ export default function Carrinho() {
             {cursos.map((curso) => {
               return (
                 <ArticleCurso
-                atualizarAluno={adicionarNovoAluno}
-                ref={articleCursoRef}
-                key={curso.id}
-                idCurso={curso.id}
-                modalidade={curso.modalidade}
-                nomeCurso={curso.nome}
-                periodicidade={curso.periodicidade}
-                categorias={curso.areas}
-                valor={curso.valor}
-                icone={curso.icone}
-                cor={curso.cor}
-                quantidade={curso.quantidade}
-                onQuantidadeChange={(novaQuantidade) =>
-                  handleQuantidadeChange(curso.id, novaQuantidade)
-                }
-                onDelete={deletarCurso}
-                exibeModalCadastro={showModalCadastro}
-                getAlunos={getAlunos}
-                alunos={alunos}
-                login={login}
+                  atualizarAluno={adicionarNovoAluno}
+                  ref={articleCursoRef}
+                  key={curso.id}
+                  idCurso={curso.id}
+                  modalidade={curso.modalidade}
+                  nomeCurso={curso.nome}
+                  periodicidade={curso.periodicidade}
+                  categorias={curso.areas}
+                  valor={curso.valor}
+                  icone={curso.icone}
+                  cor={curso.cor}
+                  quantidade={curso.quantidade}
+                  onQuantidadeChange={(novaQuantidade) =>
+                    handleQuantidadeChange(curso.id, novaQuantidade)
+                  }
+                  onDelete={deletarCurso}
+                  exibeModalCadastro={showModalCadastro}
+                  getAlunos={getAlunos}
+                  alunos={alunos}
+                  login={login}
                 />
               );
             })}
@@ -304,6 +344,21 @@ export default function Carrinho() {
                 );
               })}
               <hr />
+            </span>
+            <span className="d-flex justify-content-between px-3">
+              <h5 className="mb-0 fw-normal">Subtotal</h5>
+              <h5 className="mb-0">
+                R${" "}
+                {subtotal
+                  ? subtotal.toFixed(2).replace(".", ",")
+                  : total.toFixed(2).replace(".", ",")}
+              </h5>
+            </span>
+            <span className="d-flex justify-content-between px-3">
+              <h5 className="mb-0 fw-normal">Desconto</h5>
+              <h5 className="mb-0">
+                R$ {desconto.toFixed(2).replace(".", ",")}
+              </h5>
             </span>
             <span className="d-flex justify-content-between px-3">
               <h5 className="mb-0 fw-normal">Valor total</h5>

@@ -23,7 +23,7 @@ export default function Pagamento() {
   const [pix, setPix] = useState(false);
   const [cupom, setCupom] = useState("");
   const [total, setTotal] = useState(null);
-  const [valorComDesconto, setValorComDesconto] = useState(null);
+  const [subtotal, setSubtotal] = useState(null);
   const [desconto, setDesconto] = useState(null);
   const [numeroDoBoleto, setNumeroBoleto] = useState(null);
   const [urlBoleto, setUrlBoleto] = useState(null);
@@ -88,15 +88,15 @@ export default function Pagamento() {
 
         if (pagamento === "CARTAO_CREDITO") {
           setTotal(dadosCart.valor);
-          setValorComDesconto(dadosCart.valorComDesconto);
+          setSubtotal(dadosCart.valor + dadosCart.valorDesconto);
           setDesconto(dadosCart.valorDesconto);
         } else if (pagamento === "BOLETO") {
           setTotal(dadosBo.valor);
-          setValorComDesconto(dadosBo.valorComDesconto);
+          setSubtotal(dadosBo.valor + dadosBo.valorDesconto);
           setDesconto(dadosBo.valorDesconto);
         } else if (pagamento === "PIX") {
           setTotal(dadosPi.valor);
-          setValorComDesconto(dadosPi.valorComDesconto);
+          setSubtotal(dadosPi.valor + dadosPi.valorDesconto);
           setDesconto(dadosPi.valorDesconto);
         }
       })
@@ -121,7 +121,6 @@ export default function Pagamento() {
         idCliente: client.idCliente,
         formaPagamento: pagamento,
       };
-      console.log(objeto);
       await axios
         .post(
           api_financeiro + `/pagamento/pagbank/pedido`,
@@ -262,7 +261,7 @@ export default function Pagamento() {
                     onChange={(e) => {
                       setPagamento(e.target.value);
                       setTotal(dadosCartao.valor);
-                      setValorComDesconto(dadosCartao.valorComDesconto);
+                      setSubtotal(subtotal);
                       setDesconto(dadosCartao.valorDesconto);
                     }}
                   />
@@ -295,7 +294,7 @@ export default function Pagamento() {
                     onChange={(e) => {
                       setPagamento(e.target.value);
                       setTotal(dadosBoleto.valor);
-                      setValorComDesconto(dadosBoleto.valorComDesconto);
+                      setSubtotal(subtotal);
                       setDesconto(dadosBoleto.valorDesconto);
                     }}
                   />
@@ -329,7 +328,7 @@ export default function Pagamento() {
                     onChange={(e) => {
                       setPagamento(e.target.value);
                       setTotal(dadosPix.valor);
-                      setValorComDesconto(dadosPix.valorComDesconto);
+                      setSubtotal(subtotal);
                       setDesconto(dadosPix.valorDesconto);
                     }}
                   />
@@ -414,7 +413,7 @@ export default function Pagamento() {
               <h4 className="fw-normal">Subtotal:</h4>
               <h4 className="fw-normal">
                 R${" "}
-                {total !== null ? total.toFixed(2).replace(".", ",") : "Null"}
+                {total !== null ? subtotal.toFixed(2).replace(".", ",") : "Null"}
               </h4>
             </span>
             <hr />
@@ -432,8 +431,8 @@ export default function Pagamento() {
               <h4 className="mb-0 fw-normal">Valor total: </h4>
               <h4 className="mb-0">
                 R${" "}
-                {valorComDesconto !== null
-                  ? valorComDesconto.toFixed(2).replace(".", ",")
+                {total !== null
+                  ? total.toFixed(2).replace(".", ",")
                   : "ERRO"}
               </h4>
             </span>
