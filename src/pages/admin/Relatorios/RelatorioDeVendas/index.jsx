@@ -437,8 +437,8 @@ const RelatorioDeVendas = () => {
                   <td>{dataFormatada}</td>
                   <td>{item.nomeCliente}</td>
                   <td>
-                    {item.formaPgto === "RECORRENCIA"
-                      ? "RECORRÊNCIA"
+                    {item.formaPgto === "CARTAO_CREDITO"
+                      ? "CARTÃO DE CRÉDITO"
                       : item.formaPgto}
                   </td>
                   <td>R${item.valorTotal.toFixed(2).replace(".", ",")}</td>

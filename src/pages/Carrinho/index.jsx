@@ -47,9 +47,7 @@ export default function Carrinho() {
       0
     );
 
-    const desconto = 0;
-    const totalCalculado = subtotalCalculado - desconto;
-    setTotal(totalCalculado);
+    setTotal(subtotalCalculado);
     if (!clientLogado && btnAlert.current) {
       btnAlert.current.click();
     }
@@ -70,8 +68,8 @@ export default function Carrinho() {
         const dadosCart = data.find(
           (pagamento) => pagamento.tipo === "CARTAO_CREDITO"
         );
-        setTotal(dadosCart.valor);
-        setSubtotal(dadosCart.valor + dadosCart.valorDesconto);
+        setTotal(dadosCart.valorPgto);
+        setSubtotal(dadosCart.total);
         setDesconto(dadosCart.valorDesconto);
       })
       .catch((error) => {
@@ -123,9 +121,7 @@ export default function Carrinho() {
         0
       );
 
-      const desconto = subtotalCalculado * 0;
-      const totalCalculado = subtotalCalculado - desconto;
-      setTotal(totalCalculado);
+      setTotal(subtotalCalculado);
 
       return filtroCursos;
     });

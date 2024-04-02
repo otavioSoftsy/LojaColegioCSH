@@ -43,7 +43,6 @@ export default function Pagamento() {
     const itens = await localStorage.getItem("@csh-itens-carrinho");
     const objetoPedido = JSON.parse(pedido);
     const objItens = JSON.parse(itens);
-    console.log(objetoPedido);
     setResumo(objetoPedido);
     setItens(objItens);
     await axios
@@ -52,7 +51,6 @@ export default function Pagamento() {
         resumo ? resumo : objetoPedido
       )
       .then((response) => {
-        console.log(response.data)
         const data = response.data.retorno.pagamentos;
         if (resumo && response.data.retorno.voucherValido) {
           toast.success("Aplicado com sucesso!");
@@ -87,16 +85,16 @@ export default function Pagamento() {
         setCartao(aceitaCartao);
 
         if (pagamento === "CARTAO_CREDITO") {
-          setTotal(dadosCart.valor);
-          setSubtotal(dadosCart.valor + dadosCart.valorDesconto);
+          setTotal(dadosCart.valorPgto);
+          setSubtotal(dadosCart.total);
           setDesconto(dadosCart.valorDesconto);
         } else if (pagamento === "BOLETO") {
-          setTotal(dadosBo.valor);
-          setSubtotal(dadosBo.valor + dadosBo.valorDesconto);
+          setTotal(dadosBo.valorPgto);
+          setSubtotal(dadosBo.total);
           setDesconto(dadosBo.valorDesconto);
         } else if (pagamento === "PIX") {
-          setTotal(dadosPi.valor);
-          setSubtotal(dadosPi.valor + dadosPi.valorDesconto);
+          setTotal(dadosPi.valorPgto);
+          setSubtotal(dadosPi.total);
           setDesconto(dadosPi.valorDesconto);
         }
       })
@@ -128,7 +126,6 @@ export default function Pagamento() {
         )
         .then(async (response) => {
           const data = response.data.retorno;
-          console.log(response.data);
           setLoading(false);
           if (data.urlBoleto) {
             setNumeroBoleto(data.barCode);
@@ -260,8 +257,8 @@ export default function Pagamento() {
                     checked={pagamento === "CARTAO_CREDITO"}
                     onChange={(e) => {
                       setPagamento(e.target.value);
-                      setTotal(dadosCartao.valor);
-                      setSubtotal(subtotal);
+                      setTotal(dadosCartao.valorPgto);
+                      setSubtotal(dadosCartao.total);
                       setDesconto(dadosCartao.valorDesconto);
                     }}
                   />
@@ -275,7 +272,7 @@ export default function Pagamento() {
                         Cartão de Crédito
                       </label>
                       <p className="fs-5 mb-0">
-                      R${dadosCartao.valor.toFixed(2).replace(".", ",")} em até 10x 
+                      R${dadosCartao.valorPgto.toFixed(2).replace(".", ",")} em até {dadosCartao.parcelas}x 
                       </p>
                     </div>
                   </div>
@@ -293,8 +290,8 @@ export default function Pagamento() {
                     id="pgBoleto"
                     onChange={(e) => {
                       setPagamento(e.target.value);
-                      setTotal(dadosBoleto.valor);
-                      setSubtotal(subtotal);
+                      setTotal(dadosBoleto.valorPgto);
+                      setSubtotal(dadosBoleto.total);
                       setDesconto(dadosBoleto.valorDesconto);
                     }}
                   />
@@ -308,7 +305,7 @@ export default function Pagamento() {
                         Pagamento por Boleto
                       </label>
                       <p className="fs-5 mb-0">
-                        R${dadosBoleto.valor.toFixed(2).replace(".", ",")} à
+                        R${dadosBoleto.valorPgto.toFixed(2).replace(".", ",")} à
                         vista
                       </p>
                     </div>
@@ -327,8 +324,8 @@ export default function Pagamento() {
                     id="pgPix"
                     onChange={(e) => {
                       setPagamento(e.target.value);
-                      setTotal(dadosPix.valor);
-                      setSubtotal(subtotal);
+                      setTotal(dadosPix.valorPgto);
+                      setSubtotal(dadosPix.total);
                       setDesconto(dadosPix.valorDesconto);
                     }}
                   />
@@ -342,7 +339,7 @@ export default function Pagamento() {
                         Pagamento por Pix
                       </label>
                       <p className="fs-5 mb-0">
-                        R${dadosPix.valor.toFixed(2).replace(".", ",")} à vista
+                        R${dadosPix.valorPgto.toFixed(2).replace(".", ",")} à vista
                       </p>
                     </div>
                   </div>
@@ -413,7 +410,7 @@ export default function Pagamento() {
               <h4 className="fw-normal">Subtotal:</h4>
               <h4 className="fw-normal">
                 R${" "}
-                {total !== null ? subtotal.toFixed(2).replace(".", ",") : "Null"}
+                {total !== null ? subtotal.toFixed(2).replace(".", ",") : "ERRO"}
               </h4>
             </span>
             <hr />

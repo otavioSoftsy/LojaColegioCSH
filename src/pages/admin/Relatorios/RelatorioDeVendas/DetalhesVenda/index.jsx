@@ -118,8 +118,8 @@ export default function DetalhesVenda({ id }) {
                           {item.nomeFornecedor ? item.nomeFornecedor : "-"}
                         </td>
                         <td data-label="Forma de Pagamento:">
-                          {item.formaPgto === "RECORRENCIA"
-                            ? "RECORRÊNCIA"
+                          {item.formaPgto === "CARTAO_CREDITO"
+                            ? "CARTÃO DE CRÉDITO"
                             : item.formaPgto}
                         </td>
                         <td data-label="Nº de Parcelas:">{item.numParcelas}</td>

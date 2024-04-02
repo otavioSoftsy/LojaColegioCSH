@@ -17,8 +17,11 @@ export default function Cartao() {
     expYear: "",
     cvv: "",
   });
-  const [dadosPg, setDadosPg] = useState(null);
   const [parcela, setParcela] = useState("");
+  const [parcelas, setParcelas] = useState(null);
+  const [desconto, setDesconto] = useState(null);
+  const [total, setTotal] = useState(null);
+  const [subtotal, setSubtotal] = useState(null);
   const [resumo, setResumo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [itensCar, setItensCar] = useState([]);
@@ -31,7 +34,10 @@ export default function Cartao() {
       localStorage.getItem("@csh-dados-pagamento")
     );
     if (dadosPagamento) {
-      setDadosPg(dadosPagamento);
+      setTotal(dadosPagamento.valorPgto);
+      setSubtotal(dadosPagamento.total);
+      setDesconto(dadosPagamento.valorDesconto);
+      setParcelas(dadosPagamento.parcelas);
     } else {
       return navigate("/");
     }
@@ -99,7 +105,9 @@ export default function Cartao() {
           localStorage.setItem("@csh-resumo-compra", JSON.stringify(null));
           localStorage.setItem("@csh-dados-pagamento", JSON.stringify(null));
           localStorage.setItem("@csh-itens-carrinho", JSON.stringify(null));
-          setDadosPg(null);
+          setTotal(null);
+          setSubtotal(null);
+          setDesconto(null);
           setResumo(null);
           setItensCar(null);
         } else {
@@ -137,7 +145,7 @@ export default function Cartao() {
         expYear: year,
         [name]: value,
       }));
-    } else if (name === 'cvv'){
+    } else if (name === "cvv") {
       let valorSemEspaco = value.trim();
       setCardData((prevData) => ({
         ...prevData,
@@ -271,77 +279,18 @@ export default function Cartao() {
                   <option selected value="" disabled>
                     Selecione a Parcela
                   </option>
-                  <option value="1">
-                    Em até 1x de R$
-                    
-                    {dadosPg !== null ? dadosPg.valorComDesconto.toFixed(2).replace(".", ",") : 'Error'}
-                  </option>
-                  <option value="2">
-                    Em até 2x de R$
-                    {dadosPg !== null ? (dadosPg.valorComDesconto / 2)
-                      .toFixed(2)
-                      .replace(".", ",") : 'Error'}
-                  </option>
-                  <option value="3">
-                    Em até 3x de R$
-                    {dadosPg !== null ? (dadosPg.valorComDesconto / 3)
-                      .toFixed(2)
-                      .replace(".", ",") : 'Error'}
-                  </option>
-                  <option value="4">
-                    Em até 4x de R$
-                    {dadosPg !== null ? (dadosPg.valorComDesconto / 4)
-                      .toFixed(2)
-                      .replace(".", ",") : 'Error'}
-                  </option>
-                  <option value="5">
-                    Em até 5x de R$
-                    {dadosPg !== null ? (dadosPg.valorComDesconto / 5)
-                      .toFixed(2)
-                      .replace(".", ",") : 'Error'}
-                  </option>
-                  <option value="6">
-                    Em até 6x de R$
-                    {dadosPg !== null ? (dadosPg.valorComDesconto / 6)
-                      .toFixed(2)
-                      .replace(".", ",") : 'Error'}
-                  </option>
-                  <option value="7">
-                    Em até 7x de R$
-                    {dadosPg !== null ? (dadosPg.valorComDesconto / 7)
-                      .toFixed(2)
-                      .replace(".", ",") : 'Error'}
-                  </option>
-                  <option value="8">
-                    Em até 8x de R$
-                    {dadosPg !== null ? (dadosPg.valorComDesconto / 8)
-                      .toFixed(2)
-                      .replace(".", ",") : 'Error'}
-                  </option>
-                  <option value="9">
-                    Em até 9x de R$
-                    {dadosPg !== null ? (dadosPg.valorComDesconto / 9)
-                      .toFixed(2)
-                      .replace(".", ",") : 'Error'}
-                  </option>
-                  <option value="10">
-                    Em até 10x de R$
-                    {dadosPg !== null ? (dadosPg.valorComDesconto / 10)
-                      .toFixed(2)
-                      .replace(".", ",") : 'Error'}
-                  </option>
-                  <option value="11">
-                    Em até 11x de R$
-                    {dadosPg !== null ? (dadosPg.valorComDesconto / 11)
-                      .toFixed(2)
-                      .replace(".", ",") : 'Error'}
-                  </option>
-                  <option value="12">
-                    Em até 12x de R$
-                    {dadosPg !== null ? (dadosPg.valorComDesconto / 12)
-                      .toFixed(2)
-                      .replace(".", ",") : 'Error'}
-                  </option>
+                  {parcelas &&
+                    Array.from({ length: parcelas }, (_, index) => {
+                      const parcelaNumber = index + 1;
+                      const valorParcela = (total / parcelaNumber)
+                        .toFixed(2)
+                        .replace(".", ",");
+                      return (
+                        <option key={parcelaNumber} value={parcelaNumber}>
+                          {`Em até ${parcelaNumber}x de R$ ${valorParcela}`}
+                        </option>
+                      );
+                    })}
                 </select>
               </label>
             </div>
@@ -379,9 +328,7 @@ export default function Cartao() {
             <h4 className="fw-normal"> Subtotal:</h4>
             <h4 className="fw-normal">
               R${" "}
-              {dadosPg !== null
-                ? dadosPg.valorComDesconto.toFixed(2).replace(".", ",")
-                : "Error"}
+              {total !== null ? subtotal.toFixed(2).replace(".", ",") : "ERRO"}
             </h4>
           </span>
           <hr />
@@ -389,19 +336,16 @@ export default function Cartao() {
             <h4 className="fw-normal"> Desconto:</h4>
             <h4 className="fw-normal">
               R${" "}
-              {dadosPg !== null
-                ? dadosPg.valorDesconto.toFixed(2).replace(".", ",")
-                : "Error"}
+              {desconto !== null
+                ? desconto.toFixed(2).replace(".", ",")
+                : "ERRO"}
             </h4>
           </span>
           <hr />
           <span className="d-flex justify-content-between">
             <h4 className="mb-0 fw-normal">Valor total:</h4>
             <h4 className="mb-0">
-              R${" "}
-              {dadosPg !== null
-                ? dadosPg.valorComDesconto.toFixed(2).replace(".", ",")
-                : "Error"}
+              R$ {total !== null ? total.toFixed(2).replace(".", ",") : "ERRO"}
             </h4>
           </span>
           <div className="mt-4">
