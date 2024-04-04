@@ -29,7 +29,6 @@ import Register from "../pages/Register";
 import DadosUsuario from "../pages/DadosUsuario";
 import Desconto from "../pages/admin/Desconto";
 import UltimasCompras from "../pages/DadosUsuario/UltimasCompras";
-import Favoritos from "../pages/Favoritos";
 import PgSucesso from "../components/PgSucesso";
 import RelatorioDeMatriculas from "../pages/admin/Relatorios/RelatorioDeMatriculas";
 import RelatorioDeVendas from "../pages/admin/Relatorios/RelatorioDeVendas";
@@ -50,7 +49,6 @@ const router = createBrowserRouter([
       { path: "minha-conta/cadastro", element: <Register /> },
       { path: "minha-conta", element: <DadosUsuario /> },
       { path: "minha-conta/historico-de-compras", element: <UltimasCompras /> },
-      { path: "favoritos", element: <Favoritos /> },
     ],
   },
   {

@@ -3,7 +3,9 @@ import axios from "axios";
 import { url_base } from "../../services/apis";
 import { toast } from "react-toastify";
 import Banner from "../../assets/banner.png";
+import Banner2 from "../../assets/banner.jpg";
 import BannerMobile from "../../assets/banner-mobile.png";
+import BannerMobile2 from "../../assets/banner-mobile.jpg";
 import Moca from "../../assets/moca.png";
 import { Link } from "react-router-dom";
 import CardCurso from "../../components/CardCurso";
@@ -64,17 +66,50 @@ export default function Home() {
       {windowWidth <= 767 ? (
         <section
           id="area-img"
-          style={{ height: cursos.length === 0 && "0vh", marginBottom:'200%' }}
+          style={{ height: cursos.length === 0 && "0vh", marginBottom: "200%" }}
         >
           <div className="banners">
             {windowWidth <= 767 ? (
-              <img
-                className="banner-mobile"
-                src={BannerMobile}
-                alt="Banner-Mobile"
-              />
+             <Swiper
+             className="swiper-banners"
+             modules={[Autoplay]}
+             autoplay={{
+               delay: 4000,
+               disableOnInteraction: false,
+             }}
+           >
+             <SwiperSlide>
+               <img
+                 className="banner-mobile"
+                 src={BannerMobile2}
+                 alt="Banner-Mobile2"
+               />
+             </SwiperSlide>
+             <SwiperSlide>
+               <img
+                 className="banner-mobile"
+                 src={BannerMobile}
+                 alt="Banner-Mobile"
+               />
+             </SwiperSlide>
+           </Swiper>
             ) : (
-              <img className="banner" src={Banner} alt="Banner" />
+              <Swiper
+                className="swiper-banners"
+                modules={[Autoplay, Pagination]}
+                pagination={{ clickable: true }}
+                autoplay={{
+                  delay: 4000,
+                  disableOnInteraction: false,
+                }}
+              >
+                <SwiperSlide>
+                  <img className="banner2" src={Banner2} alt="Banner" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img className="banner" src={Banner} alt="Banner" />
+                </SwiperSlide>
+              </Swiper>
             )}
           </div>
           {cursos.length !== 0 && (
@@ -167,13 +202,46 @@ export default function Home() {
         >
           <div className="banners">
             {windowWidth <= 767 ? (
-              <img
-                className="banner-mobile"
-                src={BannerMobile}
-                alt="Banner-Mobile"
-              />
+              <Swiper
+                className="swiper-banners"
+                modules={[Autoplay]}
+                autoplay={{
+                  delay: 4000,
+                  disableOnInteraction: false,
+                }}
+              >
+                <SwiperSlide>
+                  <img
+                    className="banner-mobile"
+                    src={BannerMobile2}
+                    alt="Banner-Mobile2"
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    className="banner-mobile"
+                    src={BannerMobile}
+                    alt="Banner-Mobile"
+                  />
+                </SwiperSlide>
+              </Swiper>
             ) : (
-              <img className="banner" src={Banner} alt="Banner" />
+              <Swiper
+                className="swiper-banners"
+                modules={[Autoplay, Pagination]}
+                pagination={{ clickable: true }}
+                autoplay={{
+                  delay: 4000,
+                  disableOnInteraction: false,
+                }}
+              >
+                <SwiperSlide>
+                  <img className="banner2" src={Banner2} alt="Banner" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img className="banner" src={Banner} alt="Banner" />
+                </SwiperSlide>
+              </Swiper>
             )}
           </div>
           {cursos.length !== 0 && (

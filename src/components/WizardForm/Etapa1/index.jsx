@@ -3,15 +3,56 @@ import { toast } from "react-toastify";
 /* eslint-disable react/prop-types */
 export default function Etapa1({ handleChange, formData, nextStep }) {
   const isFormValid = () => {
-    return formData.nome && formData.email && formData.genero && formData.dataNascimento;
+    return (
+      formData.nome &&
+      formData.nome.length >= 10 &&
+      formData.genero &&
+      formData.dataNascimento
+    );
+  };
+
+  const verificarIdade = () => {
+    const dataNascimento = new Date(formData.dataNascimento);
+    const hoje = new Date();
+    let idade = hoje.getFullYear() - dataNascimento.getFullYear();
+    const mes = hoje.getMonth() - dataNascimento.getMonth();
+
+    if (mes < 0 || (mes === 0 && hoje.getDate() < dataNascimento.getDate())) {
+      idade--;
+    }
+
+    if (idade < 18) {
+      toast.error("Você deve ter pelo menos 18 anos para prosseguir.", {
+        autoClose: 6000,
+        theme: "colored",
+      });
+      return false;
+    }
+
+    return true;
   };
 
   const handleNextStep = () => {
-    if (isFormValid()) {
-      nextStep();
-    } else {
-      toast.error("Preencha todos os campos.");
+    if (!isFormValid()) {
+      if (!formData.nome || formData.nome.length < 10) {
+        toast.warn("Informe o seu nome completo.", {
+          autoClose: 6000,
+          theme: "colored",
+        });
+      } else {
+        toast.error("Preencha todos os campos.", {
+          autoClose: 6000,
+          theme: "colored",
+        });
+      }
+      return;
     }
+
+    if (!verificarIdade()) {
+      return;
+    }
+
+    nextStep();
   };
 
   const currentDate = new Date().toISOString().split("T")[0];
@@ -23,14 +64,14 @@ export default function Etapa1({ handleChange, formData, nextStep }) {
           type="text"
           className="form-control"
           id="nome"
-          name="nome"
+          name="nome" 
           value={formData.nome}
           onChange={handleChange}
-          placeholder="Nome"
+          placeholder="Nome completo"
           required
           autoComplete="off"
         />
-        <label htmlFor="nome">Nome</label>
+        <label htmlFor="nome">Nome completo</label>
       </div>
       <div className="form-floating mb-3">
         <input

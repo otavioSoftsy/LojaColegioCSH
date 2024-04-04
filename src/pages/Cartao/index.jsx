@@ -264,7 +264,6 @@ export default function Cartao() {
               </div>
             </div>
           </div>
-          <h2>Dados de Pagamento</h2>
           <div className="custom-form2">
             <div className="col-12 d-flex justify-content-between">
               <label className="col-6">
@@ -279,8 +278,8 @@ export default function Cartao() {
                   <option selected value="" disabled>
                     Selecione a Parcela
                   </option>
-                  {parcelas &&
-                    Array.from({ length: parcelas }, (_, index) => {
+                  {parcelas && 
+                    Array.from({ length: Number(subtotal) > 100 ? parcelas : 2}, (_, index) => {
                       const parcelaNumber = index + 1;
                       const valorParcela = (total / parcelaNumber)
                         .toFixed(2)

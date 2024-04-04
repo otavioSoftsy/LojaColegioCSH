@@ -86,6 +86,7 @@ export default function Carrinho() {
         }`
       )
       .then((response) => {
+        console.log(response)
         if (response.status === 200) {
           setAlunos(response.data);
         } else {

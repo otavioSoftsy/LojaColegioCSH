@@ -11,10 +11,21 @@
   background-color: #023e8a !important;
   color: #f8f8f8 !important;
 }
+.swiper-banners .swiper-slide {
+  width: 100% !important;
+}
+
+.swiper-banners .swiper-slide img {
+  width: 100%;
+}
 .areas-destaque .show {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.swiper-banners {
+  padding: 0 !important;
 }
 
 .cardCurso {
@@ -137,6 +148,10 @@
   font-size: 22px;
 }
 
+.banners .swiper-wrapper {
+    gap: 0 !important;
+}
+
 @media screen and (max-width: 1439px) {
   .marginTopCards{
     margin-top: 5em
@@ -187,6 +202,9 @@
 
 @media screen and (max-width: 767px) {
   
+  .swiper-banners .swiper-slide {
+    width: 100% !important;
+  }
   #area-img {
     height: 40vh;
     margin-bottom: 200%;
@@ -265,7 +283,7 @@
    padding: 6px;
   }
   .banners {
-    margin-top: 0 !important;
+    margin-top: 2em !important;
 }
   .swiper-wrapper {
     gap: 20px;

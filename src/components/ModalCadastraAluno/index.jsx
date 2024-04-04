@@ -67,12 +67,13 @@ export default function ModalCadastraAluno({ atualizaLista }) {
   async function getAluno(id) {
     await axios
       .get(
-        `https://api-academico.sumare.edu.br/api-gdv-emweb/aluno/cache/obter?matricula=${id}&idCliente=${client.idCliente}`
+        `https://api-captacao.sumare.edu.br/api-csh-alunos/buscarAlunoCsh?aluno=${id}`
       )
       .then((response) => {
         const data = response.data;
+        console.log(data)
         if (data.sucesso) {
-          setNome(data.retorno.nome);
+          setNome(data.retorno.nomeCompl);
           sucesso();
         } else {
           setNome("");
