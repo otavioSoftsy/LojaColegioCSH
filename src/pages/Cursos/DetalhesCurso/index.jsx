@@ -18,7 +18,6 @@ import {
   MdOutlinePersonPin,
 } from "react-icons/md";
 import "./detalhes.css";
-import useContexts from "../../../hooks/useContexts";
 
 export default function DetalhesCurso() {
   const [dataCurso, setDataCurso] = useState({});
@@ -281,7 +280,7 @@ export default function DetalhesCurso() {
                             margin: "0 0 -0.5em 0",
                           }}
                         >
-                          VALOR ANUAL
+                          {cursoObj.valor > 100 ? 'VALOR ANUAL' : ''}
                         </p>
                         <p
                           className="p2 fw-light"
@@ -293,7 +292,8 @@ export default function DetalhesCurso() {
                           </span>
                         </p>
                         <span className="p4 fw-semibold text-secondary">
-                            EM ATÉ 10X.
+                        {cursoObj.valor > 100 ? 'EM ATÉ 10X.' : ''}
+                            
                           </span>
                       </div>
                     ) : (

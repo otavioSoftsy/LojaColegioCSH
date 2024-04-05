@@ -22,6 +22,7 @@ export default function Carrinho() {
   const [accepted, setAccepted] = useState(false);
   const [accepted2, setAccepted2] = useState(false);
   const [accepted3, setAccepted3] = useState(false);
+  const [avulso, setAvulso] = useState('');
   const btnModal = useRef(null);
   const btnForm = useRef(null);
   const btnAlert = useRef(null);
@@ -41,6 +42,12 @@ export default function Carrinho() {
       };
     });
     setCursos(cursosLimpos);
+
+    const compraAvulsa = carrinhoItens.some(
+      (cursosNoCarrinho) => cursosNoCarrinho.avulso === 'S'
+    );
+
+    setAvulso(compraAvulsa)
 
     const subtotalCalculado = carrinhoItens.reduce(
       (acc, curso) => acc + curso.valor * curso.quantidade,
@@ -226,7 +233,12 @@ export default function Carrinho() {
       localStorage.setItem("@csh-itens-carrinho", JSON.stringify(cursos));
       localStorage.setItem("@csh-resumo-compra", JSON.stringify(resumo));
 
-      navigate("/carrinho/pagamento");
+      if (avulso) {
+        navigate("/carrinho/pagamento-unico");
+      } else {
+        navigate("/carrinho/pagamento");
+        
+      }
     } else {
       btnModal.current.click();
       toast.warning("Aceite os termos para continuar a compra.");
@@ -291,6 +303,7 @@ export default function Carrinho() {
                   valor={curso.valor}
                   icone={curso.icone}
                   cor={curso.cor}
+                  avulso={curso.avulso}
                   quantidade={curso.quantidade}
                   onQuantidadeChange={(novaQuantidade) =>
                     handleQuantidadeChange(curso.id, novaQuantidade)

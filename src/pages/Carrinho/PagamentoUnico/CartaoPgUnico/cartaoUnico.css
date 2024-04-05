@@ -1,0 +1,295 @@
+.custom-credit-card-form {
+  width: 52%;
+  background-color: #cecece;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 1.5em 0;
+}
+.custom-credit-card-form .sections h2 {
+  display: none;
+}
+.custom-card-cvv {
+  text-align: end;
+}
+.custom-credit-card-form h2 {
+  font-size: 2em;
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+}
+.custom-credit-card-form .sections {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.custom-form {
+  padding: 1.5rem;
+}
+
+.custom-form label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: #333;
+}
+.s-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.s-bottom label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.custom-form input, .custom-form select {
+  padding: 6px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 0.8em;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.custom-form2 input, .custom-form2 select {
+  padding: 6px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 0.8em;
+  transition: border-color 0.3s ease-in-out;
+  width: 100%;
+}
+.custom-form2 {
+  padding: 0 3.3em;
+}
+
+.custom-form2 label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: #333;
+  width: 50%;
+}
+.custom-form2 input:focus {
+  outline: none;
+  border-color: #8a8a8a;
+}
+.custom-form .area-validade {
+  justify-content: space-between;
+}
+.custom-form .area-validade input {
+  width: 120px;
+}
+.custom-form input:focus {
+  outline: none;
+  border-color: #8a8a8a;
+}
+
+.custom-card-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.custom-card {
+  width: 340px;
+  height: 190px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  background-image: url("../../../../assets/capa-cartao.jpg");
+  background-size: cover;
+  color: #eeeeee;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.custom-card-front,
+.custom-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease-in-out;
+}
+
+.inputs-form-card {
+  padding: 6px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 0.9em;
+  height: 42.8px;
+  transition: border-color 0.3s ease-in-out;
+}
+.inputs-form-card:focus {
+  outline: none;
+  border-color: none;
+}
+.custom-card-front {
+  transform: perspective(1000px) rotateY(0deg);
+}
+
+.custom-card-back {
+  font-weight: bold;
+}
+
+.custom-card-front,
+.custom-card-back {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.custom-card-number {
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.custom-card-info {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.custom-card-holder,
+.custom-card-expiration,
+.custom-card-cvv {
+  font-size: 14px;
+}
+.custom-card-display {
+  padding-right: 1em;
+}
+
+.custom-form .btn {
+  width: 100%;
+}
+
+@media screen and (max-width: 1439px) {
+  .custom-card {
+    width: 270px;
+    height: 155px;
+  }
+  .custom-card-holder,
+  .custom-card-expiration,
+  .custom-card-cvv {
+    font-size: 12px;
+  }
+  .custom-card-number {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .custom-card-chip svg {
+    width: 45px;
+  }
+  .custom-form label {
+    font-size: 16px;
+  }
+  .custom-form .area-validade input {
+    width: 90px;
+  }
+  .custom-credit-card-form h2 {
+    font-size: 1.6em;
+    margin-bottom: 15px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .custom-credit-card-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #f8f5fb;
+    box-shadow: none;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .custom-credit-card-form > h2 {
+    display: none;
+  }
+  .custom-credit-card-form .sections {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+  .custom-credit-card-form .sections h2 {
+    display: block;
+    font-size: 1.2em;
+    margin: 1em 0;
+  }
+  .container-custom {
+    background-color: #f8f5fb;
+  }
+  .custom-form {
+    width: 100% !important;
+    padding: 1em 2em;
+    order: 2;
+  }
+  .custom-form label {
+    font-size: 14px;
+  }
+  .custom-form2 label {
+    font-size: 14px;
+    width: 100%;
+  }
+  .custom-form .area-validade input {
+    width: 120px;
+  }
+  .custom-card-display {
+    padding-right: 0em;
+    align-items: end;
+    height: fit-content;
+  }
+  .custom-card-preview {
+    width: 85%;
+  }
+  .custom-card {
+    display: none;
+  }
+  
+  .custom-card-chip svg {
+    width: 55px;
+  }
+
+  #h2 {
+    display: block;
+    font-size: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  .custom-form2 {
+    padding: 1em 2em;
+  }
+}
+@media screen and (max-width: 360px) {
+  .custom-card {
+    width: 95%;
+    height: 150px;
+  }
+  
+  .custom-card-chip svg {
+    width: 45px;
+  }
+  .custom-card-holder,
+  .custom-card-expiration,
+  .custom-card-cvv {
+    font-size: 10px;
+  }
+  .custom-card-number {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .custom-credit-card-form .sections h2 {
+    font-size: 1em;
+    margin: 1em 0;
+  }
+}

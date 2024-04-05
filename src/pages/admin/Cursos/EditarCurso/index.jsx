@@ -13,6 +13,7 @@ import EditableTable from "../../../../components/admin/EditableTable";
 import TableCreatedParceiros from "../../../../components/admin/TableCreatedParceiros";
 
 export default function EditarCurso() {
+  const [numeroParcelas, setNumeroParcelas] = useState("");
   const [nomeCurso, setNomeCurso] = useState("");
   const [modalidade, setModalidade] = useState("");
   const [isSincrona, setIsSincrona] = useState("");
@@ -51,6 +52,12 @@ export default function EditarCurso() {
     { value: "S", label: "Semanal" },
     { value: "M", label: "Mensal" },
   ];
+
+  const parcelas = [];
+
+  for (let i = 1; i <= 12; i++) {
+    parcelas.push({ value: i, label: `Em até ${i}x` });
+  }
 
   const navigate = useNavigate();
   const animatedComponents = makeAnimated();
@@ -137,6 +144,7 @@ export default function EditarCurso() {
           setTabelaData(dadosCurso.cronogramas);
           setMinIdade(dadosCurso.minIdade);
           setMaxIdade(dadosCurso.maxIdade);
+          setNumeroParcelas(dadosCurso.numParcelas);
 
           if (dadosCurso.valorVenda !== null) {
             setGratis("N");
@@ -194,6 +202,8 @@ export default function EditarCurso() {
     cronogramas: tabelaData,
     minIdade: Number(limparMascara(minIdade)),
     maxIdade: Number(limparMascara(maxIdade)),
+    numParcelas: Number(numeroParcelas),
+    compraAvulsa: "S",
   };
 
   areasSelecionadas.map(() => {});
@@ -507,6 +517,9 @@ export default function EditarCurso() {
   const indexPeriodicidade = optionsPeriodicidade.findIndex(
     (opcao) => opcao.value === periodicidade
   );
+  const indexParcela = parcelas.findIndex(
+    (opcao) => opcao.value === numeroParcelas
+  );
   const areasFiltradas = areas.filter((area) =>
     areasSelecionadas.some((selected) => selected.id === area.value)
   );
@@ -768,21 +781,6 @@ export default function EditarCurso() {
               onChange={(e) => setCargaHorariaCurso(e.target.value)}
             />
           </div>
-          {/* <div className="col-md-6">
-            <label htmlFor="cargaHorariaHomologada" className="form-label">
-              Carga horária homologada
-            </label>
-            <NumericFormat
-              allowNegative={false}
-              decimalScale={0}
-              id="cargaHorariaHomologada"
-              required
-              name="cargaHorariaHomologada"
-              className="form-control inputForm"
-              value={cargaHorariaHomologada}
-              onChange={(e) => setCargaHorariaHomologada(e.target.value)}
-            />
-          </div> */}
 
           <div className="col-md-6">
             <label htmlFor="minVagas" className="form-label">
@@ -1053,28 +1051,58 @@ export default function EditarCurso() {
             </div>
           </div>
           {gratis === "N" && (
-            <div className="col-md-6">
-              <label htmlFor="valorCurso" className="form-label">
-                Valor da atividade
-              </label>
-              <NumericFormat
-                required
-                prefix={"R$ "}
-                thousandSeparator="."
-                decimalSeparator=","
-                allowNegative={false}
-                fixedDecimalScale
-                autoComplete="off"
-                decimalScale={2}
-                placeholder="Insira o valor total"
-                id="valorCurso"
-                name="valorCurso"
-                className="form-control inputForm"
-                value={valorCurso}
-                onValueChange={(values) => setValorCurso(values.value)}
-              />
-            </div>
+            <>
+              <div className="col-md-6">
+                <label htmlFor="valorCurso" className="form-label">
+                  Valor da atividade
+                </label>
+                <NumericFormat
+                  required
+                  prefix={"R$ "}
+                  thousandSeparator="."
+                  decimalSeparator=","
+                  allowNegative={false}
+                  fixedDecimalScale
+                  autoComplete="off"
+                  decimalScale={2}
+                  placeholder="Insira o valor total"
+                  id="valorCurso"
+                  name="valorCurso"
+                  className="form-control inputForm"
+                  value={valorCurso}
+                  onValueChange={(values) => setValorCurso(values.value)}
+                />
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="numeroParcelas" className="form-label">
+                  Número máximo de parcelas
+                </label>
+                <Select
+                  required
+                  components={animatedComponents}
+                  styles={{
+                    control: (baseStyles) => ({
+                      ...baseStyles,
+                      borderColor: "#dee2e6",
+                      "&:hover": {
+                        borderColor: "#dee2e6",
+                      },
+                    }),
+                  }}
+                  value={numeroParcelas !== null ? parcelas[indexParcela] : ""}
+                  name="numeroParcelas"
+                  options={parcelas}
+                  className="basic-singl mt-1 mb-4"
+                  classNamePrefix="select"
+                  onChange={(valor) => {
+                    setNumeroParcelas(valor ? valor.value : null);
+                  }}
+                  placeholder="Selecione..."
+                />
+              </div>
+            </>
           )}
+
           <div className="col-md-6">
             <label htmlFor="emParceria" className="form-label">
               A atividade é oferecida em parceria?

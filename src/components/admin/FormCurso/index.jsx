@@ -11,6 +11,7 @@ import TableCreatedParceiros from "../TableCreatedParceiros";
 import "./formcurso.css";
 
 export default function FormCurso() {
+  const [numeroParcelas, setNumeroParcelas] = useState("");
   const [nomeCurso, setNomeCurso] = useState("");
   const [modalidade, setModalidade] = useState("");
   const [isSincrona, setIsSincrona] = useState("");
@@ -48,6 +49,12 @@ export default function FormCurso() {
     { value: "S", label: "Semanal" },
     { value: "M", label: "Mensal" },
   ];
+
+  const parcelas = [];
+
+  for (let i = 1; i <= 12; i++) {
+    parcelas.push({ value: i, label: `Em até ${i}x` });
+  }
 
   const navigate = useNavigate();
   const animatedComponents = makeAnimated();
@@ -123,6 +130,8 @@ export default function FormCurso() {
     cronogramas: tabelaData,
     minIdade: Number(limparMascara(minIdade)),
     maxIdade: Number(limparMascara(maxIdade)),
+    numParcelas: Number(numeroParcelas),
+    compraAvulsa: "S",
   };
 
   const handleTabelaDataChange = (novaTabelaData) => {
@@ -446,7 +455,6 @@ export default function FormCurso() {
               role="group"
               aria-label="Basic radio toggle button group"
             >
-           
               <input
                 type="radio"
                 required
@@ -620,22 +628,6 @@ export default function FormCurso() {
             onChange={(e) => setCargaHorariaCurso(e.target.value)}
           />
         </div>
-        {/* <div className="col-md-6">
-          <label htmlFor="cargaHorariaHomologada" className="form-label">
-            Carga horária homologada
-          </label>
-          <NumericFormat
-            allowNegative={false}
-            decimalScale={0}
-            id="cargaHorariaHomologada"
-            autoComplete="off"
-            required
-            name="cargaHorariaHomologada"
-            className="form-control inputForm"
-            value={cargaHorariaHomologada}
-            onChange={(e) => setCargaHorariaHomologada(e.target.value)}
-          />
-        </div> */}
         <div className="col-md-6">
           <label htmlFor="nVagas" className="form-label">
             N° de vagas
@@ -883,28 +875,58 @@ export default function FormCurso() {
           </div>
         </div>
         {isGratis === "N" && (
-          <div className="col-md-6">
-            <label htmlFor="valorCurso" className="form-label">
-              Valor total
-            </label>
-            <NumericFormat
-              required
-              prefix={"R$ "}
-              thousandSeparator="."
-              decimalSeparator=","
-              allowNegative={false}
-              fixedDecimalScale
-              decimalScale={2}
-              autoComplete="off"
-              placeholder="Insira o valor total"
-              id="valorCurso"
-              name="valorCurso"
-              className="form-control inputForm"
-              value={valorCurso}
-              onValueChange={(values) => setValorCurso(values.value)}
-            />
-          </div>
+          <>
+            <div className="col-md-6">
+              <label htmlFor="valorCurso" className="form-label">
+                Valor total
+              </label>
+              <NumericFormat
+                required
+                prefix={"R$ "}
+                thousandSeparator="."
+                decimalSeparator=","
+                allowNegative={false}
+                fixedDecimalScale
+                decimalScale={2}
+                autoComplete="off"
+                placeholder="Insira o valor total"
+                id="valorCurso"
+                name="valorCurso"
+                className="form-control inputForm"
+                value={valorCurso}
+                onValueChange={(values) => setValorCurso(values.value)}
+              />
+            </div>
+            <div className="col-md-6">
+              <label htmlFor="numeroParcelas" className="form-label">
+                Número máximo de parcelas
+              </label>
+              <Select
+                required
+                components={animatedComponents}
+                styles={{
+                  control: (baseStyles) => ({
+                    ...baseStyles,
+                    borderColor: "#dee2e6",
+                    "&:hover": {
+                      borderColor: "#dee2e6",
+                    },
+                  }),
+                }}
+                name="numeroParcelas"
+                options={parcelas}
+                className="basic-singl mt-1 mb-4"
+                classNamePrefix="select"
+                onChange={(valor) => {
+                  console.log(valor);
+                  setNumeroParcelas(valor ? valor.value : null);
+                }}
+                placeholder="Selecione..."
+              />
+            </div>
+          </>
         )}
+
         <div className="col-md-6">
           <label htmlFor="radioEmParceria" className="form-label">
             A atividade é oferecida em parceria?

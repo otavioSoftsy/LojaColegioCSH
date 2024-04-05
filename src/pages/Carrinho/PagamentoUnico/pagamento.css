@@ -1,0 +1,232 @@
+.text-blue {
+  color: #00A2A8 !important;
+}
+.btn-aplicar {
+  width: 200px;
+  border-width: 0.125rem !important;
+  transition: color 0.4s ease-in-out, background-color 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
+}
+
+.formas-pagamento .card {
+  background-color: #00A2A8;
+  color: #f8f8f8;
+  width: 80%;
+}
+
+.btns-boleto {
+  display: flex;
+  gap: 1em;
+}
+
+#img-pix {
+  height: 290px;
+  width: 290px;
+}
+
+.info-mudanca {
+  margin-top: 2em;
+}
+
+.resumo-pagamento {
+  max-width: 600px;
+  background-color: #cecece;
+  padding: 2em;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+.container-cartao {
+  display: flex;
+  align-items: center;
+}
+.container-cartao .content-cartao {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.content-cartao .formas-pagamento {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.link-voltar {
+  width: 50%;
+}
+@media screen and (max-width: 1439px) {
+  .formas-pagamento p {
+    font-size: 18px !important;
+  }
+  .container-cartao {
+    margin: 8em 0;
+  }
+  .formas-pagamento .card {
+    width: 80%;
+    padding: 1em 2em !important;
+  }
+  .formas-pagamento .card label {
+    font-size: 18px !important;
+  }
+  .formas-pagamento .card p {
+    font-size: 16px !important;
+  }
+  .container-cartao .content-cartao {
+    margin-top: 0;
+  }
+
+  .resumo-pagamento .area-cupom {
+    margin-bottom: 1.5em !important;
+  }
+  .resumo-pagamento h4 {
+    font-size: 18px;
+  }
+  .resumo-pagamento .text-blue {
+    font-size: 22px !important;
+  }
+  .resumo-pagamento hr {
+    margin: 0.5em 0 !important;
+  }
+  .resumo-pagamento .btn-pg {
+    margin: 0 !important;
+  }
+  .info-mudanca {
+    margin-top: 1em;
+    margin-bottom: 0;
+  }
+  .resumo-pagamento {
+    padding: 1.5em;
+  }
+  #cupom {
+    height: 35px;
+    font-size: 14px;
+  }
+  .btn-aplicar {
+    width: 90px;
+    font-size: 14px !important;
+  }
+  .content-cartao .formas-pagamento {
+    gap: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .resumo-pagamento {
+    width: 100%;
+  }
+  .container-cartao {
+    align-items: start;
+    margin: 4em 0;
+  }
+  .container-cartao .content-cartao {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1em;
+    padding-bottom: 2em;
+    padding-top: 0;
+  }
+  .formas-pagamento .card {
+    width: 100%;
+  }
+  .formas-pagamento .card label {
+    font-size: 18px !important;
+  }
+  .formas-pagamento .card p {
+    font-size: 16px !important;
+  }
+  .btn-aplicar {
+    width: 100px;
+    font-size: 14px !important;
+    background-color: #198754 !important;
+    color: #f8f8f8 !important;
+  }
+  .modal-pix .modal-title {
+    font-size: 14px !important;
+  }
+  .modal-pix .modal-body div {
+    padding: 1em !important;
+  }
+  .modal-pix .modal-body button {
+    font-size: 16px !important;
+    width: 60% !important;
+  }
+  .modal-pix .modal-body canvas {
+    width: 180px !important;
+    height: 180px !important;
+  }
+  .modal-pix .modal-body {
+    padding: 1em !important;
+  }
+  .modal-boleto h1 {
+    font-size: 16px !important;
+  }
+  .modal-boleto .modal-body p {
+    font-size: 14px !important;
+  }
+
+  .btns-boleto {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  .modal-boleto .modal-body > svg {
+    width: 100%;
+    height: fit-content;
+  }
+  .modal-boleto .modal-body {
+    padding: 1em !important;
+  }
+  .resumo-pagamento .area-cupom {
+    margin-bottom: 1.5em !important;
+  }
+  .resumo-pagamento h4 {
+    font-size: 18px;
+  }
+  .resumo-pagamento .text-blue {
+    font-size: 22px !important;
+  }
+  .resumo-pagamento hr {
+    margin: 0.6em 0 !important;
+  }
+  .info-mudanca {
+    margin-top: 2em;
+    margin-bottom: 0;
+  }
+
+  .link-voltar {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  #cupom {
+    font-size: 13px;
+  }
+  .formas-pagamento p {
+    font-size: 17px !important;
+  }
+  .formas-pagamento .card {
+    padding: 1em !important;
+    padding-right: 0.5em !important;
+  }
+  .formas-pagamento .card .text-forma-pg {
+    gap: 0.8em !important;
+    margin-left: 0.7em !important;
+  }
+  .formas-pagamento .card label {
+    font-size: 16px !important;
+  }
+  .formas-pagamento .card p {
+    font-size: 16px !important;
+  }
+  .resumo-pagamento {
+    padding: 1.2em;
+  }
+  .btn-aplicar {
+    width: 90px;
+    font-size: 14px !important;
+  }
+  .modal-pix .modal-body button {
+    padding: 0 !important;
+  }
+}

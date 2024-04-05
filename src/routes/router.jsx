@@ -32,6 +32,8 @@ import UltimasCompras from "../pages/DadosUsuario/UltimasCompras";
 import PgSucesso from "../components/PgSucesso";
 import RelatorioDeMatriculas from "../pages/admin/Relatorios/RelatorioDeMatriculas";
 import RelatorioDeVendas from "../pages/admin/Relatorios/RelatorioDeVendas";
+import PagamentoUnico from "../pages/Carrinho/PagamentoUnico";
+import CartaoPgUnico from "../pages/Carrinho/PagamentoUnico/CartaoPgUnico";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,8 @@ const router = createBrowserRouter([
       { path: "carrinho", element: <Carrinho /> },
       { path: "carrinho/pagamento", element: <Pagamento /> },
       { path: "carrinho/pagamento/cartao", element: <Cartao /> },
+      { path: "carrinho/pagamento-unico", element: <PagamentoUnico /> },
+      { path: "carrinho/pagamento-unico/cartao-pg-unico", element: <CartaoPgUnico /> },
       { path: "pg-sucesso", element: <PgSucesso /> },
       { path: "minha-conta/entrar", element: <Login /> },
       { path: "minha-conta/cadastro", element: <Register /> },
