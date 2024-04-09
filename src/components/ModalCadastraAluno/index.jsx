@@ -15,12 +15,14 @@ export default function ModalCadastraAluno({ atualizaLista, atualizarAlunos }) {
   const [nome, setNome] = useState("");
   const [nomeAlunoExterno, setNomeAlunoExterno] = useState("");
   const btnClose = useRef(null);
+  const { client } = useContexts();
 
   async function cadastrar(e) {
     e.preventDefault();
     const alunoExterno = {
       nome: nomeAlunoExterno,
-      rg
+      rg,
+      idCliente: client.idCliente,
     };
 
     if (isAluno === "S") {
