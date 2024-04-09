@@ -62,7 +62,7 @@ export default function Etapa3({
             value={formData.cep}
             onChange={(e) => handleChange(e)}
             placeholder="CEP"
-            autoComplete="off"
+            autocomplete="off"
             onBlur={getCep}
             required
           />

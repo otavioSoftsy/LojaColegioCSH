@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./article.css";
 import PropTypes from "prop-types";
 import useContexts from "../../hooks/useContexts";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import {
   MdDelete,
@@ -13,8 +13,6 @@ import {
 } from "react-icons/md";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FiMinusCircle, FiPlusCircle } from "react-icons/fi";
-import ModalCadastraAluno from "../ModalCadastraAluno";
-import axios from "axios";
 import { toast } from "react-toastify";
 
 ArticleCurso.propTypes = {

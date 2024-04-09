@@ -94,7 +94,7 @@ export default function CartaoPgUnico() {
       cartaoCredito: cartao,
     };
     await axios
-      .post(api_financeiro + `/pagamento/pagbank/unico/pedido`, objeto)
+      .post(api_financeiro + `/pagamento/pagbank/pedido`, objeto)
       .then((response) => {
         if (response.data.sucesso) {
           setLoading(false);

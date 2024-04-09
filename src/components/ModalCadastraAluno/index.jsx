@@ -8,7 +8,7 @@ import { url_base } from "../../services/apis";
 import useContexts from "../../hooks/useContexts";
 import { toast } from "react-toastify";
 
-export default function ModalCadastraAluno({ atualizaLista }) {
+export default function ModalCadastraAluno({ atualizaLista, atualizarAlunos }) {
   const [isAluno, setIsAluno] = useState("S");
   const [matricula, setMatricula] = useState(null);
   const [rg, setRg] = useState("");
@@ -16,14 +16,11 @@ export default function ModalCadastraAluno({ atualizaLista }) {
   const [nomeAlunoExterno, setNomeAlunoExterno] = useState("");
   const btnClose = useRef(null);
 
-  const { client } = useContexts();
-
   async function cadastrar(e) {
     e.preventDefault();
     const alunoExterno = {
       nome: nomeAlunoExterno,
-      rg,
-      idCliente: client.idCliente,
+      rg
     };
 
     if (isAluno === "S") {
@@ -38,7 +35,7 @@ export default function ModalCadastraAluno({ atualizaLista }) {
           setMatricula("");
           setRg("");
           setNomeAlunoExterno("");
-          atualizaLista();
+          atualizarAlunos();
         })
         .catch((erro) => {
           console.log(erro);
@@ -50,9 +47,9 @@ export default function ModalCadastraAluno({ atualizaLista }) {
     }
   }
 
-  function sucesso() {
+  function sucesso(aluno) {
     toast.success("Vinculado com sucesso.");
-    atualizaLista();
+    atualizaLista(aluno);
 
     setTimeout(() => {
       setMatricula("");
@@ -71,10 +68,9 @@ export default function ModalCadastraAluno({ atualizaLista }) {
       )
       .then((response) => {
         const data = response.data;
-        console.log(data)
-        if (data.sucesso) {
-          setNome(data.retorno.nomeCompl);
-          sucesso();
+        if (data.length > 0) {
+          setNome(data[0].nomeCompl);
+          sucesso(data[0]);
         } else {
           setNome("");
           toast.warn("Aluno não encontrado.");

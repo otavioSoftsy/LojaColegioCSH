@@ -1,18 +1,17 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-// import { saveAs } from "file-saver";
 import { FaQrcode, FaRegCreditCard } from "react-icons/fa";
 import { FaArrowLeftLong, FaBarcode } from "react-icons/fa6";
-// import QRCode from "qrcode.react";
 import Barcode from "react-barcode";
 import { MdContentCopy, MdDownload } from "react-icons/md";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import useContexts from "../../../hooks/useContexts";
-import "./pagamento.css";
-import { api_financeiro } from "../../../services/pagBank";
+import {api_financeiro} from '../../../services/pagBank';
 
-export default function PagamentoUnico() {
+import "./pagamento.css";
+
+export default function Pagamento() {
   const [pagamento, setPagamento] = useState("CARTAO_CREDITO");
   const [resumo, setResumo] = useState(null);
   const [itens, setItens] = useState([]);
@@ -24,7 +23,7 @@ export default function PagamentoUnico() {
   const [pix, setPix] = useState(false);
   const [cupom, setCupom] = useState("");
   const [total, setTotal] = useState(null);
-  const [valorComDesconto, setValorComDesconto] = useState(null);
+  const [subtotal, setSubtotal] = useState(null);
   const [desconto, setDesconto] = useState(null);
   const [numeroDoBoleto, setNumeroBoleto] = useState(null);
   const [urlBoleto, setUrlBoleto] = useState(null);
@@ -35,6 +34,7 @@ export default function PagamentoUnico() {
   const closeModalPix = useRef(null);
   const closeModalBoleto = useRef(null);
   const [loading, setLoading] = useState(false);
+  const [numParcelas, setNumParcelas] = useState(false);
 
   const navigate = useNavigate();
   const { client, dadosPagamentoCartao } = useContexts();
@@ -46,9 +46,11 @@ export default function PagamentoUnico() {
     const objItens = JSON.parse(itens);
     setResumo(objetoPedido);
     setItens(objItens);
+
+
     await axios
       .post(
-        api_financeiro + `/forma/pagamento/unico/valores`,
+        api_financeiro + `/forma/pagamento/valores`,
         resumo ? resumo : objetoPedido
       )
       .then((response) => {
@@ -75,6 +77,12 @@ export default function PagamentoUnico() {
         const dadosBo = data.find((pagamento) => pagamento.tipo === "BOLETO");
         const dadosPi = data.find((pagamento) => pagamento.tipo === "PIX");
 
+        if (objItens[0].parcelas) {
+          setNumParcelas(objItens[0].parcelas)
+        } else {
+          setNumParcelas(dadosCart.parcelas)
+        }
+
         setDadosCartao(dadosCart);
         dadosPagamentoCartao(dadosCart);
 
@@ -86,16 +94,16 @@ export default function PagamentoUnico() {
         setCartao(aceitaCartao);
 
         if (pagamento === "CARTAO_CREDITO") {
-          setTotal(dadosCart.valor);
-          setValorComDesconto(dadosCart.valorComDesconto);
+          setTotal(dadosCart.valorPgto);
+          setSubtotal(dadosCart.total);
           setDesconto(dadosCart.valorDesconto);
         } else if (pagamento === "BOLETO") {
-          setTotal(dadosBo.valor);
-          setValorComDesconto(dadosBo.valorComDesconto);
+          setTotal(dadosBo.valorPgto);
+          setSubtotal(dadosBo.total);
           setDesconto(dadosBo.valorDesconto);
         } else if (pagamento === "PIX") {
-          setTotal(dadosPi.valor);
-          setValorComDesconto(dadosPi.valorComDesconto);
+          setTotal(dadosPi.valorPgto);
+          setSubtotal(dadosPi.total);
           setDesconto(dadosPi.valorDesconto);
         }
       })
@@ -113,7 +121,7 @@ export default function PagamentoUnico() {
     setLoading(true);
 
     if (pagamento === "CARTAO_CREDITO") {
-      navigate("cartao-pg-unico");
+      navigate("cartao");
     } else {
       const objeto = {
         ...resumo,
@@ -122,12 +130,11 @@ export default function PagamentoUnico() {
       };
       await axios
         .post(
-          api_financeiro +  `/pagamento/pagbank/unico/pedido`,
+          api_financeiro + `/pagamento/pagbank/pedido`,
           objeto
         )
         .then(async (response) => {
           const data = response.data.retorno;
-
           setLoading(false);
           if (data.urlBoleto) {
             setNumeroBoleto(data.barCode);
@@ -259,8 +266,8 @@ export default function PagamentoUnico() {
                     checked={pagamento === "CARTAO_CREDITO"}
                     onChange={(e) => {
                       setPagamento(e.target.value);
-                      setTotal(dadosCartao.valor);
-                      setValorComDesconto(dadosCartao.valorComDesconto);
+                      setTotal(dadosCartao.valorPgto);
+                      setSubtotal(dadosCartao.total);
                       setDesconto(dadosCartao.valorDesconto);
                     }}
                   />
@@ -274,7 +281,7 @@ export default function PagamentoUnico() {
                         Cartão de Crédito
                       </label>
                       <p className="fs-5 mb-0">
-                        R${dadosCartao.valor.toFixed(2).replace(".", ",")} em até {itens[0].parcelas}x 
+                      R${dadosCartao.valorPgto.toFixed(2).replace(".", ",")} em até {Number(dadosCartao.total) > 100 ? numParcelas : 2}x 
                       </p>
                     </div>
                   </div>
@@ -292,8 +299,8 @@ export default function PagamentoUnico() {
                     id="pgBoleto"
                     onChange={(e) => {
                       setPagamento(e.target.value);
-                      setTotal(dadosBoleto.valor);
-                      setValorComDesconto(dadosBoleto.valorComDesconto);
+                      setTotal(dadosBoleto.valorPgto);
+                      setSubtotal(dadosBoleto.total);
                       setDesconto(dadosBoleto.valorDesconto);
                     }}
                   />
@@ -307,7 +314,7 @@ export default function PagamentoUnico() {
                         Pagamento por Boleto
                       </label>
                       <p className="fs-5 mb-0">
-                        R${dadosBoleto.valor.toFixed(2).replace(".", ",")} à
+                        R${dadosBoleto.valorPgto.toFixed(2).replace(".", ",")} à
                         vista
                       </p>
                     </div>
@@ -326,8 +333,8 @@ export default function PagamentoUnico() {
                     id="pgPix"
                     onChange={(e) => {
                       setPagamento(e.target.value);
-                      setTotal(dadosPix.valor);
-                      setValorComDesconto(dadosPix.valorComDesconto);
+                      setTotal(dadosPix.valorPgto);
+                      setSubtotal(dadosPix.total);
                       setDesconto(dadosPix.valorDesconto);
                     }}
                   />
@@ -341,7 +348,7 @@ export default function PagamentoUnico() {
                         Pagamento por Pix
                       </label>
                       <p className="fs-5 mb-0">
-                        R${dadosPix.valor.toFixed(2).replace(".", ",")} à vista
+                        R${dadosPix.valorPgto.toFixed(2).replace(".", ",")} à vista
                       </p>
                     </div>
                   </div>
@@ -360,7 +367,7 @@ export default function PagamentoUnico() {
             </label>
             <div className="d-flex">
               <input
-                type="text"
+                type="tel"
                 autoComplete="off"
                 className="form-control me-4"
                 id="cupom"
@@ -371,7 +378,7 @@ export default function PagamentoUnico() {
               />
               <button
                 type="button"
-                className="btn btn-success btn-aplicar fw-bolder"
+                className="btn btn-primary btn-aplicar fw-bolder"
                 onClick={() => aplicarCupom(cupom)}
               >
                 Aplicar
@@ -379,7 +386,9 @@ export default function PagamentoUnico() {
             </div>
           </div>
           <div className="col-11 rounded-5 d-flex flex-column resumo-pagamento mx-auto">
-            <h4 className="fw-semibold mb-0 text-center">Resumo do pedido</h4>
+            <h4 className="fw-semibold mb-0 text-center" style={{ color: "" }}>
+              Resumo do pedido
+            </h4>
             <hr />
             <span className="d-flex flex-column">
               <div className="d-flex justify-content-between mb-3">
@@ -410,7 +419,7 @@ export default function PagamentoUnico() {
               <h4 className="fw-normal">Subtotal:</h4>
               <h4 className="fw-normal">
                 R${" "}
-                {total !== null ? total.toFixed(2).replace(".", ",") : ""}
+                {total !== null ? subtotal.toFixed(2).replace(".", ",") : "ERRO"}
               </h4>
             </span>
             <hr />
@@ -420,7 +429,7 @@ export default function PagamentoUnico() {
                 R${" "}
                 {desconto !== null
                   ? desconto.toFixed(2).replace(".", ",")
-                  : ""}
+                  : "ERRO"}
               </h4>
             </span>
             <hr />
@@ -428,9 +437,9 @@ export default function PagamentoUnico() {
               <h4 className="mb-0 fw-normal">Valor total: </h4>
               <h4 className="mb-0">
                 R${" "}
-                {valorComDesconto !== null
-                  ? valorComDesconto.toFixed(2).replace(".", ",")
-                  : ""}
+                {total !== null
+                  ? total.toFixed(2).replace(".", ",")
+                  : "ERRO"}
               </h4>
             </span>
             <p className="text-center info-mudanca text-danger">

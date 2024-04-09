@@ -44,7 +44,7 @@ export default function Carrinho() {
     setCursos(cursosLimpos);
 
     const compraAvulsa = carrinhoItens.some(
-      (cursosNoCarrinho) => cursosNoCarrinho.avulso === 'S'
+      (cursosNoCarrinho) => cursosNoCarrinho.parcelas !== null
     );
 
     setAvulso(compraAvulsa)
@@ -216,6 +216,10 @@ export default function Carrinho() {
     });
   };
 
+  function handleAlunos(aluno) {
+    setAlunos([...alunos, aluno]);
+  }
+
   function enviaTermos() {
     if (accepted && accepted2 && accepted3) {
       btnModal.current.click();
@@ -303,7 +307,6 @@ export default function Carrinho() {
                   valor={curso.valor}
                   icone={curso.icone}
                   cor={curso.cor}
-                  avulso={curso.avulso}
                   quantidade={curso.quantidade}
                   onQuantidadeChange={(novaQuantidade) =>
                     handleQuantidadeChange(curso.id, novaQuantidade)
@@ -479,7 +482,7 @@ export default function Carrinho() {
         accepted3={accepted3}
         handleCheckbox3={handleCheckbox3}
       />
-      <ModalCadastraAluno atualizaLista={getAlunos} />
+      <ModalCadastraAluno atualizaLista={handleAlunos} atualizarAlunos={getAlunos}/>
     </section>
   );
 }

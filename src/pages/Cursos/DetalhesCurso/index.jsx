@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { url_base } from "../../../services/apis";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -28,10 +28,15 @@ export default function DetalhesCurso() {
   const [cursos, setCursos] = useState([]);
   const [icone, setIcone] = useState("");
   const [cor, setCor] = useState("");
+  const [avulso, setAvulso] = useState("");
+  const [info, setInfo] = useState("");
+  const [avulsoNoCarrinho, setAvulsoNoCarrinho] = useState("");
   const windowWidth = window.innerWidth;
 
   const [expandido, setExpandido] = useState(false);
   const [altura, setAltura] = useState("280px");
+  const btnShowModal = useRef(null);
+  const btnClose = useRef(null);
   const navigate = useNavigate();
 
   const idCurso = localStorage.getItem("@csh-idAtividade");
@@ -104,6 +109,8 @@ export default function DetalhesCurso() {
 
           const idCategoria = data.categorias[0].id;
 
+          setAvulso(data.numParcelas);
+
           async function getCursos() {
             await axios
               .get(
@@ -140,6 +147,8 @@ export default function DetalhesCurso() {
             icone: data.categorias[0].icone,
             cor: data.categorias[0].cor,
             quantidade: 1,
+            parcelas: data.numParcelas,
+            avulso: data.compraAvulsa,
             alunos: [],
           });
         })
@@ -181,8 +190,45 @@ export default function DetalhesCurso() {
       toast.warning("Esse curso já está no carrinho.");
       return;
     }
+
+    const cursoUnico = cursosCarrinho.some(
+      (cursosNoCarrinho) => cursosNoCarrinho.numParcelas !== null
+    );
+
+    setAvulsoNoCarrinho(cursoUnico);
+
+    if (cursoUnico && avulso == 'S') {
+      setInfo('Para realizar a compra desta atividade, seu carrinho não deve conter outras atividades.')
+    } else if (avulsoNoCarrinho) {
+      setInfo('Seu carrinho contém uma atividade que não deve estar com outras atividades na realização da compra.')
+    } else if (!avulsoNoCarrinho) {
+     setInfo('Para realizar a compra desta atividade, seu carrinho não deve conter outras atividades.')
+    }
+
+    if (cursoUnico && avulso == 'S') {    
+      btnShowModal.current.click();
+    } else if (!cursoUnico && avulso != 'S') {
+      cursosCarrinho.push(cursoObj);
+      localStorage.setItem(
+        "@csh-itens-carrinho",
+        JSON.stringify(cursosCarrinho)
+      );
+      toast.success("Adicionado com sucesso!");
+      navigate("/carrinho");
+    } else {
+      btnShowModal.current.click();
+    }
+
+  }
+
+  function salvarCursoCarrinho2() {
+    localStorage.removeItem("@csh-itens-carrinho");
+
+    let cursosCarrinho = []
+    
     cursosCarrinho.push(cursoObj);
     localStorage.setItem("@csh-itens-carrinho", JSON.stringify(cursosCarrinho));
+    btnShowModal.current.click();
     toast.success("Adicionado com sucesso!");
     navigate("/carrinho");
   }
@@ -471,6 +517,52 @@ export default function DetalhesCurso() {
           </div>
         </div>
       </section>
+      <button
+        type="button"
+        className="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        hidden={true}
+        ref={btnShowModal}
+      ></button>
+
+      <div
+        className="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-body p-4">
+              <p>
+                {info}
+              </p>
+              <p className="m-0">Deseja limpar o seu carrinho e prosseguir com a compra?</p>
+            </div>
+            <div className="d-flex justify-content-end px-4 py-3 gap-3">
+              <button
+                type="button"
+                className="btn btn-secondary rounded-pill px-4"
+                data-bs-dismiss="modal"
+                ref={btnClose}
+              >
+                Cancelar
+              </button>
+              <button
+                className="btn btn-primary rounded-pill px-4"
+                onClick={salvarCursoCarrinho2}
+              >
+               
+                Prosseguir
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

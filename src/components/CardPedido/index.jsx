@@ -9,6 +9,7 @@ CardPedido.propTypes = {
   status: PropTypes.string.isRequired,
   formaPagamento: PropTypes.string.isRequired,
   valorTotal: PropTypes.number.isRequired,
+  parcelas: PropTypes.number.isRequired,
 };
 
 export default function CardPedido({
@@ -17,6 +18,7 @@ export default function CardPedido({
   status,
   valorTotal,
   formaPagamento,
+  parcelas
 }) {
   const [st, setSt] = useState(null);
   const [classeSt, setClasseSt] = useState(null);
@@ -79,7 +81,7 @@ export default function CardPedido({
        
           <h5 id="total-card-pedido">
             Total R$ {valorTotal.toFixed(2).replace(".", ",")} -{" "}
-            {formaPagamento === 'CARTAO_CREDITO' ? 'CARTÃO DE CRÉDITO' : formaPagamento}
+            {formaPagamento === 'CARTAO_CREDITO' ? `CARTÃO DE CRÉDITO EM ${parcelas}X` : formaPagamento}
           </h5>
 
       </div>
