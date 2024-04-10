@@ -33,6 +33,7 @@ export default function FormCurso() {
   const [fornecedores, setFornecedores] = useState([]);
   const [parceirosSelecionados, setParceirosSelecionados] = useState([]);
   const [areas, setAreas] = useState([]);
+  const [tipoVenda, setTipoVenda] = useState("");
   const [areasSelecionadas, setAreasSelecionadas] = useState([]);
   const [usuarioCadastro, setUsuarioCadastro] = useState("");
 
@@ -131,7 +132,7 @@ export default function FormCurso() {
     minIdade: Number(limparMascara(minIdade)),
     maxIdade: Number(limparMascara(maxIdade)),
     numParcelas: Number(numeroParcelas),
-    compraAvulsa: "S",
+    compraAvulsa: tipoVenda,
   };
 
   const handleTabelaDataChange = (novaTabelaData) => {
@@ -327,6 +328,13 @@ export default function FormCurso() {
       } finally {
         setLoading(false);
       }
+    }
+  }
+
+  function handleTipoPagamento(valor) {
+    setTipoVenda(valor);
+    if (valor !== "S") {
+      setNumeroParcelas(null);
     }
   }
 
@@ -897,34 +905,75 @@ export default function FormCurso() {
                 onValueChange={(values) => setValorCurso(values.value)}
               />
             </div>
-            <div className="col-md-6">
-              <label htmlFor="numeroParcelas" className="form-label">
-                Número máximo de parcelas
-              </label>
-              <Select
-                required
-                components={animatedComponents}
-                styles={{
-                  control: (baseStyles) => ({
-                    ...baseStyles,
-                    borderColor: "#dee2e6",
-                    "&:hover": {
-                      borderColor: "#dee2e6",
-                    },
-                  }),
-                }}
-                name="numeroParcelas"
-                options={parcelas}
-                className="basic-singl mt-1 mb-4"
-                classNamePrefix="select"
-                onChange={(valor) => {
-                  console.log(valor);
-                  setNumeroParcelas(valor ? valor.value : null);
-                }}
-                placeholder="Selecione..."
-              />
-            </div>
           </>
+        )}
+        <div className="col-md-6">
+          <label htmlFor="tipoVenda" className="form-label">
+            Tipo de pagamento
+          </label>
+          <div
+            className="btn-group area-radio mb-4"
+            role="group"
+            aria-label="Basic radio toggle button group"
+          >
+            <input
+              type="radio"
+              required
+              className="btn-check"
+              name="tipoVenda"
+              id="tipoVendaR"
+              autoComplete="off"
+              value="N"
+              checked={tipoVenda === "N"}
+              onChange={(e) => handleTipoPagamento(e.target.value)}
+            />
+            <label className="btn btn-outline-primary" htmlFor="tipoVendaR">
+              Recorrênte
+            </label>
+
+            <input
+              type="radio"
+              required
+              className="btn-check"
+              name="tipoVenda"
+              id="tipoVendaU"
+              autoComplete="off"
+              value="S"
+              checked={tipoVenda === "S"}
+              onChange={(e) => handleTipoPagamento(e.target.value)}
+            />
+            <label className="btn btn-outline-primary" htmlFor="tipoVendaU">
+              Único
+            </label>
+          </div>
+        </div>
+        {tipoVenda === "S" && (
+          <div className="col-md-6">
+            <label htmlFor="numeroParcelas" className="form-label">
+              Número máximo de parcelas
+            </label>
+            <Select
+              required
+              components={animatedComponents}
+              styles={{
+                control: (baseStyles) => ({
+                  ...baseStyles,
+                  borderColor: "#dee2e6",
+                  "&:hover": {
+                    borderColor: "#dee2e6",
+                  },
+                }),
+              }}
+              name="numeroParcelas"
+              options={parcelas}
+              className="basic-singl mt-1 mb-4"
+              classNamePrefix="select"
+              onChange={(valor) => {
+                setNumeroParcelas(valor ? valor.value : null);
+              }}
+              placeholder="Selecione..."
+            />
+          </div>
         )}
 
         <div className="col-md-6">

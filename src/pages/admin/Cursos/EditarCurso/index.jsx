@@ -13,6 +13,7 @@ import EditableTable from "../../../../components/admin/EditableTable";
 import TableCreatedParceiros from "../../../../components/admin/TableCreatedParceiros";
 
 export default function EditarCurso() {
+  const [tipoVenda, setTipoVenda] = useState("");
   const [numeroParcelas, setNumeroParcelas] = useState("");
   const [nomeCurso, setNomeCurso] = useState("");
   const [modalidade, setModalidade] = useState("");
@@ -144,6 +145,7 @@ export default function EditarCurso() {
           setTabelaData(dadosCurso.cronogramas);
           setMinIdade(dadosCurso.minIdade);
           setMaxIdade(dadosCurso.maxIdade);
+          setTipoVenda(dadosCurso.compraAvulsa);
           setNumeroParcelas(dadosCurso.numParcelas);
 
           if (dadosCurso.valorVenda !== null) {
@@ -203,10 +205,8 @@ export default function EditarCurso() {
     minIdade: Number(limparMascara(minIdade)),
     maxIdade: Number(limparMascara(maxIdade)),
     numParcelas: Number(numeroParcelas),
-    compraAvulsa: "S",
+    compraAvulsa: tipoVenda,
   };
-
-  areasSelecionadas.map(() => {});
 
   const handleSelectChange = (selectedOptions) => {
     const areasSelecionadasAtualizadas = selectedOptions.map((option) => ({
@@ -226,6 +226,13 @@ export default function EditarCurso() {
     setModalidade(valor);
     if (valor !== "online") {
       setIsSincrona(null);
+    }
+  }
+
+  function handleTipoPagamento(valor) {
+    setTipoVenda(valor);
+    if (valor !== "Unico") {
+      setNumeroParcelas(null);
     }
   }
 
@@ -1101,6 +1108,76 @@ export default function EditarCurso() {
                 />
               </div>
             </>
+          )}
+
+          <div className="col-md-6">
+            <label htmlFor="tipoVenda" className="form-label">
+              Tipo de pagamento
+            </label>
+            <div
+              className="btn-group area-radio mb-4"
+              role="group"
+              aria-label="Basic radio toggle button group"
+            >
+              <input
+                type="radio"
+                required
+                className="btn-check"
+                name="tipoVenda"
+                id="tipoVendaR"
+                autoComplete="off"
+                value="N"
+                checked={tipoVenda === "N"}
+                onChange={(e) => handleTipoPagamento(e.target.value)}
+              />
+              <label className="btn btn-outline-primary" htmlFor="tipoVendaR">
+                Recorrênte
+              </label>
+
+              <input
+                type="radio"
+                required
+                className="btn-check"
+                name="tipoVenda"
+                id="tipoVendaU"
+                autoComplete="off"
+                value="S"
+                checked={tipoVenda === "S"}
+                onChange={(e) => handleTipoPagamento(e.target.value)}
+              />
+              <label className="btn btn-outline-primary" htmlFor="tipoVendaU">
+                Único
+              </label>
+            </div>
+          </div>
+          {tipoVenda === "S" && (
+            <div className="col-md-6">
+              <label htmlFor="numeroParcelas" className="form-label">
+                Número máximo de parcelas
+              </label>
+              <Select
+                required
+                components={animatedComponents}
+                styles={{
+                  control: (baseStyles) => ({
+                    ...baseStyles,
+                    borderColor: "#dee2e6",
+                    "&:hover": {
+                      borderColor: "#dee2e6",
+                    },
+                  }),
+                }}
+                value={numeroParcelas !== null ? parcelas[indexParcela] : ""}
+                name="numeroParcelas"
+                options={parcelas}
+                className="basic-singl mt-1 mb-4"
+                classNamePrefix="select"
+                onChange={(valor) => {
+                  setNumeroParcelas(valor ? valor.value : null);
+                }}
+                placeholder="Selecione..."
+              />
+            </div>
           )}
 
           <div className="col-md-6">

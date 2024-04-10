@@ -42,6 +42,7 @@ const RelatorioDeMatriculas = () => {
           setTableData(data.retorno);
         } else {
           toast.error("Erro ao listar matrículas.");
+          console.log(response)
         }
       });
     }

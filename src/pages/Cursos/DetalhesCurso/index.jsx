@@ -32,7 +32,6 @@ export default function DetalhesCurso() {
   const [info, setInfo] = useState("");
   const [avulsoNoCarrinho, setAvulsoNoCarrinho] = useState("");
   const windowWidth = window.innerWidth;
-
   const [expandido, setExpandido] = useState(false);
   const [altura, setAltura] = useState("280px");
   const btnShowModal = useRef(null);
@@ -109,7 +108,7 @@ export default function DetalhesCurso() {
 
           const idCategoria = data.categorias[0].id;
 
-          setAvulso(data.numParcelas);
+          setAvulso(data.compraAvulsa);
 
           async function getCursos() {
             await axios
@@ -186,22 +185,22 @@ export default function DetalhesCurso() {
       (cursosNoCarrinho) => cursosNoCarrinho.id === cursoObj.id
     );
 
+    const cursoUnico = cursosCarrinho.some(
+      (cursosNoCarrinho) => cursosNoCarrinho.avulso === 'S'
+    );
+
+    setAvulsoNoCarrinho(cursoUnico);
+
     if (hasCurso) {
       toast.warning("Esse curso já está no carrinho.");
       return;
     }
 
-    const cursoUnico = cursosCarrinho.some(
-      (cursosNoCarrinho) => cursosNoCarrinho.numParcelas !== null
-    );
-
-    setAvulsoNoCarrinho(cursoUnico);
-
     if (cursoUnico && avulso == 'S') {
       setInfo('Para realizar a compra desta atividade, seu carrinho não deve conter outras atividades.')
-    } else if (avulsoNoCarrinho) {
+    } else if (cursoUnico) {
       setInfo('Seu carrinho contém uma atividade que não deve estar com outras atividades na realização da compra.')
-    } else if (!avulsoNoCarrinho) {
+    } else if (!cursoUnico) {
      setInfo('Para realizar a compra desta atividade, seu carrinho não deve conter outras atividades.')
     }
 
@@ -218,9 +217,7 @@ export default function DetalhesCurso() {
     } else {
       btnShowModal.current.click();
     }
-
   }
-
   function salvarCursoCarrinho2() {
     localStorage.removeItem("@csh-itens-carrinho");
 
