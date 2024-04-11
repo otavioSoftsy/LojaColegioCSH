@@ -909,7 +909,7 @@ export default function FormCurso() {
         )}
         <div className="col-md-6">
           <label htmlFor="tipoVenda" className="form-label">
-            Tipo de pagamento
+            Tipo da venda
           </label>
           <div
             className="btn-group area-radio mb-4"
@@ -928,7 +928,7 @@ export default function FormCurso() {
               onChange={(e) => handleTipoPagamento(e.target.value)}
             />
             <label className="btn btn-outline-primary" htmlFor="tipoVendaR">
-              Recorrênte
+              Conjunto
             </label>
 
             <input
@@ -943,7 +943,7 @@ export default function FormCurso() {
               onChange={(e) => handleTipoPagamento(e.target.value)}
             />
             <label className="btn btn-outline-primary" htmlFor="tipoVendaU">
-              Único
+              Única
             </label>
           </div>
         </div>

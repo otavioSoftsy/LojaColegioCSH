@@ -30,7 +30,6 @@ export default function DetalhesCurso() {
   const [cor, setCor] = useState("");
   const [avulso, setAvulso] = useState("");
   const [info, setInfo] = useState("");
-  const [avulsoNoCarrinho, setAvulsoNoCarrinho] = useState("");
   const windowWidth = window.innerWidth;
   const [expandido, setExpandido] = useState(false);
   const [altura, setAltura] = useState("280px");
@@ -189,10 +188,8 @@ export default function DetalhesCurso() {
       (cursosNoCarrinho) => cursosNoCarrinho.avulso === 'S'
     );
 
-    setAvulsoNoCarrinho(cursoUnico);
-
     if (hasCurso) {
-      toast.warning("Esse curso já está no carrinho.");
+      toast.warning("Essa atividade já está no carrinho.");
       return;
     }
 
@@ -245,10 +242,6 @@ export default function DetalhesCurso() {
   return (
     <section className="container-custom">
       <section className="container-cli">
-        {/* <Link className="btn btn-buy rounded-pill px-4 d-flex align-items-center" style={{width: 'fit-content'}}>
-        <FaArrowLeftLong size={20} className="me-2"/>
-        Voltar para todos os Cursos
-      </Link> */}
         <div className="mb-5">
           <section className="d-flex gap50">
             <section className="col-md-7 area-descricao">

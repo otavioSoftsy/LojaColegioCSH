@@ -281,7 +281,7 @@ export default function Pagamento() {
                         Cartão de Crédito
                       </label>
                       <p className="fs-5 mb-0">
-                      R${dadosCartao.valorPgto.toFixed(2).replace(".", ",")} em até {Number(dadosCartao.total) > 100 ? numParcelas : 2}x 
+                      R${dadosCartao.valorPgto?.toFixed(2).replace(".", ",")} em até {Number(dadosCartao.total) > 100 ? numParcelas : 2}x 
                       </p>
                     </div>
                   </div>
@@ -314,7 +314,7 @@ export default function Pagamento() {
                         Pagamento por Boleto
                       </label>
                       <p className="fs-5 mb-0">
-                        R${dadosBoleto.valorPgto.toFixed(2).replace(".", ",")} à
+                        R${dadosBoleto.valorPgto?.toFixed(2).replace(".", ",")} à
                         vista
                       </p>
                     </div>
@@ -348,7 +348,7 @@ export default function Pagamento() {
                         Pagamento por Pix
                       </label>
                       <p className="fs-5 mb-0">
-                        R${dadosPix.valorPgto.toFixed(2).replace(".", ",")} à vista
+                        R${dadosPix.valorPgto?.toFixed(2).replace(".", ",")} à vista
                       </p>
                     </div>
                   </div>
