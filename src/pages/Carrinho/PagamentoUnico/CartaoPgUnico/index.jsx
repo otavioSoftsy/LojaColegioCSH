@@ -27,9 +27,9 @@ export default function CartaoPgUnico() {
   const { client } = useContexts();
 
   useEffect(() => {
-    const pedido = JSON.parse(localStorage.getItem("@gdv-resumo-compra"));
+    const pedido = JSON.parse(localStorage.getItem("@csh-resumo-compra"));
     const dadosPagamento = JSON.parse(
-      localStorage.getItem("@gdv-dados-pagamento")
+      localStorage.getItem("@csh-dados-pagamento")
     );
     if (dadosPagamento) {
       console.log(dadosPagamento);
@@ -38,7 +38,7 @@ export default function CartaoPgUnico() {
     } else {
       return navigate("/");
     }
-    const itens = JSON.parse(localStorage.getItem("@gdv-itens-carrinho"));
+    const itens = JSON.parse(localStorage.getItem("@csh-itens-carrinho"));
     setResumo(pedido);
     setItensCar(itens);
   }, []);
@@ -99,9 +99,9 @@ export default function CartaoPgUnico() {
         if (response.data.sucesso) {
           setLoading(false);
           navigate("/pg-sucesso");
-          localStorage.setItem("@gdv-resumo-compra", JSON.stringify(null));
-          localStorage.setItem("@gdv-dados-pagamento", JSON.stringify(null));
-          localStorage.setItem("@gdv-itens-carrinho", JSON.stringify(null));
+          localStorage.setItem("@csh-resumo-compra", JSON.stringify(null));
+          localStorage.setItem("@csh-dados-pagamento", JSON.stringify(null));
+          localStorage.setItem("@csh-itens-carrinho", JSON.stringify(null));
           setDadosPg(null);
           setResumo(null);
           setItensCar(null);
@@ -277,7 +277,7 @@ export default function CartaoPgUnico() {
                     Array.from({ length: itensCar[0].parcelas }, (_, index) => {
                       const parcelaNumber = index + 1;
                       const valorParcela = (
-                        dadosPg.valorComDesconto / parcelaNumber
+                        dadosPg.valorPgto / parcelaNumber
                       )
                         .toFixed(2)
                         .replace(".", ",");
@@ -324,8 +324,8 @@ export default function CartaoPgUnico() {
             <h4 className="fw-normal"> Subtotal:</h4>
             <h4 className="fw-normal">
               R${" "}
-              {dadosPg !== null
-                ? dadosPg.valorComDesconto.toFixed(2).replace(".", ",")
+              {dadosPg
+                ? dadosPg.valorPgto?.toFixed(2).replace(".", ",")
                 : ""}
             </h4>
           </span>
@@ -334,8 +334,8 @@ export default function CartaoPgUnico() {
             <h4 className="fw-normal"> Desconto:</h4>
             <h4 className="fw-normal">
               R${" "}
-              {dadosPg !== null
-                ? dadosPg.valorDesconto.toFixed(2).replace(".", ",")
+              {dadosPg
+                ? dadosPg.valorDesconto?.toFixed(2).replace(".", ",")
                 : ""}
             </h4>
           </span>
@@ -344,8 +344,8 @@ export default function CartaoPgUnico() {
             <h4 className="mb-0 fw-normal">Valor total:</h4>
             <h4 className="mb-0">
               R${" "}
-              {dadosPg !== null
-                ? dadosPg.valorComDesconto.toFixed(2).replace(".", ",")
+              {dadosPg
+                ? dadosPg.total?.toFixed(2).replace(".", ",")
                 : ""}
             </h4>
           </span>

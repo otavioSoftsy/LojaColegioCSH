@@ -7,11 +7,11 @@ import { MdContentCopy, MdDownload } from "react-icons/md";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import useContexts from "../../../hooks/useContexts";
-import {api_financeiro} from '../../../services/pagBank';
+import { api_financeiro } from "../../../services/pagBank";
 
 import "./pagamento.css";
 
-export default function Pagamento() {
+export default function PagamentoUnico() {
   const [pagamento, setPagamento] = useState("CARTAO_CREDITO");
   const [resumo, setResumo] = useState(null);
   const [itens, setItens] = useState([]);
@@ -47,7 +47,6 @@ export default function Pagamento() {
     setResumo(objetoPedido);
     setItens(objItens);
 
-
     await axios
       .post(
         api_financeiro + `/forma/pagamento/valores`,
@@ -78,9 +77,9 @@ export default function Pagamento() {
         const dadosPi = data.find((pagamento) => pagamento.tipo === "PIX");
 
         if (objItens[0].parcelas) {
-          setNumParcelas(objItens[0].parcelas)
+          setNumParcelas(objItens[0].parcelas);
         } else {
-          setNumParcelas(dadosCart.parcelas)
+          setNumParcelas(dadosCart.parcelas);
         }
 
         setDadosCartao(dadosCart);
@@ -121,7 +120,7 @@ export default function Pagamento() {
     setLoading(true);
 
     if (pagamento === "CARTAO_CREDITO") {
-      navigate("cartao");
+      navigate("cartao-pg-unico");
     } else {
       const objeto = {
         ...resumo,
@@ -129,10 +128,7 @@ export default function Pagamento() {
         formaPagamento: pagamento,
       };
       await axios
-        .post(
-          api_financeiro + `/pagamento/pagbank/pedido`,
-          objeto
-        )
+        .post(api_financeiro + `/pagamento/pagbank/pedido`, objeto)
         .then(async (response) => {
           const data = response.data.retorno;
           setLoading(false);
@@ -152,7 +148,8 @@ export default function Pagamento() {
             const checkPaymentStatus = async () => {
               try {
                 const response = await axios.get(
-                  api_financeiro + `/pedido/status?idPedido=${data.idPedidoLoja}`,
+                  api_financeiro +
+                    `/pedido/status?idPedido=${data.idPedidoLoja}`,
                   objeto
                 );
 
@@ -281,7 +278,9 @@ export default function Pagamento() {
                         Cartão de Crédito
                       </label>
                       <p className="fs-5 mb-0">
-                      R${dadosCartao.valorPgto?.toFixed(2).replace(".", ",")} em até {Number(dadosCartao.total) > 100 ? numParcelas : 2}x 
+                        R${dadosCartao.valorPgto?.toFixed(2).replace(".", ",")}{" "}
+                        em até{" "}
+                        {Number(dadosCartao.total) > 100 ? numParcelas : 2}x
                       </p>
                     </div>
                   </div>
@@ -314,8 +313,8 @@ export default function Pagamento() {
                         Pagamento por Boleto
                       </label>
                       <p className="fs-5 mb-0">
-                        R${dadosBoleto.valorPgto?.toFixed(2).replace(".", ",")} à
-                        vista
+                        R${dadosBoleto.valorPgto?.toFixed(2).replace(".", ",")}{" "}
+                        à vista
                       </p>
                     </div>
                   </div>
@@ -348,7 +347,8 @@ export default function Pagamento() {
                         Pagamento por Pix
                       </label>
                       <p className="fs-5 mb-0">
-                        R${dadosPix.valorPgto?.toFixed(2).replace(".", ",")} à vista
+                        R${dadosPix.valorPgto?.toFixed(2).replace(".", ",")} à
+                        vista
                       </p>
                     </div>
                   </div>
@@ -419,7 +419,9 @@ export default function Pagamento() {
               <h4 className="fw-normal">Subtotal:</h4>
               <h4 className="fw-normal">
                 R${" "}
-                {total !== null ? subtotal.toFixed(2).replace(".", ",") : "ERRO"}
+                {total !== null
+                  ? subtotal.toFixed(2).replace(".", ",")
+                  : "ERRO"}
               </h4>
             </span>
             <hr />
@@ -437,9 +439,7 @@ export default function Pagamento() {
               <h4 className="mb-0 fw-normal">Valor total: </h4>
               <h4 className="mb-0">
                 R${" "}
-                {total !== null
-                  ? total.toFixed(2).replace(".", ",")
-                  : "ERRO"}
+                {total !== null ? total.toFixed(2).replace(".", ",") : "ERRO"}
               </h4>
             </span>
             <p className="text-center info-mudanca text-danger">
