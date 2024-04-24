@@ -5,20 +5,22 @@ import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { toast } from "react-toastify";
 import axios from "axios";
-import "./cursos.css";
 import { MdDoDisturbAlt, MdOutlineCheck, MdOutlineEdit } from "react-icons/md";
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import { url_base } from "../../../../services/apis";
 import { RiGraduationCapLine } from "react-icons/ri";
-import { FiPlus } from "react-icons/fi";
+import { FiPlus, FiSearch } from "react-icons/fi";
+import "./cursos.css";
 
 export default function ListarCursos() {
   const [cursos, setCursos] = useState([]);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 7;
+  const [busca, setBusca] = useState("");
   const [pageCount, setPageCount] = useState(0);
 
   async function getCursos() {
+    setBusca("");
     await axios
       .get(
         url_base +
@@ -85,6 +87,26 @@ export default function ListarCursos() {
     setCursos(cursoAtualizado);
   }
 
+  async function buscarCursos() {
+    await axios
+      .get(url_base + `curso/listarTodos?busca=${busca}`)
+      .then((response) => {
+        const responseData = response.data;
+
+        if (responseData && responseData.content) {
+          setCursos(responseData.content);
+          const pageCount = Math.ceil(
+            responseData.totalElements / itemsPerPage
+          );
+          setPageCount(pageCount);
+        }
+      })
+      .catch((error) => {
+        toast.error("Erro ao buscar atividades.");
+        console.log(error);
+      });
+  }
+
   function handleToggleEsgotado(idCurso) {
     const cursoAtualizado = cursos.map((curso) => {
       if (curso.idCurso === idCurso) {
@@ -140,7 +162,30 @@ export default function ListarCursos() {
           </div>
         ) : (
           <>
-            <div className="d-flex justify-content-end">
+            <div className="d-flex justify-content-between mb-2">
+              <div className="col-6 d-flex gap-2">
+                <div className="input-group mt-4">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Pesquisar atividades..."
+                    value={busca}
+                    onChange={(e) => setBusca(e.target.value)}
+                  />
+                  <button
+                    className="btn btn-outline-secondary"
+                    onClick={buscarCursos}
+                  >
+                    <FiSearch size={20} />
+                  </button>
+                </div>
+                <button
+                  onClick={getCursos}
+                  className="btn btn-secondary btn-sm mt-4"
+                >
+                  Limpar
+                </button>
+              </div>
               <Link
                 to="nova-atividade"
                 className="btn btn-primary btn-lg px-3 py-1 mt-4 d-flex align-items-center gap-1"
