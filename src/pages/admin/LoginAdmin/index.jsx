@@ -36,7 +36,7 @@ export default function LoginAdmin() {
         setLoadingAut(false);
         if (perfil === "COLABORADOR") {
           setColaborador(data);
-          navigate('/admin/dashboard')
+          navigate('/admin/relatorios/relatorio-matriculas')
         } else if (perfil === "FORNECEDOR") {
           setFornecedor(data);
           navigate('/admin/atividades')

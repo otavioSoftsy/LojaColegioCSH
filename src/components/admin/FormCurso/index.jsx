@@ -883,7 +883,7 @@ export default function FormCurso() {
           </div>
         </div>
         {isGratis === "N" && (
-          <>
+       
             <div className="col-md-6">
               <label htmlFor="valorCurso" className="form-label">
                 Valor total
@@ -905,7 +905,7 @@ export default function FormCurso() {
                 onValueChange={(values) => setValorCurso(values.value)}
               />
             </div>
-          </>
+        
         )}
         <div className="col-md-6">
           <label htmlFor="tipoVenda" className="form-label">

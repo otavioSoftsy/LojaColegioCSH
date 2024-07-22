@@ -272,7 +272,7 @@ export default function Pagamento() {
                         Cartão de Crédito
                       </label>
                       <p className="fs-5 mb-0">
-                      R${dadosCartao.valorPgto.toFixed(2).replace(".", ",")} em até {Number(dadosCartao.total) > 100 ? dadosCartao.parcelas : 2}x 
+                      R${dadosCartao.valorPgto.toFixed(2).replace(".", ",")} em até {dadosCartao.parcelas}x 
                       </p>
                     </div>
                   </div>

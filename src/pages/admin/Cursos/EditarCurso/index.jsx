@@ -1080,33 +1080,6 @@ export default function EditarCurso() {
                   onValueChange={(values) => setValorCurso(values.value)}
                 />
               </div>
-              <div className="col-md-6">
-                <label htmlFor="numeroParcelas" className="form-label">
-                  Número máximo de parcelas
-                </label>
-                <Select
-                  required
-                  components={animatedComponents}
-                  styles={{
-                    control: (baseStyles) => ({
-                      ...baseStyles,
-                      borderColor: "#dee2e6",
-                      "&:hover": {
-                        borderColor: "#dee2e6",
-                      },
-                    }),
-                  }}
-                  value={numeroParcelas !== null ? parcelas[indexParcela] : ""}
-                  name="numeroParcelas"
-                  options={parcelas}
-                  className="basic-singl mt-1 mb-4"
-                  classNamePrefix="select"
-                  onChange={(valor) => {
-                    setNumeroParcelas(valor ? valor.value : null);
-                  }}
-                  placeholder="Selecione..."
-                />
-              </div>
             </>
           )}
 

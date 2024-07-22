@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import AdminLayout from "../pages/admin/AdminLayout";
 import LoginAdmin from "../pages/admin/LoginAdmin";
-import DashboardAdmin from "../pages/admin/DashboardAdmin";
 import NovoFornecedor from "../pages/admin/Fornecedores/NovoFornecedor";
 import RootLayout from "../pages/RootLayout";
 import Fornecedores from "../pages/admin/Fornecedores/ListarFornecedores";
@@ -15,8 +14,6 @@ import Home from "../pages/Home";
 import Cursos from "../pages/Cursos";
 import EditarColaborador from "../pages/admin/Colaboradores/EditarColaborador";
 import ListarColaboradores from "../pages/admin/Colaboradores/ListarColaboradores";
-// import NovaInstituicao from "../pages/admin/DadosInstituicao/NovaInstituicao";
-// import ListarInstituicoes from "../pages/admin/DadosInstituicao/ListarInstituicoes";
 import EditarInstituicao from "../pages/admin/DadosInstituicao/EditarInstituicao";
 import DetalhesCurso from "../pages/Cursos/DetalhesCurso";
 import Carrinho from "../pages/Carrinho";
@@ -63,14 +60,6 @@ const router = createBrowserRouter([
     path: "admin",
     element: <AdminLayout />,
     children: [
-      {
-        path: "dashboard",
-        element: (
-          <Private>
-            <DashboardAdmin />
-          </Private>
-        ),
-      },
       {
         path: "descontos",
         element: (

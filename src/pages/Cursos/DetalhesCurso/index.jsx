@@ -45,6 +45,7 @@ export default function DetalhesCurso() {
         .get(url_base + `curso/obter?idCurso=${idCurso}`)
         .then((response) => {
           const data = response.data;
+          console.log(data);
 
           setDataCurso(data);
 
@@ -327,10 +328,6 @@ export default function DetalhesCurso() {
                             R$ {cursoObj.valor?.toFixed(2).replace(".", ",")}
                           </span>
                         </p>
-                        <span className="p4 fw-semibold text-secondary">
-                        {cursoObj.valor > 100 ? 'EM ATÉ 10X.' : ''}
-                            
-                          </span>
                       </div>
                     ) : (
                       <span

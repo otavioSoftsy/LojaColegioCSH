@@ -280,7 +280,7 @@ export default function PagamentoUnico() {
                       <p className="fs-5 mb-0">
                         R${dadosCartao.valorPgto?.toFixed(2).replace(".", ",")}{" "}
                         em até{" "}
-                        {Number(dadosCartao.total) > 100 ? numParcelas : 2}x
+                        {numParcelas}x
                       </p>
                     </div>
                   </div>

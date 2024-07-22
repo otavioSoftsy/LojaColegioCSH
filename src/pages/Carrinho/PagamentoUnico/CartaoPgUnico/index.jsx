@@ -32,7 +32,6 @@ export default function CartaoPgUnico() {
       localStorage.getItem("@csh-dados-pagamento")
     );
     if (dadosPagamento) {
-      console.log(dadosPagamento);
       setDadosPg(dadosPagamento);
       setParcelas(dadosPagamento.parcelas);
     } else {
@@ -69,8 +68,8 @@ export default function CartaoPgUnico() {
         .post(api_financeiro + `/pagamento/pagbank/log/criptografia`, dados, {
           timeout: 5000,
         })
-        .then((response) => {
-          console.log(response);
+        .then(() => {
+         
         });
     } else {
       const cartao = {

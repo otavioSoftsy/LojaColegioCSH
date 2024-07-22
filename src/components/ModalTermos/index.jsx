@@ -69,11 +69,11 @@ export default function ModalTermos({
                     className="form-check-input"
                     type="checkbox"
                     value=""
-                    id="check2"
+                    id="check3"
                     checked={accepted3}
                     onChange={handleCheckbox3}
                   />
-                  <label className="form-check-label" htmlFor="check2">
+                  <label className="form-check-label" htmlFor="check3">
                     Em caso de atividade com pré-requisito tecnico(convocados) á
                     adesão da atividade só deve ser feita se seu filho foi
                     preveamente comunicado pelo coordenador da modalidade,

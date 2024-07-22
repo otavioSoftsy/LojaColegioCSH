@@ -117,7 +117,7 @@ const RelatorioDeMatriculas = () => {
     setAlunoPesquisa("");
     const filteredData = data.filter((item) => {
       const columnValue = item[key].toString().toLowerCase();
-      return columnValue.startsWith(value.toLowerCase());
+      return columnValue.includes(value.toLowerCase());
     });
     setTableData(filteredData);
     setCurrentPage(0);
