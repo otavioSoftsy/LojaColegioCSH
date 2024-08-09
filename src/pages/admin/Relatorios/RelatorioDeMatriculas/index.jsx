@@ -37,9 +37,9 @@ const RelatorioDeMatriculas = () => {
       await axios.get(api_financeiro + `/venda/matriculas`).then((response) => {
         const data = response.data;
         if (data.sucesso) {
-          console.log(data)
-          setData(data.retorno);
-          setTableData(data.retorno);
+          const dataCopy = data.retorno.reverse()
+          setData(dataCopy);
+          setTableData(dataCopy);
         } else {
           toast.error("Erro ao listar matrículas.");
           console.log(response)
@@ -229,7 +229,7 @@ const RelatorioDeMatriculas = () => {
       <div className="card card-table px-3 py-4">
         <div className="d-flex justify-content-between mb-4">
           <div className="d-flex align-items-center gap-3">
-            <h4 className="fw-normal m-0">Matrículas Realizadas</h4>
+            <h4 className="fw-normal m-0">Matrículas realizadas</h4>
           </div>
           <div className="d-flex align-items-center gap-2">
             <button className="btn btn-sm btn-danger" onClick={resetFilters}>

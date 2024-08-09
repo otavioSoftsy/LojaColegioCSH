@@ -31,6 +31,7 @@ import RelatorioDeMatriculas from "../pages/admin/Relatorios/RelatorioDeMatricul
 import RelatorioDeVendas from "../pages/admin/Relatorios/RelatorioDeVendas";
 import PagamentoUnico from "../pages/Carrinho/PagamentoUnico";
 import CartaoPgUnico from "../pages/Carrinho/PagamentoUnico/CartaoPgUnico";
+import RelatorioDeClientes from "../pages/admin/Relatorios/RelatorioDeClientes";
 
 const router = createBrowserRouter([
   {
@@ -206,6 +207,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <RelatorioDeVendas />
+          </Private>
+        ),
+      },
+      {
+        path: "relatorios/relatorio-clientes",
+        element: (
+          <Private>
+            <RelatorioDeClientes />
           </Private>
         ),
       },

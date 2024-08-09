@@ -53,10 +53,12 @@ export default function Areas() {
   async function getAreas() {
     await axios
       .get(url_base + "categoria/listar")
-      .then((data) => {
-        setAreas(data.data);
+      .then((response) => {
+        const data = response.data.reverse()
+        setAreas(data);
       })
-      .catch(() => {
+      .catch((erro) => {
+        console.log(erro)
         toast.error("Erro ao listar categorias.");
       });
   }

@@ -24,11 +24,13 @@ export default function Fornecedores() {
     async function getFornecedores() {
       await axios
         .get(url_base + "fornecedor/listar")
-        .then((data) => {
-          setFornecedores(data.data);
+        .then((response) => {
+          const data = response.data.reverse()
+          setFornecedores(data);
           console.log(data.data);
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log(error)
           toast.error("Erro ao listar fornecedores.");
         });
     }

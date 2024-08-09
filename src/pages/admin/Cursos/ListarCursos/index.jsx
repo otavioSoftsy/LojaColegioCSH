@@ -30,7 +30,8 @@ export default function ListarCursos() {
         const responseData = response.data;
 
         if (responseData && responseData.content) {
-          setCursos(responseData.content);
+          const data = responseData.content.reverse()
+          setCursos(data);
           const pageCount = Math.ceil(
             responseData.totalElements / itemsPerPage
           );

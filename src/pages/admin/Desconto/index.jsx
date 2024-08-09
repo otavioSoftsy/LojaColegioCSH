@@ -30,8 +30,9 @@ export default function Desconto() {
   async function getDescontos() {
     await axios
       .get(url_base + "voucher")
-      .then((data) => {
-        setDescontos(data.data);
+      .then((response) => {
+        const data = response.data.reverse()
+        setDescontos(data);
       })
       .catch(() => {
         toast.error("Erro ao listar cupons.");

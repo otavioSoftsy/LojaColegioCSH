@@ -20,7 +20,8 @@ body,
   width: 100%;
 }
 .container-admin {
-  width: 100%;
+  flex: 1;
+  overflow: auto;
   margin-left: 2em;
   margin-right: 4em;
 }

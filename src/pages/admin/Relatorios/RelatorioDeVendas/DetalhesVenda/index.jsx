@@ -19,7 +19,6 @@ export default function DetalhesVenda({ id }) {
             api_financeiro + `/venda/obter/detalhada?idPedido=${id}`
           );
           const data = response.data;
-          console.log(data);
 
           if (data.sucesso) {
             setDetails(data.retorno);
@@ -48,7 +47,7 @@ export default function DetalhesVenda({ id }) {
         <div className="modal-dialog  modal-dialog-centered modal-lg modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="m-0 fw-normal">Detalhes da Venda</h5>
+              <h5 className="m-0 fw-normal">Detalhes da venda</h5>
               <button
                 type="button"
                 className="btn-close"
@@ -57,29 +56,32 @@ export default function DetalhesVenda({ id }) {
                 ref={btnClose}
               ></button>
             </div>
-            <div className="modal-body btns-termos px-3 py-3 d-flex flex-column">
-              <table className="table mt-1 table-details-vertical">
+            <div className="modal-body table-responsive btns-termos px-3 py-3 d-flex flex-column">
+            <table
+                className="table table-sm mt-1 table-bordered"
+                style={{ whiteSpace: "nowrap" }}
+              >
                 <thead>
-                  <tr className="text-center">
-                    <th scope="col">Id Venda:</th>
-                    <th scope="col">Id Aluno:</th>
-                    <th scope="col">Id Cliente:</th>
-                    <th scope="col">Id Curso:</th>
-                    <th scope="col">Id Fornecedor:</th>
-                    <th scope="col">Id Item Venda:</th>
-                    <th scope="col">Data da Venda:</th>
-                    <th scope="col">Fornecedor:</th>
-                    <th scope="col">Forma de Pagamento:</th>
-                    <th scope="col">Nº de Parcelas:</th>
-                    <th scope="col">% Split:</th>
-                    <th scope="col">Valor Total:</th>
-                    <th scope="col">Valor Venda:</th>
-                    <th scope="col">Status:</th>
-                    <th scope="col">Cliente:</th>
-                    <th scope="col">Aluno:</th>
-                    <th scope="col">RG:</th>
-                    <th scope="col">Matrícula:</th>
-                    <th scope="col">Curso:</th>
+                  <tr>
+                    <th scope="col">Data da venda</th>                    
+                    <th scope="col">Cliente</th>
+                    <th scope="col">RG</th>
+                    <th scope="col">Curso</th>
+                    <th scope="col">Aluno</th>
+                    <th scope="col">Matrícula</th>
+                    <th scope="col">Fornecedor</th>
+                    <th scope="col">Forma de pagamento</th>
+                    <th scope="col">Nº de parcelas</th>
+                    <th scope="col">% Split</th>
+                    <th scope="col">Valor total</th>
+                    <th scope="col">Valor venda</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Id venda</th>
+                    <th scope="col">Id aluno</th>
+                    <th scope="col">Id cliente</th>
+                    <th scope="col">Id curso</th>
+                    <th scope="col">Id fornecedor</th>
+                    <th scope="col">Id item venda</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -106,38 +108,39 @@ export default function DetalhesVenda({ id }) {
                     }
 
                     return (
-                      <tr className="text-center" key={idVenda}>
-                        <td data-label="Id Venda:">{item.idVenda}</td>
-                        <td data-label="Id Aluno:">{item.idAluno}</td>
-                        <td data-label="Id Cliente:">{item.idCliente}</td>
-                        <td data-label="Id Curso:">{item.idCurso}</td>
-                        <td data-label="Id Fornecedor:">{item.idFornecedor}</td>
-                        <td data-label="Id Item Venda:">{item.idItemVenda}</td>
-                        <td data-label="Data da Venda:">{dataFormatada}</td>
-                        <td data-label="Fornecedor:">
+                      <tr key={idVenda}>
+                        
+                        <td>{dataFormatada}</td>
+                        <td >{item.nomeCliente}</td>
+                        <td className="text-center">{item.rg ? item.rg : "-"}</td>
+                        <td >{item.nomeCurso}</td>
+                        <td className="text-center">
+                          {item.nomeAluno ? item.nomeAluno : "-"}
+                        </td>
+                        <td >{item.matricula}</td>
+                        <td className="text-center">
                           {item.nomeFornecedor ? item.nomeFornecedor : "-"}
                         </td>
-                        <td data-label="Forma de Pagamento:">
+                        <td >
                           {item.formaPgto === "CARTAO_CREDITO"
                             ? "CARTÃO DE CRÉDITO"
                             : item.formaPgto}
                         </td>
-                        <td data-label="Nº de Parcelas:">{item.numParcelas}</td>
-                        <td data-label="% Split:">{item.valorSplit}%</td>
-                        <td data-label="Valor Total:">
+                        <td >{item.numParcelas}</td>
+                        <td >{item.valorSplit}%</td>
+                        <td >
                           R${item.valorTotal.toFixed(2).replace(".", ",")}
                         </td>
-                        <td data-label="Valor Venda:">
+                        <td >
                           R${item.valorVenda.toFixed(2).replace(".", ",")}
                         </td>
-                        <td data-label="Status:"><span className={`badge ${classeSt}`}>{st}</span></td>
-                        <td data-label="Cliente:">{item.nomeCliente}</td>
-                        <td data-label="Aluno:">
-                          {item.nomeAluno ? item.nomeAluno : "-"}
-                        </td>
-                        <td data-label="RG:">{item.rg ? item.rg : "-"}</td>
-                        <td data-label="Matrícula:">{item.matricula}</td>
-                        <td data-label="Curso:">{item.nomeCurso}</td>
+                        <td ><span className={`badge ${classeSt}`}>{st}</span></td>
+                        <td >{item.idVenda}</td>
+                        <td >{item.idAluno}</td>
+                        <td >{item.idCliente}</td>
+                        <td >{item.idCurso}</td>
+                        <td >{item.idFornecedor}</td>
+                        <td >{item.idItemVenda}</td>
                       </tr>
                     );
                   })}

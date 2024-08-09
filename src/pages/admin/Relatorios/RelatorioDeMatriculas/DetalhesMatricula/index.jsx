@@ -54,7 +54,7 @@ export default function DetalhesMatricula({ id }) {
         <div className="modal-dialog  modal-dialog-centered modal-lg modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="m-0 fw-normal">Detalhes da matrícula:</h5>
+              <h5 className="m-0 fw-normal">Detalhes da matrícula</h5>
               <button
                 type="button"
                 className="btn-close"
@@ -63,22 +63,22 @@ export default function DetalhesMatricula({ id }) {
                 ref={btnClose}
               ></button>
             </div>
-            <div className="modal-body btns-termos px-3 py-4 d-flex flex-column">
-              <table className="table mt-1 table-details-vertical">
+            <div className="modal-body btns-termos table-responsive px-3 py-4 d-flex flex-column">
+              <table className="table table-sm mt-1 table-bordered" style={{ whiteSpace: "nowrap" }}>
                 <thead>
-                  <tr className="text-center">
-                    <th scope="col">Id Venda:</th>
-                    <th scope="col">Data da Venda:</th>
-                    <th scope="col">Id Cliente:</th>
-                    <th scope="col">Cliente:</th>
-                    <th scope="col">Email:</th>
-                    <th scope="col">CPF:</th>
-                    <th scope="col">Código Aluno:</th>
-                    <th scope="col">Id Curso:</th>
-                    <th scope="col">Curso:</th>
-                    <th scope="col">Matrícula:</th>
-                    <th scope="col">RG:</th>
-                    <th scope="col">Aluno:</th>
+                  <tr>
+                    <th scope="col">Id Venda</th>
+                    <th scope="col">Data da Venda</th>
+                    <th scope="col">Id Cliente</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">CPF</th>
+                    <th scope="col">Código Aluno</th>
+                    <th scope="col">Id Curso</th>
+                    <th scope="col">Curso</th>
+                    <th scope="col">Matrícula</th>
+                    <th scope="col">RG</th>
+                    <th scope="col">Aluno</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -86,23 +86,19 @@ export default function DetalhesMatricula({ id }) {
                     let cpfFormat = formatarCPF(item.cpf);
 
                     return (
-                      <tr className="text-center" key={idVenda}>
-                        <td data-label="Id Venda:">{item.idVenda}</td>
-                        <td data-label="Data da Venda:">{item.dtVenda}</td>
-                        <td data-label="Id Cliente:">{item.idCliente}</td>
-                        <td data-label="Cliente:">{item.nomeCliente}</td>
-                        <td data-label="Email:">{item.email}</td>
-                        <td data-label="CPF:">{cpfFormat}</td>
-                        <td data-label="Código Aluno:">
-                          {item.codigoEmWeb ? item.codigoEmWeb : "-"}
-                        </td>
-                        <td data-label="Id Curso:">{item.idCurso}</td>
-                        <td data-label="Curso:">{item.nomeCurso}</td>
-                        <td data-label="Matrícula:">
-                          {item.matricula ? item.matricula : "-"}
-                        </td>
-                        <td data-label="RG:">{item.rg ? item.rg : "-"}</td>
-                        <td data-label="Aluno(a):">{item.nome}</td>
+                      <tr key={idVenda}>
+                        <td>{item.idVenda}</td>
+                        <td>{item.dtVenda}</td>
+                        <td>{item.idCliente}</td>
+                        <td>{item.nomeCliente}</td>
+                        <td>{item.email}</td>
+                        <td>{cpfFormat}</td>
+                        <td className="text-center">{item.codigoEmWeb ? item.codigoEmWeb : "-"}</td>
+                        <td>{item.idCurso}</td>
+                        <td>{item.nomeCurso}</td>
+                        <td className="text-center">{item.matricula ? item.matricula : "-"}</td>
+                        <td className="text-center">{item.rg ? item.rg : "-"}</td>
+                        <td>{item.nome}</td>
                       </tr>
                     );
                   })}

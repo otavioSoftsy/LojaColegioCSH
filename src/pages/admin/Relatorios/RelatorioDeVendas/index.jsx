@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Title from "../../../../components/admin/Title";
-import {  MdOutlineSearch } from "react-icons/md";
+import { MdOutlineSearch } from "react-icons/md";
 import ReactPaginate from "react-paginate";
 import {
   LuArrowDownUp,
@@ -19,7 +19,7 @@ import "./relatoriovendas.css";
 import { FaRegChartBar } from "react-icons/fa";
 
 const RelatorioDeVendas = () => {
-  const [vendas, setVendas] = useState([]);
+  const [relatorio, setRelatorio] = useState([]);
   const [data, setData] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "", direction: "" });
@@ -27,37 +27,39 @@ const RelatorioDeVendas = () => {
   const [dataPesquisa, setDataPesquisa] = useState("");
   const [nomePesquisa, setNome] = useState("");
   const [idVenda, setIdVenda] = useState("");
+  const [idVendaPesquisa, setIdVendaPesquisa] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const pageSize = 8;
 
   const btnShowDetalhes = useRef(null);
 
   useEffect(() => {
-    async function getVendas() {
+    async function getRelatorio() {
       await axios.get(api_financeiro + `/venda/relatorio`).then((response) => {
         const data = response.data;
         if (data.sucesso) {
-          setData(data.retorno);
-          setTableData(data.retorno);
+          const dataCopy = data.retorno.reverse()
+          setData(dataCopy);
+          setTableData(dataCopy);
         } else {
           toast.error("Erro ao listar vendas.");
         }
       });
     }
-    getVendas();
-    function getVendasDetalhadas() {
+    getRelatorio();
+    function getRelatorioDetalhado() {
       axios
         .get(api_financeiro + `/venda/relatorio/detalhada`)
         .then((response) => {
           const data = response.data;
           if (data.sucesso) {
-            setVendas(data.retorno);
+            setRelatorio(data.retorno);
           } else {
             console.log("Erro ao listar vendas detalhadas.");
           }
         });
     }
-    getVendasDetalhadas();
+    getRelatorioDetalhado();
   }, []);
 
   function showModalDetalhes(id) {
@@ -81,11 +83,24 @@ const RelatorioDeVendas = () => {
       setTableData(data);
     } else {
       const sortedData = [...data].sort((a, b) => {
-        const valueA =
-          key === "valorTotal" ? a[key] : a[key].toString().toLowerCase();
-        const valueB =
-          key === "valorTotal" ? b[key] : b[key].toString().toLowerCase();
-        if (key === "valorTotal") {
+        let valueA = a[key];
+        let valueB = b[key];
+        if (
+          key === "idVenda" ||
+          key === "numParcelas" ||
+          key === "valorTotal"
+        ) {
+          valueA = typeof valueA === "string" ? parseFloat(valueA) : valueA;
+          valueB = typeof valueB === "string" ? parseFloat(valueB) : valueB;
+        } else {
+          valueA = valueA.toString().toLowerCase();
+          valueB = valueB.toString().toLowerCase();
+        }
+        if (
+          key === "idVenda" ||
+          key === "numParcelas" ||
+          key === "valorTotal"
+        ) {
           return (valueA - valueB) * (direction === "asc" ? 1 : -1);
         }
         return (
@@ -102,14 +117,14 @@ const RelatorioDeVendas = () => {
       return sortConfig.direction === "asc" ? (
         <LuArrowUpNarrowWide
           size={18}
-          className="me-3"
+          className="mx-2"
           color="#818181"
           onClick={() => handleSort(columnName)}
         />
       ) : (
         <LuArrowDownWideNarrow
           size={18}
-          className="me-3"
+          className="mx-2"
           color="#818181"
           onClick={() => handleSort(columnName)}
         />
@@ -118,7 +133,7 @@ const RelatorioDeVendas = () => {
     return (
       <LuArrowDownUp
         size={18}
-        className="me-3"
+        className="mx-2"
         color="#818181"
         onClick={() => handleSort(columnName)}
       />
@@ -128,9 +143,10 @@ const RelatorioDeVendas = () => {
   const handleSearch = (key, value) => {
     setDataPesquisa("");
     setNome("");
+    setIdVendaPesquisa("");
     const filteredData = data.filter((item) => {
       const columnValue = item[key].toString().toLowerCase();
-      return columnValue.startsWith(value.toLowerCase());
+      return columnValue.includes(value.toLowerCase());
     });
     setTableData(filteredData);
     setCurrentPage(0);
@@ -139,7 +155,7 @@ const RelatorioDeVendas = () => {
   const handleSearchData = (key, value) => {
     setDataPesquisa("");
     setNome("");
-
+    setIdVendaPesquisa("");
     const [year, month, day] = value.split("-");
     const dataAjustada = new Date(year, month - 1, day);
     const dataFormatada = format(dataAjustada, "dd/MM/yyyy");
@@ -157,6 +173,7 @@ const RelatorioDeVendas = () => {
   const resetFilters = () => {
     setDataPesquisa("");
     setNome("");
+    setIdVendaPesquisa("");
     setSortConfig({ key: "", direction: "" });
     setClickCount(0);
     setTableData(data);
@@ -220,7 +237,7 @@ const RelatorioDeVendas = () => {
       { header: headers[18], key: "status", width: 10 },
     ];
 
-    vendas.forEach((item) => {
+    relatorio.forEach((item) => {
       worksheet.addRow(item);
     });
 
@@ -253,7 +270,7 @@ const RelatorioDeVendas = () => {
       <div className="card card-table px-3 py-4">
         <div className="d-flex justify-content-between mb-4">
           <div className="d-flex align-items-center gap-3">
-            <h4 className="fw-normal m-0">Vendas Realizadas</h4>
+            <h4 className="fw-normal m-0">Vendas realizadas</h4>
           </div>
           <div className="d-flex align-items-center gap-2">
             <button className="btn btn-sm btn-danger" onClick={resetFilters}>
@@ -268,188 +285,257 @@ const RelatorioDeVendas = () => {
             </button>
           </div>
         </div>
-        <table className="table table-hover table-matriculas">
-          <thead className="table-light">
-            <tr>
-              <th scope="col" style={{ cursor: "pointer" }}>
-                <div className="d-flex align-items-center justify-content-between">
-                  <span className="col" onClick={() => handleSort("dtVenda")}>
-                    Data da Venda
-                  </span>
-                  <div className="d-flex align-items-center">
-                    {getSortIcon("dtVenda")}
-                    <div className="dropdown drop-search border-end pe-2">
-                      <LuFilter
-                        size={19}
-                        color="#818181"
-                        className="me-2 dropdown-toggle"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        data-bs-auto-close="true"
-                      />
-                      <div
-                        className="dropdown-menu dropdown-menu-end mt-1 p-2 "
-                        style={{
-                          boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-                          border: "none",
-                        }}
-                      >
-                        <input
-                          type="date"
-                          className="form-control mb-2"
-                          name="input-search-dtVenda"
-                          id="input-search-dtVenda"
-                          value={dataPesquisa}
-                          onChange={(e) => {
-                            console.log(e.target.value);
-                            setDataPesquisa(e.target.value);
+        <div className="table-responsive">
+          <table className="table table-hover table-matriculas" style={{ whiteSpace: "nowrap" }}>
+            <thead className="table-light">
+              <tr>
+                <th scope="col" style={{ cursor: "pointer" }}>
+                  <div className="d-flex align-items-center justify-content-between">
+                    <span className="col" onClick={() => handleSort("idVenda")}>
+                      Id venda
+                    </span>
+                    <div className="d-flex align-items-center border-end pe-1">
+                      {getSortIcon("idVenda")}
+                      <div className="dropdown drop-search">
+                        <MdOutlineSearch
+                          size={20}
+                          color="#818181"
+                          className="me-2 dropdown-toggle"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                          data-bs-auto-close="true"
+                        />
+                        <div
+                          className="dropdown-menu dropdown-menu-end mt-1 p-2"
+                          style={{
+                            boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                            border: "none",
                           }}
-                        />
-                        <button
-                          className="btn btn-sm col-12 btn-success"
-                          onClick={() =>
-                            handleSearchData("dtVenda", dataPesquisa)
-                          }
                         >
-                          <LuFilter size={19} color="#fff" className="me-1" />{" "}
-                          Filtrar
-                        </button>
+                          <input
+                            type="tel"
+                            className="form-control mb-2"
+                            id="input-search-idVenda"
+                            placeholder="Digite o id da venda"
+                            value={idVendaPesquisa}
+                            onChange={(e) => setIdVendaPesquisa(e.target.value)}
+                          />
+                          <button
+                            className="btn btn-sm col-12 btn-success"
+                            onClick={() =>
+                              handleSearch("idVenda", idVendaPesquisa)
+                            }
+                          >
+                            <MdOutlineSearch
+                              size={20}
+                              color="#fff"
+                              className="me-1"
+                            />{" "}
+                            Buscar venda
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </th>
-              <th scope="col"  width='26%' style={{ cursor: "pointer" }}>
-                <div className="d-flex align-items-center justify-content-between">
-                  <span
-                    className="col"
-                    onClick={() => handleSort("nomeCliente")}
-                  >
-                    Nome do Cliente
-                  </span>
-                  <div className="d-flex align-items-center">
-                    {getSortIcon("nomeCliente")}
-                    <div className="dropdown border-end pe-2 drop-search">
-                      <MdOutlineSearch
-                        size={22}
-                        color="#818181"
-                        className="me-2 dropdown-toggle"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        data-bs-auto-close="true"
-                      />
-                      <div
-                        className="dropdown-menu dropdown-menu-end mt-1 p-2"
-                        style={{
-                          boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-                          border: "none",
-                        }}
-                      >
-                        <input
-                          type="tel"
-                          className="form-control mb-2"
-                          id="input-search-nomeCliente"
-                          placeholder="Nome do cliente"
-                          value={nomePesquisa}
-                          onChange={(e) => setNome(e.target.value)}
+                </th>
+                <th scope="col" style={{ cursor: "pointer" }}>
+                  <div className="d-flex align-items-center justify-content-between">
+                    <span className="col" onClick={() => handleSort("dtVenda")}>
+                      Data da venda
+                    </span>
+                    <div className="d-flex align-items-center">
+                      {getSortIcon("dtVenda")}
+                      <div className="dropdown drop-search border-end pe-2">
+                        <LuFilter
+                          size={19}
+                          color="#818181"
+                          className="me-2 dropdown-toggle"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                          data-bs-auto-close="true"
                         />
-                        <button
-                          className="btn btn-sm col-12 btn-success"
-                          onClick={() =>
-                            handleSearch("nomeCliente", nomePesquisa)
-                          }
+                        <div
+                          className="dropdown-menu dropdown-menu-end mt-1 p-2 "
+                          style={{
+                            boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                            border: "none",
+                          }}
                         >
-                          <MdOutlineSearch
-                            size={22}
-                            color="#fff"
-                            className="me-1"
-                          />{" "}
-                          Buscar Cliente
-                        </button>
+                          <input
+                            type="date"
+                            className="form-control mb-2"
+                            name="input-search-dtVenda"
+                            id="input-search-dtVenda"
+                            value={dataPesquisa}
+                            onChange={(e) => {
+                              console.log(e.target.value);
+                              setDataPesquisa(e.target.value);
+                            }}
+                          />
+                          <button
+                            className="btn btn-sm col-12 btn-success"
+                            onClick={() =>
+                              handleSearchData("dtVenda", dataPesquisa)
+                            }
+                          >
+                            <LuFilter size={19} color="#fff" className="me-1" />{" "}
+                            Filtrar
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </th>
-              <th scope="col" width='23%' style={{ cursor: "pointer" }}>
-                <div className="d-flex align-items-center justify-content-between">
-                  <span className="col" onClick={() => handleSort("formaPgto")}>
-                    Forma de Pagamento
-                  </span>
-                  <div className="d-flex align-items-center border-end pe-1">
-                    {getSortIcon("formaPgto")}
+                </th>
+                <th scope="col" style={{ cursor: "pointer" }}>
+                  <div className="d-flex align-items-center justify-content-between">
+                    <span
+                      className="col"
+                      onClick={() => handleSort("nomeCliente")}
+                    >
+                      Cliente
+                    </span>
+                    <div className="d-flex align-items-center">
+                      {getSortIcon("nomeCliente")}
+                      <div className="dropdown border-end pe-2 drop-search">
+                        <MdOutlineSearch
+                          size={22}
+                          color="#818181"
+                          className="me-2 dropdown-toggle"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                          data-bs-auto-close="true"
+                        />
+                        <div
+                          className="dropdown-menu dropdown-menu-end mt-1 p-2"
+                          style={{
+                            boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                            border: "none",
+                          }}
+                        >
+                          <input
+                            type="tel"
+                            className="form-control mb-2"
+                            id="input-search-nomeCliente"
+                            placeholder="Nome do cliente"
+                            value={nomePesquisa}
+                            onChange={(e) => setNome(e.target.value)}
+                          />
+                          <button
+                            className="btn btn-sm col-12 btn-success"
+                            onClick={() =>
+                              handleSearch("nomeCliente", nomePesquisa)
+                            }
+                          >
+                            <MdOutlineSearch
+                              size={22}
+                              color="#fff"
+                              className="me-1"
+                            />{" "}
+                            Buscar cliente
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </th>
-              <th scope="col" width='15%' style={{ cursor: "pointer" }}>
-                <div className="d-flex align-items-center justify-content-between">
-                  <span
-                    className="col"
-                    onClick={() => handleSort("valorTotal")}
+                </th>
+                <th scope="col" style={{ cursor: "pointer" }}>
+                  <div className="d-flex align-items-center justify-content-between">
+                    <span
+                      className="col"
+                      onClick={() => handleSort("formaPgto")}
+                    >
+                      Forma de pagamento
+                    </span>
+                    <div className="d-flex align-items-center border-end pe-1">
+                      {getSortIcon("formaPgto")}
+                    </div>
+                  </div>
+                </th>
+                <th scope="col" style={{ cursor: "pointer" }}>
+                  <div className="d-flex align-items-center justify-content-between">
+                    <span
+                      className="col"
+                      onClick={() => handleSort("numParcelas")}
+                    >
+                      Nº parcelas
+                    </span>
+                    <div className="d-flex align-items-center border-end pe-1">
+                      {getSortIcon("numParcelas")}
+                    </div>
+                  </div>
+                </th>
+                <th scope="col" style={{ cursor: "pointer" }}>
+                  <div className="d-flex align-items-center justify-content-between">
+                    <span
+                      className="col"
+                      onClick={() => handleSort("valorTotal")}
+                    >
+                      Valor total
+                    </span>
+                    <div className="d-flex align-items-center border-end pe-1">
+                      {getSortIcon("valorTotal")}
+                    </div>
+                  </div>
+                </th>
+                <th scope="col" style={{ cursor: "pointer" }}>
+                  <div className="d-flex align-items-center justify-content-between">
+                    <span className="col" onClick={() => handleSort("status")}>
+                      Status
+                    </span>
+                    <div className="d-flex align-items-center">
+                      {getSortIcon("status")}
+                    </div>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentItems.map((item) => {
+                const data = new Date(item.dtVenda);
+                const dataFormatada = format(data, "dd/MM/yyyy");
+                let st = "";
+                let classeSt = "";
+                if (item.status === "A") {
+                  st = "Aguardando";
+                  classeSt = "text-bg-warning";
+                } else if (item.status === "P") {
+                  st = "Pago";
+                  classeSt = "text-bg-success";
+                } else if (item.status === "E") {
+                  st = "Estornado";
+                  classeSt = "text-bg-secondary";
+                } else if (item.status === "N") {
+                  st = "Negado";
+                  classeSt = "text-bg-danger";
+                } else if (item.status === "C") {
+                  st = "Cancelado";
+                  classeSt = "text-bg-danger";
+                }
+                return (
+                  <tr
+                    key={item.idVenda}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => showModalDetalhes(item.idVenda)}
                   >
-                    Valor Total
-                  </span>
-                  <div className="d-flex align-items-center border-end pe-1">
-                    {getSortIcon("valorTotal")}
-                  </div>
-                </div>
-              </th>
-              <th scope="col" width='15%' style={{ cursor: "pointer" }}>
-                <div className="d-flex align-items-center justify-content-between">
-                  <span className="col" onClick={() => handleSort("status")}>
-                    Status
-                  </span>
-                  <div className="d-flex align-items-center">
-                    {getSortIcon("status")}
-                  </div>
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentItems.map((item) => {
-              const data = new Date(item.dtVenda);
-              const dataFormatada = format(data, "dd/MM/yyyy");
-              let st = "";
-              let classeSt = "";
-              if (item.status === "A") {
-                st = "Aguardando";
-                classeSt = "text-bg-warning";
-              } else if (item.status === "P") {
-                st = "Pago";
-                classeSt = "text-bg-success";
-              } else if (item.status === "E") {
-                st = "Estornado";
-                classeSt = "text-bg-secondary";
-              } else if (item.status === "N") {
-                st = "Negado";
-                classeSt = "text-bg-danger";
-              } else if (item.status === "C") {
-                st = "Cancelado";
-                classeSt = "text-bg-danger";
-              }
-              return (
-                <tr
-                  key={item.idVenda}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => showModalDetalhes(item.idVenda)}
-                >
-                  <td>{dataFormatada}</td>
-                  <td>{item.nomeCliente}</td>
-                  <td>
-                    {item.formaPgto === "CARTAO_CREDITO"
-                      ? "CARTÃO DE CRÉDITO"
-                      : item.formaPgto}
-                  </td>
-                  <td>R${item.valorTotal.toFixed(2).replace(".", ",")}</td>
-                  <td>
-                    <span className={`badge ${classeSt}`}>{st}</span>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                    <td>{item.idVenda}</td>
+                    <td>{dataFormatada}</td>
+                    <td>{item.nomeCliente}</td>
+                    <td>
+                      {item.formaPgto === "CARTAO_CREDITO"
+                        ? "CARTÃO DE CRÉDITO"
+                        : item.formaPgto}
+                    </td>
+                    <td>{item.numParcelas}</td>
+                    <td>R${item.valorTotal.toFixed(2).replace(".", ",")}</td>
+                    <td>
+                      <span className={`badge ${classeSt}`}>{st}</span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
         <ReactPaginate
           previousLabel={<span aria-hidden="true">&laquo;</span>}
           nextLabel={<span aria-hidden="true">&raquo;</span>}

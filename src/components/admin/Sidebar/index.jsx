@@ -82,6 +82,9 @@ function SidebarMenu() {
             >
               Acadêmicos
             </MenuItem>
+            <MenuItem component={<NavLink to="relatorios/relatorio-clientes" />}>
+              Clientes
+            </MenuItem>
             <MenuItem component={<NavLink to="relatorios/relatorio-vendas" />}>
               Financeiros
             </MenuItem>
